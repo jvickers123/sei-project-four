@@ -57,3 +57,10 @@ class LoginView(APIView):
             'token': token,
             'message': f"Welcome back {user_to_login.first_name}!"
         }, status=status.HTTP_202_ACCEPTED)
+
+class UserListView(APIView):
+
+    def get(self, _request):
+        users = User.objects.all()
+        serialized_users = UserSerializer(users, many=True)
+        return Response(serialized_users.data, status = status.HTTP_200_OK)

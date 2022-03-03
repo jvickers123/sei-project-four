@@ -21,9 +21,18 @@ class User(AbstractUser):
     gender = models.CharField(max_length=50, blank=True)
     interested_in = models.CharField(max_length=50, blank=True)
     matches = models.ManyToManyField("self", blank=True)
+    answers = models.ManyToManyField(
+        "answers.Answer",
+        symmetrical=False, 
+        blank=True, 
+        default=list
+    )
     likes_sent = models.ManyToManyField(
         "self", 
         symmetrical=False, 
         blank=True,
         related_name="likes_recieved"
         )
+    
+    def __str__(self):
+        return self.first_name

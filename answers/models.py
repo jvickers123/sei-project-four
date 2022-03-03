@@ -5,12 +5,12 @@ class Answer(models.Model):
     text = models.CharField(max_length=30, default=None)
     question = models.ForeignKey(
         "questions.Question",
-        related_name = "answers",
+        related_name = "answers_owned",
         on_delete = models.CASCADE,
     )
     owner = models.ForeignKey(
         "jwt_auth.User", 
-        related_name="answers",
+        related_name="answers_owned",
         on_delete = models.CASCADE
     )
 
