@@ -20,9 +20,11 @@ class UserSerializer(serializers.ModelSerializer):
                 "password", "password_confirmation")
     
     def validate(self, data):
-        password = data.pop("password")
-        password_confirmation = data.pop("password_confirmation")
+        print('validating--------->', data)
 
+        password = data.pop("password")
+
+        password_confirmation = data.pop("password_confirmation")
         if password != password_confirmation:
             raise ValidationError({'password_confirmation': 'Does not match password'})
         

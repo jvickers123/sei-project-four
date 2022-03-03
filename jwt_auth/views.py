@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from datetime import datetime, timedelta
 import jwt
 from django.conf import settings
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from django.contrib.auth import get_user_model
 
@@ -69,6 +70,8 @@ class UserListView(APIView):
 
 class UserDetailView(APIView):
 
+    permission_classes = (IsAuthenticatedOrReadOnly, )
+
     def get_user(self, pk):
         try:
             return User.objects.get(pk=pk)
@@ -79,3 +82,16 @@ class UserDetailView(APIView):
         user = self.get_user(pk=pk)
         serialised_user = PopulatedUserSerializer(user)
         return Response(serialised_user.data, status=status.HTTP_202_ACCEPTED)
+
+    def put(self, request, pk):
+        user = self.get_user(pk=pk)
+        serialized_user = UserSerializer(user, data=request.data, partial=True)
+        try:
+            serialized_user.is_valid()
+            print('erorrs ---->', serialized_user.errors)
+            serialized_user.save()
+            return Response(serialized_user.data, status=status.HTTP_202_ACCEPTED)
+        except AssertionError as e:
+            return Response({ "detail": str(e) }, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+        # except:
+        #     return Response("Unprocessable Entity", status=status.HTTP_422_UNPROCESSABLE_ENTITY)
