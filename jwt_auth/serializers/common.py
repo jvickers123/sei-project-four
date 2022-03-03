@@ -14,21 +14,22 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ("id", "email", "first_name", "last_name", "profile_pic", "pictures",
+        fields = ("id", "email", "username", "first_name", "last_name", "profile_pic", "pictures",
                 "location", "latitude", "longitude", "age", "gender", "interested_in",
                 "answers", "questions_owned", "likes_recieved", "likes_sent", "matches",
                 "password", "password_confirmation")
     
     def validate(self, data):
         print('validating--------->', data)
+        if data.get('password'):
 
-        password = data.pop("password")
+            password = data.pop("password")
 
-        password_confirmation = data.pop("password_confirmation")
-        if password != password_confirmation:
-            raise ValidationError({'password_confirmation': 'Does not match password'})
-        
-        data['password'] = make_password(password)
+            password_confirmation = data.pop("password_confirmation")
+            if password != password_confirmation:
+                raise ValidationError({'password_confirmation': 'Does not match password'})
+            
+            data['password'] = make_password(password)
 
         return data
 

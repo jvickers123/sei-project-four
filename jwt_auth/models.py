@@ -5,6 +5,7 @@ from django.contrib.postgres.fields import ArrayField
 # Create your models here.
 class User(AbstractUser):
     email = models.CharField(max_length=50, unique=True)
+    # username = models.CharField(max_length=50)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50, blank=True)
     profile_pic = models.CharField(max_length=500, blank=True)
@@ -31,7 +32,8 @@ class User(AbstractUser):
         "self", 
         symmetrical=False, 
         blank=True,
-        related_name="likes_recieved"
+        related_name="likes_recieved",
+        default=None
         )
     
     def __str__(self):
