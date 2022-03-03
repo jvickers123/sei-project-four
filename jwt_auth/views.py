@@ -1,3 +1,4 @@
+import stat
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
@@ -8,11 +9,12 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 
 #exceptions
-from rest_framework.exceptions import PermissionDenied
+from rest_framework.exceptions import PermissionDenied, NotFound
 from django.forms import ValidationError
 
 # serializers
 from .serializers.common import UserSerializer
+from .serializers.populated import PopulatedUserSerializer
 
 User = get_user_model()
 
@@ -64,3 +66,16 @@ class UserListView(APIView):
         users = User.objects.all()
         serialized_users = UserSerializer(users, many=True)
         return Response(serialized_users.data, status = status.HTTP_200_OK)
+
+class UserDetailView(APIView):
+
+    def get_user(self, pk):
+        try:
+            return User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            raise NotFound(detail="User Not Found")
+
+    def get(self, _request, pk):
+        user = self.get_user(pk=pk)
+        serialised_user = PopulatedUserSerializer(user)
+        return Response(serialised_user.data, status=status.HTTP_202_ACCEPTED)
