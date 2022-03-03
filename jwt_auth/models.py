@@ -6,7 +6,7 @@ from django.contrib.postgres.fields import ArrayField
 class User(AbstractUser):
     email = models.CharField(max_length=50, unique=True)
     first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50, blank=True)
     profile_pic = models.CharField(max_length=500, blank=True)
     pictures = ArrayField(
         models.CharField(max_length=500), 
@@ -18,8 +18,8 @@ class User(AbstractUser):
     latitude = models.IntegerField(default=0)
     longitude = models.IntegerField(default=0)
     age = models.IntegerField(default=0)
-    gender = models.CharField(max_length=50)
-    interested_in = models.CharField(max_length=50)
+    gender = models.CharField(max_length=50, blank=True)
+    interested_in = models.CharField(max_length=50, blank=True)
     matches = models.ManyToManyField("self", blank=True)
     likes_sent = models.ManyToManyField(
         "self", 

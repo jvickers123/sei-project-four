@@ -1,4 +1,3 @@
-from msilib.schema import Class
 from rest_framework.authentication import BasicAuthentication
 from django.contrib.auth import get_user_model
 from django.conf import settings
