@@ -1,11 +1,12 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
-class User(AbstractUser):
+class User(AbstractBaseUser):
     email = models.CharField(max_length=50, unique=True)
     # username = models.CharField(max_length=50)
+    USERNAME_FIELD = 'email'
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50, blank=True)
     profile_pic = models.CharField(max_length=500, blank=True)
