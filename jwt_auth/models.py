@@ -7,15 +7,19 @@ class User(AbstractUser):
     email = models.CharField(max_length=50, unique=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    profile_pic = models.CharField(max_length=500)
+    profile_pic = models.CharField(max_length=500, blank=True)
     pictures = ArrayField(
         models.CharField(max_length=500), 
         size=5,
-        default=list
+        default=list,
+        blank=True
     )
-    location = models.CharField(max_length=50)
+    location = models.CharField(max_length=50, blank=True)
     latitude = models.IntegerField(default=0)
     longitude = models.IntegerField(default=0)
     age = models.IntegerField(default=0)
     gender = models.CharField(max_length=50)
     interested_in = models.CharField(max_length=50)
+    matches = models.ManyToManyField("self", blank=True)
+    likes_recieved = models.ManyToManyField("self", blank=True)
+    likes_sent = models.ManyToManyField("self", blank=True)
