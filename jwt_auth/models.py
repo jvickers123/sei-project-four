@@ -21,5 +21,9 @@ class User(AbstractUser):
     gender = models.CharField(max_length=50)
     interested_in = models.CharField(max_length=50)
     matches = models.ManyToManyField("self", blank=True)
-    likes_recieved = models.ManyToManyField("self", blank=True)
-    likes_sent = models.ManyToManyField("self", blank=True)
+    likes_sent = models.ManyToManyField(
+        "self", 
+        symmetrical=False, 
+        blank=True,
+        related_name="likes_recieved"
+        )
