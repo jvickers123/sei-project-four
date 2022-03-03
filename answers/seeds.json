@@ -178,5 +178,167 @@
       "question": 10,
       "owner": 1
     }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 21,
+    "fields": {
+      "text": "Never stop being serious",
+      "question": 11,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 22,
+    "fields": {
+      "text": "Never stop joking",
+      "question": 11,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 23,
+    "fields": {
+      "text": "Never stub your toe",
+      "question": 12,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 24,
+    "fields": {
+      "text": "Never bite your tongue",
+      "question": 12,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 25,
+    "fields": {
+      "text": "Pub",
+      "question": 13,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 26,
+    "fields": {
+      "text": "Club",
+      "question": 13,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 27,
+    "fields": {
+      "text": "Fluent in every language",
+      "question": 14,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 28,
+    "fields": {
+      "text": "Play every instrument",
+      "question": 14,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 29,
+    "fields": {
+      "text": "Last person on Earth",
+      "question": 15,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 30,
+    "fields": {
+      "text": "First person on Mars",
+      "question": 15,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 31,
+    "fields": {
+      "text": "Apple shaped like a banana",
+      "question": 16,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 32,
+    "fields": {
+      "text": "Banana shaped like an apple",
+      "question": 16,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 33,
+    "fields": {
+      "text": "Video call 10 friends a day",
+      "question": 17,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 34,
+    "fields": {
+      "text": "Only communicate by letter",
+      "question": 17,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 35,
+    "fields": {
+      "text": "Week on the beach",
+      "question": 18,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 36,
+    "fields": {
+      "text": "Week sightseeing",
+      "question": 18,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 37,
+    "fields": {
+      "text": "Italy",
+      "question": 19,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 38,
+    "fields": {
+      "text": "China",
+      "question": 19,
+      "owner": 1
+    }
   }
 ]

@@ -20,6 +20,7 @@ class QuestionListView(APIView):
         questions = Question.objects.all()
         serialized_questions = QuestionSerializer(questions, many=True)
         return Response(serialized_questions.data, status = status.HTTP_200_OK)
+    
 
 class QuestionDetailView(APIView):
         

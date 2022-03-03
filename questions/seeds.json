@@ -78,5 +78,77 @@
       "text": "date a good friend or a stranger?",
       "owner": 1
     }
+  },
+  {
+    "model": "questions.question",
+    "pk": 11,
+    "fields": {
+      "text": "never stop being serious or never stop joking?",
+      "owner": 1
+    }
+  },
+  {
+    "model": "questions.question",
+    "pk": 12,
+    "fields": {
+      "text": "never stub your toe again or never bite your tongue?",
+      "owner": 1
+    }
+  },
+  {
+    "model": "questions.question",
+    "pk": 13,
+    "fields": {
+      "text": "go out to the pub or go out to a club?",
+      "owner": 1
+    }
+  },
+  {
+    "model": "questions.question",
+    "pk": 14,
+    "fields": {
+      "text": "be fluent in every language or be able to play every instrument well?",
+      "owner": 1
+    }
+  },
+  {
+    "model": "questions.question",
+    "pk": 15,
+    "fields": {
+      "text": "be the last peron left on Earth or the first person to arrive on Mars?",
+      "owner": 1
+    }
+  },
+  {
+    "model": "questions.question",
+    "pk": 16,
+    "fields": {
+      "text": "eat an apple shaped like a banana or a banana shaped like an apple?",
+      "owner": 1
+    }
+  },
+  {
+    "model": "questions.question",
+    "pk": 17,
+    "fields": {
+      "text": "have to video call at least 10 friends one on one every day or only be able to communicate remotely via letter?",
+      "owner": 1
+    }
+  },
+  {
+    "model": "questions.question",
+    "pk": 18,
+    "fields": {
+      "text": "spend a whole week on the beach or spend a whole week sight seeing?",
+      "owner": 1
+    }
+  },
+  {
+    "model": "questions.question",
+    "pk": 19,
+    "fields": {
+      "text": "go to Italy or China?",
+      "owner": 1
+    }
   }
 ]
