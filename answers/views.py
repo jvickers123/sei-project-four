@@ -14,6 +14,4 @@ class AnswerListView(APIView):
     def get(self, _request):
         answers = Answer.objects.all()
         serialized_answers = AnswerSerializer(answers, many=True)
-        print(serialized_answers)
-        print(serialized_answers.data)
         return Response(serialized_answers.data, status = status.HTTP_200_OK)

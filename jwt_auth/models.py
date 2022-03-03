@@ -36,7 +36,7 @@ class User(AbstractUser):
         symmetrical=False, 
         blank=True,
         related_name="likes_recieved",
-        default=None
+        default=list,
         )
 
     

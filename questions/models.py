@@ -6,7 +6,8 @@ class Question(models.Model):
     owner = models.ForeignKey(
         "jwt_auth.User", 
         related_name="questions_owned",
-        on_delete = models.CASCADE
+        on_delete = models.CASCADE,
+        null=True
     )
 
     def __str__(self):

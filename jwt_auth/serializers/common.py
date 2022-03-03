@@ -20,7 +20,6 @@ class UserSerializer(serializers.ModelSerializer):
                 "password", "password_confirmation")
     
     def validate(self, data):
-        print('validating--------->', data)
         if data.get('password'):
 
             password = data.pop("password")
