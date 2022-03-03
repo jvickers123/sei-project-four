@@ -27,6 +27,7 @@ class RegisterView(APIView):
 
         try:
             user_to_create.is_valid()
+            print('errors ----> ', user_to_create.errors)
             user_to_create.save()
             return Response(user_to_create.data, status=status.HTTP_201_CREATED)
         
