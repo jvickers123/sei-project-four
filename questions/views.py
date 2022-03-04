@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 # exceptions
-from rest_framework.exceptions import NotFound
+from rest_framework.exceptions import NotFound, PermissionDenied
 
 # serializers
 from .serializers.common import QuestionSerializer
@@ -64,7 +64,9 @@ class QuestionListView(APIView):
             return Response({ "detail": "failed to add question"}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
 class QuestionDetailView(APIView):
-        
+    
+    permission_classes = (IsAuthenticatedOrReadOnly, )
+
     def get_question(self, pk):
         try:
             return Question.objects.get(pk=pk)
@@ -79,6 +81,10 @@ class QuestionDetailView(APIView):
     def put(self, request, pk):
         question = self.get_question(pk=pk)
         serialized_question = QuestionSerializer(question, data=request.data, partial=True)
+
+        if question.owner != request.user:
+            raise PermissionDenied(detail="Unauthorised")
+
         try:
             serialized_question.is_valid()
             serialized_question.save()
@@ -87,3 +93,13 @@ class QuestionDetailView(APIView):
             return Response({ "detail": str(e) }, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         except:
             return Response("Unprocessable Entity", status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+    def delete(self, request, pk):
+        question = self.get_question(pk=pk)
+
+        if question.owner != request.user:
+            raise PermissionDenied(detail="Unauthorised")
+
+        question.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
