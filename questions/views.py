@@ -99,7 +99,7 @@ class QuestionDetailView(APIView):
 
         if question.owner != request.user:
             raise PermissionDenied(detail="Unauthorised")
-
+        
         question.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 

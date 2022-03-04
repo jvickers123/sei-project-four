@@ -45,3 +45,6 @@ class AnswerDetailView(APIView):
 
         except Answer.DoesNotExist:
             raise NotFound(detail="Answer not found")
+        except:
+            return Response({"detail": "Update Failed"}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+        
