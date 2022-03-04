@@ -95,3 +95,10 @@ class UserDetailView(APIView):
             return Response({ "detail": str(e) }, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         # except:
         #     return Response("Unprocessable Entity", status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+    def delete(self, request, pk):
+        user = self.get_user(pk=pk)
+        if user.id != request.user.id:
+            raise PermissionDenied(detail="Unauthorised")
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
