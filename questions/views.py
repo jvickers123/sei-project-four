@@ -25,7 +25,7 @@ class QuestionListView(APIView):
         return Response(serialized_questions.data, status = status.HTTP_200_OK)
 
     def post(self, request):
-        print(request.data)
+
         answer_1 = request.data['answer1']
         answer_2 = request.data['answer2']
         question = request.data['question']
@@ -34,20 +34,12 @@ class QuestionListView(APIView):
         answer_2['owner'] = request.user.id
         question['owner'] = request.user.id
 
-        print(question)
-
         serialized_question = QuestionSerializer(data=question)
-
-        print(serialized_question)
 
         try:
 
             serialized_question.is_valid()
-            print('errrors ----->', serialized_question.errors)
-
             serialized_question.save()
-
-            print(serialized_question.data['id'])
 
             answer_1['question'] = serialized_question.data['id']
             answer_2['question'] = serialized_question.data['id']
@@ -56,13 +48,10 @@ class QuestionListView(APIView):
             serialized_answer_2 = AnswerSerializer(data=answer_2)
 
             serialized_answer_1.is_valid()
-            print('errrors ----->', serialized_answer_1.errors)
             serialized_answer_1.save()
 
             serialized_answer_2.is_valid()
             serialized_answer_2.save()
-
-            print(serialized_answer_1.errors, serialized_answer_2.data)
 
             return Response(serialized_question.data, status=status.HTTP_201_CREATED)
 
