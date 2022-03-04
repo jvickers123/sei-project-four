@@ -19,8 +19,8 @@ class User(AbstractUser):
         blank=True
     )
     location = models.CharField(max_length=50, blank=True)
-    latitude = models.IntegerField(default=0)
-    longitude = models.IntegerField(default=0)
+    latitude = models.FloatField(default=0)
+    longitude = models.FloatField(default=0)
     age = models.IntegerField(default=0)
     gender = models.CharField(max_length=50, blank=True)
     interested_in = models.CharField(max_length=50, blank=True)

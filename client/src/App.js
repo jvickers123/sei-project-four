@@ -5,7 +5,7 @@ function App() {
   useEffect(() => {
     const getData = async () => {
       try {
-        const { data } = await axios.get('/api/questions/') // * <-- replace with your endpoint
+        const { data } = await axios.get('/api/auth/profile/') // * <-- replace with your endpoint
         console.log(data)
       } catch (error) {
         console.log(error.message)
