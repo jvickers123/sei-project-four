@@ -11,20 +11,25 @@ const Register = () => {
 
   // state
   const [formShowing, setFormShowing] = useState({ form: 0 })
+  const [userId, setUserId] = useState(null)
 
   const nextForm = (num) => {
     const nextForm = { form: formShowing.form + num}
     setFormShowing(nextForm)
   }
 
+  const getUserId = (id) => {
+    setUserId(id)
+  }
+
   return (
     <>
       <h1>Register</h1>
-      {formShowing.form === 0 && <RegisterForm nextForm={nextForm} />}
-      {formShowing === 1 && <Name nextForm={nextForm} />}
-      {formShowing === 2 && <Age nextForm={nextForm} />}
-      {formShowing === 3 && <Location nextForm={nextForm}  />}
-      {formShowing === 4 && <Pictures nextForm={nextForm} />}
+      {formShowing.form === 0 && <RegisterForm nextForm={nextForm} getUserId={getUserId}/>}
+      {formShowing.form === 1 && <Name nextForm={nextForm} userId={userId}/>}
+      {formShowing.form === 2 && <Age nextForm={nextForm} />}
+      {formShowing.form === 3 && <Location nextForm={nextForm}  />}
+      {formShowing.form === 4 && <Pictures nextForm={nextForm} />}
     </>
   
   )

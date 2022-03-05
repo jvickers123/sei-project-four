@@ -3,7 +3,7 @@ import axios from 'axios'
 // import { useNavigate } from 'react-router-dom'
 import { useToast } from '@chakra-ui/react'
 
-const RegisterForm = ({ nextForm }) => {
+const RegisterForm = ({ nextForm, getUserId }) => {
 
   const toast = useToast()
   // const navigate = useNavigate()
@@ -37,7 +37,10 @@ const RegisterForm = ({ nextForm }) => {
   const handleSubmit = async (e) =>  {
     e.preventDefault()
     try {
-      await axios.post('/api/auth/register/', formData)
+      const { data: registerData } = await axios.post('/api/auth/register/', formData)
+      console.log(registerData.id)
+      getUserId(registerData.id)
+
       toast({
         title: 'Registered.',
         description: "Your account is ready to be logged in.",
@@ -47,9 +50,9 @@ const RegisterForm = ({ nextForm }) => {
       })
 
       // log in
-      const { data } = await axios.post('/api/auth/login/',{ email: formData.email, password: formData.password })
-      console.log(data)
-      window.localStorage.setItem('token-birds-of-a-feather', data.token)
+      const { data: loginData } = await axios.post('/api/auth/login/',{ email: formData.email, password: formData.password })
+      console.log(loginData)
+      window.localStorage.setItem('token-birds-of-a-feather', loginData.token)
       
 
       toast({
@@ -80,7 +83,7 @@ const RegisterForm = ({ nextForm }) => {
     <>
       <form onSubmit={handleSubmit}>
         <label htmlFor='email'>Enter Your Email</label>
-        <input type='email' name='email' value={formData.email} onChange={handleChange} />
+        <input type='email' name='email' value={formData.email} placeholder='email@email.com' onChange={handleChange} />
         {!!formErrors.email && <p>{formErrors.email}</p>}
         <label htmlFor='password'> Enter Your Password</label>
         <input type='password' name='password' value={formData.password} onChange={handleChange} />
