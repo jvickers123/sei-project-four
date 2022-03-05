@@ -90,8 +90,8 @@ const RegisterForm = ({ nextForm, getUserId }) => {
         <label htmlFor='password_confirmation'> Confirm Your Password</label>
         {!!formErrors.password && <p>{formErrors.password}</p>}
         <input type='password' name='password_confirmation' value={formData.password_confirmation} onChange={handleChange} />
-        <input type='submit' value='Next' />
         {!!formErrors.password_confirmation && <p>{formErrors.password_confirmation}</p>}
+        <input type='submit' value='Next' />
       </form>
     </>
   )

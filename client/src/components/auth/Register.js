@@ -25,11 +25,11 @@ const Register = () => {
   return (
     <>
       <h1>Register</h1>
-      {formShowing.form === 0 && <RegisterForm nextForm={nextForm} getUserId={getUserId}/>}
-      {formShowing.form === 1 && <Name nextForm={nextForm} userId={userId}/>}
-      {formShowing.form === 2 && <Age nextForm={nextForm} />}
-      {formShowing.form === 3 && <Location nextForm={nextForm}  />}
-      {formShowing.form === 4 && <Pictures nextForm={nextForm} />}
+      {formShowing.form === 0 && <RegisterForm nextForm={nextForm} getUserId={getUserId} />}
+      {formShowing.form === 1 && <Name nextForm={nextForm} userId={userId} />}
+      {formShowing.form === 2 && <Age nextForm={nextForm} userId={userId} />}
+      {formShowing.form === 3 && <Location nextForm={nextForm} userId={userId} />}
+      {formShowing.form === 4 && <Pictures nextForm={nextForm} userId={userId} />}
     </>
   
   )
