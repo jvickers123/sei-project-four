@@ -34,8 +34,8 @@ class RegisterView(APIView):
         
         except ValidationError as e:
             return Response({ "detail": str(e)}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
-        except AssertionError as e:
-            return Response({ "detail": str(e)}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+        except AssertionError:
+            return Response({ "detail": user_to_create.errors}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
 class LoginView(APIView):
 
@@ -91,8 +91,8 @@ class UserDetailView(APIView):
             print('erorrs ---->', serialized_user.errors)
             serialized_user.save()
             return Response(serialized_user.data, status=status.HTTP_202_ACCEPTED)
-        except AssertionError as e:
-            return Response({ "detail": str(e) }, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+        except AssertionError:
+            return Response({ "detail": serialized_user.errors }, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         except:
             return Response("Unprocessable Entity", status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 

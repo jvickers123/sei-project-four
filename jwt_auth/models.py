@@ -9,7 +9,7 @@ class User(AbstractUser):
     username=None
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
-    first_name = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=50, blank=True)
     profile_pic = models.CharField(max_length=500, blank=True)
     pictures = ArrayField(
