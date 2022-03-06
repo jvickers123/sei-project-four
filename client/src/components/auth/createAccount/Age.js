@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import { useToast } from '@chakra-ui/react'
 import Picker from 'react-mobile-picker-scroll'
@@ -38,13 +38,13 @@ const Age = ({ nextForm, userId }) => {
     // calculate age
     const currentDate = new Date()
     const monthIndex = optionGroups.month.indexOf(valueGroups.month)
-    console.log(monthIndex)
+
     // if they've not had brithday this year
     let userAge
     if(monthIndex > currentDate.getMonth() || (monthIndex === currentDate.getMonth() && valueGroups.date > currentDate.getDate())) {
-      userAge = currentDate.getFullYear() - valueGroups.year - 1
+      userAge = currentDate.getFullYear() - parseInt(valueGroups.year) - 1
     } else {
-      userAge = currentDate.getFullYear() - valueGroups.year
+      userAge = currentDate.getFullYear() - parseInt(valueGroups.year)
     }
 
     try {
