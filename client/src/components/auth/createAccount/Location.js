@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
-import ReactMapGl from 'react-map-gl'
+import ReactMapGl, { Popup } from 'react-map-gl'
+import 'mapbox-gl/dist/mapbox-gl.css'
 import { useToast } from '@chakra-ui/react'
 import { getTokenFromLocal } from '../../../helpers/auth'
 
@@ -8,9 +9,9 @@ const Location = ({ nextForm, userId }) => {
   const toast = useToast()
   // state
   const [viewPort, setViewPort] = useState({
-    latitude: 10,
-    longitude: -0.1,
-    zoom: 8
+    latitude: 51.5,
+    longitude: -0.118,
+    zoom: 10
   })
   const [currentLocation, setCurrentLocation] = useState({
     longitude: null,
@@ -21,13 +22,15 @@ const Location = ({ nextForm, userId }) => {
     longitude: null,
     latitude: null
   })
+  const [searchValue, setSearchValue] = useState('')
+  const [searchOptions, setSearchOptions] = useState([])
 
   // get current location
   const getCurrentLocation = () => {
     window.navigator.geolocation.getCurrentPosition(position => {
       const { latitude, longitude } = position.coords
       setCurrentLocation({ latitude: latitude, longitude: longitude })
-      setViewPort({ ...viewPort, latitude: latitude, longitude: longitude })
+      setViewPort({ latitude: latitude, longitude: longitude, zoom: 10 })
     })
   }
 
@@ -73,19 +76,68 @@ const Location = ({ nextForm, userId }) => {
       console.log(error.response.data.detail)
     }
   }
+
+  const handleChange = async (e) => {
+    setSearchValue(e.target.value)
+    console.log(searchValue)
+  }
+
+  useEffect(() => {
+    const search = async () => {
+      try {
+        const { data } =  await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${searchValue}.json?access_token=${process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}`)
+        setSearchOptions(data.features)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    search()
+  }, [searchValue])
+
+  const handleClick = (e) => {
+    console.log(e.target.data)
+    setUserLocation({
+      location: e.target.name,
+      longitude: e.target.longitude,
+      latitude: e.target.latitude
+    })
+    setCurrentLocation({ longitude: e.target.longitude, latitude: e.target.latitude })
+    // setViewPort({ latitude: e.target.latitude, longitude: e.target.longitude, zoom: 10 })
+    setSearchValue('')
+    setSearchOptions([])
+  }
   return (
     <>
-      {!!userLocation.location.length && <p>{userLocation.location}</p>}
-      <ReactMapGl
-        {...viewPort}
-        onMove={e => setViewPort(e.viewState)}
-        style={{ width: '100%', height: '100%' }}
-        mapStyle="mapbox://styles/mapbox/streets-v9"
-        mapboxAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
-    ></ReactMapGl>
-    <button onClick={getCurrentLocation} >Use CurrentLocation</button>
-    <button onClick={() => nextForm(-1)} >Previous</button>
-    <button onClick={handleSubmit} >Next</button>
+      <form>
+        <input type='search' placeholder='enter your neighborhood' value={searchValue} onChange={handleChange}/>
+      </form>
+      {!!searchOptions.length && 
+        searchOptions.map(result => (
+          <div onClick={handleClick} key={result.id} name={result.text} data={result.center}>
+            <p >{result.place_name}</p>
+          </div>
+        ))  
+      }
+
+      {!!currentLocation.longitude && <p>{userLocation.location}</p>}
+      <div className='map-container'>
+        <ReactMapGl
+          {...viewPort}
+          onMove={e => setViewPort(e.viewState)}
+          style={{ width: '100%', height: '100%' }}
+          mapStyle="mapbox://styles/mapbox/streets-v9"
+          mapboxAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
+        >
+          {!!currentLocation.longitude && 
+            <Popup closeOnMove={false} closeOnClick={false} latitude={userLocation.latitude} longitude={userLocation.longitude} anchor='bottom'>
+              {userLocation.location}
+            </Popup>}
+        </ReactMapGl>
+      </div>
+      
+      <button onClick={getCurrentLocation} >Use CurrentLocation</button>
+      <button onClick={() => nextForm(-1)} >Previous</button>
+      <button onClick={handleSubmit} >Next</button>
     </>
     
   )
