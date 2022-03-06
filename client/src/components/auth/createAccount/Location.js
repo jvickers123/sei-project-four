@@ -1,41 +1,81 @@
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
-import ReactMapGl, { Marker } from 'react-map-gl'
+import ReactMapGl from 'react-map-gl'
+import { useToast } from '@chakra-ui/react'
+import { getTokenFromLocal } from '../../../helpers/auth'
 
-
-const Location = ({ nextForm }) => {
-
+const Location = ({ nextForm, userId }) => {
+  const toast = useToast()
   // state
   const [viewPort, setViewPort] = useState({
     latitude: 10,
     longitude: -0.1,
     zoom: 8
   })
-  const [currentLocation, setCurrentLocation] = useState(null)
+  const [currentLocation, setCurrentLocation] = useState({
+    longitude: null,
+    latitude: null
+  })
+  const [userLocation, setUserLocation] = useState({
+    location: '',
+    longitude: null,
+    latitude: null
+  })
 
   // get current location
-  const getCurrentLocation = async () => {
-    let latitude
-    let longitude
-      window.navigator.geolocation.getCurrentPosition(position => {
-      latitude = position.coords.latitude
-      longitude = position.coords.longitude
-      })
-      
+  const getCurrentLocation = () => {
+    window.navigator.geolocation.getCurrentPosition(position => {
+      const { latitude, longitude } = position.coords
+      setCurrentLocation({ latitude: latitude, longitude: longitude })
+      setViewPort({ ...viewPort, latitude: latitude, longitude: longitude })
+    })
+  }
+
+  useEffect(() => {
+    const getCurrentCity = async () => {
       try {
-        const { data } = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}`)
-        console.log(data)
+        const { data } = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${currentLocation.longitude},${currentLocation.latitude}.json?access_token=${process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}`)
+        setUserLocation({ 
+          location: data.features[0].context[1].text,
+          longitude: currentLocation.longitude,
+          latitude: currentLocation.latitude
+        })
       } catch (error) {
         console.log(error)
       }
-
-      setCurrentLocation({ latitude: latitude, longitude: longitude })
-      setViewPort({ latitude: latitude, longitude: longitude })
     }
+    getCurrentCity()
+  }, [currentLocation])
+    
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const token = getTokenFromLocal()
+    try {
+      const { data } = await axios.put(`/api/auth/profile/${userId}/`, userLocation, { headers: {Authorization: `Bearer ${token}` }})
+      console.log(data)
 
+      toast({
+        title: 'Added name.',
+        description: `Added ${userLocation.location} to profile.`,
+        status: 'success',
+        duration: 9000,
+        isClosable: true,
+      })
+      
+      setUserLocation({
+        location: '',
+        longitude: null,
+        latitude: null
+      })
 
+      nextForm(1)
+    } catch (error) {
+      console.log(error.response.data.detail)
+    }
+  }
   return (
     <>
+      {!!userLocation.location.length && <p>{userLocation.location}</p>}
       <ReactMapGl
         {...viewPort}
         onMove={e => setViewPort(e.viewState)}
@@ -45,6 +85,7 @@ const Location = ({ nextForm }) => {
     ></ReactMapGl>
     <button onClick={getCurrentLocation} >Use CurrentLocation</button>
     <button onClick={() => nextForm(-1)} >Previous</button>
+    <button onClick={handleSubmit} >Next</button>
     </>
     
   )

@@ -1,5 +1,10 @@
 import React from 'react'
 
-const Pictures = () => <h2>Pictures</h2>
+const Pictures = ({nextForm, userId}) => {
+
+  return (
+    <button onClick={() => nextForm(-1)}>Previous</button>
+  )
+}
 
 export default Pictures
