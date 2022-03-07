@@ -37,8 +37,8 @@ const RegisterForm = ({ nextForm }) => {
   const handleSubmit = async (e) =>  {
     e.preventDefault()
     try {
-      const { data: registerData } = await axios.post('/api/auth/register/', formData)
-      console.log(registerData.id)
+      await axios.post('/api/auth/register/', formData)
+      // console.log(registerData.id)
       // getUserId(registerData.id)
 
       toast({
