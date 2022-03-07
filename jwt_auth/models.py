@@ -14,7 +14,6 @@ class User(AbstractUser):
     profile_pic = models.CharField(max_length=500, blank=True)
     pictures = ArrayField(
         models.CharField(max_length=500), 
-        size=5,
         default=list,
         blank=True
     )

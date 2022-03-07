@@ -1,9 +1,81 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import { useToast } from '@chakra-ui/react'
+// components
+// import ImageUpload from '../../../helpers/ImageUpload'
+import ImageUploadField from '../../subComponents/ImageUploadField'
+import { getTokenFromLocal } from '../../../helpers/auth'
 
 const Pictures = ({nextForm, userId}) => {
 
+  const toast = useToast()
+
+  const [userImages, setUserImages] = useState({
+    profile_pic: '',
+    pictures: []
+  })
+  const [pictures, setPictures] = useState({
+    pic2: '',
+    pic3: '',
+    pic4: '',
+    pic5: '',
+    pic6: ''
+  })
+
+  
+
+  const handleImageUrl = (name, url) => {
+    if (name === 'profile_pic') { 
+      setUserImages({...userImages, [name]: url})
+      console.log('hello')
+    } else {
+      setPictures({...pictures, [name]: url})
+    }
+  }
+
+  useEffect(() => {
+      const urlArray = Object.values(pictures)
+      console.log(urlArray)
+      const notBlankArray = urlArray.filter(url => url !== '')
+      console.log('not blank array', notBlankArray)
+      setUserImages({ ...userImages, pictures: notBlankArray})
+  }, [pictures])
+
+  useEffect(() => {
+    const uploadData = async () => {
+      const token = getTokenFromLocal()
+      try {
+        console.log(userImages)
+        const { data } = await axios.put(`/api/auth/profile/${userId}/`, userImages, { headers: {Authorization: `Bearer ${token}` }})
+        console.log(data)
+        toast({
+          title: 'Added image.',
+          description: `Added image to profile.`,
+          status: 'success',
+          duration: 9000,
+          isClosable: true,
+        })
+      } catch (error) {
+        console.log(error.response.data.detail)
+      }
+    }
+    uploadData()
+  }, [userImages])
+
+  
+
   return (
-    <button onClick={() => nextForm(-1)}>Previous</button>
+    <>
+      <h1>Pick your photos</h1>
+      <ImageUploadField name='profile_pic' handleImageUrl={handleImageUrl} value={userImages.profile_pic}/>
+      <ImageUploadField name='pic2' handleImageUrl={handleImageUrl} value={pictures.pic2}/>
+      <ImageUploadField name='pic3' handleImageUrl={handleImageUrl} value={pictures.pic3}/>
+      <ImageUploadField name='pic4' handleImageUrl={handleImageUrl} value={pictures.pic4}/>
+      <ImageUploadField name='pic5' handleImageUrl={handleImageUrl} value={pictures.pic5}/>
+      <ImageUploadField name='pic6' handleImageUrl={handleImageUrl} value={pictures.pic6}/>
+      <button onClick={() => nextForm(-1)}>Previous</button>
+      <button onClick={() => nextForm(1)}>Next</button>
+    </>
   )
 }
 

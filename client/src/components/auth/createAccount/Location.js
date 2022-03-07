@@ -95,14 +95,15 @@ const Location = ({ nextForm, userId }) => {
   }, [searchValue])
 
   const handleClick = (e) => {
-    console.log(e.target.data)
+    const clickedLocation = searchOptions[searchOptions.findIndex(result => result.id === e.target.id)]
+    console.log(clickedLocation)
     setUserLocation({
-      location: e.target.name,
-      longitude: e.target.longitude,
-      latitude: e.target.latitude
+      location: clickedLocation.text,
+      longitude: clickedLocation.center[0],
+      latitude: clickedLocation.center[1]
     })
-    setCurrentLocation({ longitude: e.target.longitude, latitude: e.target.latitude })
-    // setViewPort({ latitude: e.target.latitude, longitude: e.target.longitude, zoom: 10 })
+    // setCurrentLocation({ longitude: clickedLocation.center[0], latitude: clickedLocation.center[1] })
+    setViewPort({ latitude: clickedLocation.center[1], longitude: clickedLocation.center[0], zoom: 10 })
     setSearchValue('')
     setSearchOptions([])
   }
@@ -113,8 +114,8 @@ const Location = ({ nextForm, userId }) => {
       </form>
       {!!searchOptions.length && 
         searchOptions.map(result => (
-          <div onClick={handleClick} key={result.id} name={result.text} data={result.center}>
-            <p >{result.place_name}</p>
+          <div  key={result.id} >
+            <p onClick={handleClick} name={result.text} id={result.id} data={result.center}>{result.place_name}</p>
           </div>
         ))  
       }
