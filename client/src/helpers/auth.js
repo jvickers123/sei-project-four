@@ -14,7 +14,7 @@ const getPayload = () => {
 
 export const userAuth = () => {
   const payload = getPayload()
-  if (!payload) return
+  if (!payload) return false
   const currentTime = Math.round(Date.now() / 1000)
   return currentTime < payload.exp
 }
