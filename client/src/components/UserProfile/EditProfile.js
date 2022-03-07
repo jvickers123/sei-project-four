@@ -85,6 +85,7 @@ const EditProfile = ({ user, updateUser }) => {
       <p>Age: {user.age}</p>
       <button onClick={() => setIsEditing({...isEditing, age: true})}>Update</button>
       {!!isEditing.age && <Age parent='profile' closeComponent={closeComponent}/>}
+      
       <ChangePassword />
       
     </>
