@@ -133,18 +133,18 @@ class UserDetailView(APIView):
 class ChangePasswordView(APIView):
     permission_classes = (IsAuthenticated, )
 
-    def put(self, request, pk):
+    def put(self, request):
 
         try:
-            user_to_change_password= User.objects.get(pk=pk)
+            user_to_change_password= User.objects.get(pk=request.user.id)
         except User.DoesNotExist:
-            return PermissionDenied(detail="Unauthorised")
-
-        if user_to_change_password.id != request.user.id:
             raise PermissionDenied(detail="Unauthorised")
 
+        # if user_to_change_password.id != request.user.id:
+        #     raise PermissionDenied(detail="Unauthorised")
+
         if not user_to_change_password.check_password(request.data.get('old_password')):
-            return PermissionDenied(detail="Unauthorised")
+            raise PermissionDenied(detail="Unauthorised")
         
         serialized_user = UserSerializer(user_to_change_password, data=request.data, partial=True)
 
@@ -152,8 +152,8 @@ class ChangePasswordView(APIView):
             serialized_user.is_valid()
             serialized_user.save()
             return Response(status=status.HTTP_204_NO_CONTENT)
-        except AssertionError as e:
-            return Response({ "detail": str(e) }, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+        except AssertionError:
+            return Response({ "detail": serialized_user.errors }, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         except:
             return Response({"detail": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
         

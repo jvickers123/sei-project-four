@@ -7,6 +7,7 @@ import { getTokenFromLocal } from '../../helpers/auth'
 import Name from '../auth/createAccount/Name'
 import Location from '../auth/createAccount/Location'
 import Age from '../auth/createAccount/Age'
+import ChangePassword from '../subComponents/ChangePassword'
 
 const EditProfile = ({ user, updateUser }) => {
 
@@ -72,7 +73,7 @@ const EditProfile = ({ user, updateUser }) => {
         {user.pictures.length < 5 &&
           <ImageUploadField name='pictures' handleImageUrl={handleImageUrl} url={''}/>}
 
-      <p>My info</p>
+      <h2>My info</h2>
       <p>Name: {user.first_name} {user.last_name}</p>
       <button onClick={() => setIsEditing({...isEditing, name: true})}>Update</button>
       {!!isEditing.name && <Name parent='profile' closeComponent={closeComponent}/>}
@@ -84,8 +85,7 @@ const EditProfile = ({ user, updateUser }) => {
       <p>Age: {user.age}</p>
       <button onClick={() => setIsEditing({...isEditing, age: true})}>Update</button>
       {!!isEditing.age && <Age parent='profile' closeComponent={closeComponent}/>}
-
-        
+      <ChangePassword />
       
     </>
 
