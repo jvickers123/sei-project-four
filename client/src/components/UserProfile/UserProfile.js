@@ -10,6 +10,7 @@ import ViewProfile from './ViewProfile'
 const UserProfile = () => {
 
   const [user, setUser] = useState({})
+  const [editing, setEditing] = useState(false)
 
   useEffect(() => {
 
@@ -25,11 +26,18 @@ const UserProfile = () => {
     }
     getUser()
   }, [])
+
+
   return (
     <>
       <h1>{user.first_name}</h1>
-      <EditProfile />
-      <ViewProfile />
+      <button onClick={() => setEditing(false)} >View</button>
+      <button onClick={() => setEditing(true)} >Edit</button>
+      {editing ?
+        <EditProfile user={user}/>
+        : 
+        <ViewProfile user={user}/>
+        }
     </>
   )
 }
