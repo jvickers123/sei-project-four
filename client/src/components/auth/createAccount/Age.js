@@ -7,7 +7,7 @@ import Picker from 'react-mobile-picker-scroll'
 import { getTokenFromLocal } from '../../../helpers/auth'
 import { getDateArray, getYearsArray } from '../../../helpers/getDates'
 
-const Age = ({ nextForm }) => {
+const Age = ({ nextForm, parent, closeComponent }) => {
   const toast = useToast()
   const datesArray = getDateArray()
   const yearsArray = getYearsArray()
@@ -65,7 +65,7 @@ const Age = ({ nextForm }) => {
         year: '2001'
       })
 
-      nextForm(1)
+      parent === 'register' ? nextForm(1) : closeComponent('age')
     } catch (error) {
       console.log(error.response.data.detail)
       // setFormError(error.response.data.detail)
@@ -80,8 +80,8 @@ const Age = ({ nextForm }) => {
     <>
       <form onSubmit={handleSubmit}>
         <Picker valueGroups={valueGroups} optionGroups={optionGroups} onChange={handleChange}/>
-        <input type='submit' value='next' />
-        <input type='button' value='previous' onClick={() => nextForm(-1)}/>
+        <input type='submit' value={parent === 'register' ? 'Next' : 'Update'} />
+        {parent === 'register' && <input type='button' value='previous' onClick={() => nextForm(-1)}/>}
       </form>
     </>
   

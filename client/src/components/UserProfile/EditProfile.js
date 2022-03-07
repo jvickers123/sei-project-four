@@ -16,7 +16,9 @@ const EditProfile = ({ user, updateUser }) => {
     pictures: []
   })
   const [isEditing, setIsEditing] = useState({
-    location: false
+    name: false,
+    location: false,
+    age: false
   })
 
   // const [formData]
@@ -50,6 +52,7 @@ const EditProfile = ({ user, updateUser }) => {
 
   const closeComponent = (component) => {
     setIsEditing({...isEditing, [component]: false})
+    updateUser()
   } 
 
   return (
@@ -70,10 +73,18 @@ const EditProfile = ({ user, updateUser }) => {
           <ImageUploadField name='pictures' handleImageUrl={handleImageUrl} url={''}/>}
 
       <p>My info</p>
-      {!!user.first_name && <p>{user.first_name + user.last_name}</p>}
-      {!!user.location && <p onClick={() => setIsEditing({...isEditing, location: true})}>{user.location}</p>}
+      <p>Name: {user.first_name} {user.last_name}</p>
+      <button onClick={() => setIsEditing({...isEditing, name: true})}>Update</button>
+      {!!isEditing.name && <Name parent='profile' closeComponent={closeComponent}/>}
+
+      <p>Location {user.location} </p>
+      <button onClick={() => setIsEditing({...isEditing, location: true})}>Update</button>
       {!!isEditing.location && <Location parent='profile' closeComponent={closeComponent}/>}
-      {!!user.age && <p>{user.age}</p>}
+
+      <p>Age: {user.age}</p>
+      <button onClick={() => setIsEditing({...isEditing, age: true})}>Update</button>
+      {!!isEditing.age && <Age parent='profile' closeComponent={closeComponent}/>}
+
         
       
     </>

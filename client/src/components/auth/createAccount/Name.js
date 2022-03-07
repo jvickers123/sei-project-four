@@ -5,7 +5,7 @@ import { useToast } from '@chakra-ui/react'
 // auth
 import { getTokenFromLocal } from '../../../helpers/auth'
 
-const Name = ({ nextForm, parent }) => {
+const Name = ({ nextForm, parent, closeComponent }) => {
 
   const toast = useToast()
 
@@ -50,7 +50,7 @@ const Name = ({ nextForm, parent }) => {
         last_name: ""
       })
 
-      if (parent === 'register') nextForm(1)
+      parent === 'register' ? nextForm(1) : closeComponent('name')
     } catch (error) {
       console.log(error.response.data.detail)
       setFormErrors({...formErrors, ...error.response.data.detail})
