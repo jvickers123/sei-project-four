@@ -5,7 +5,7 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import { useToast } from '@chakra-ui/react'
 import { getTokenFromLocal } from '../../../helpers/auth'
 
-const Location = ({ nextForm }) => {
+const Location = ({ nextForm, parent, closeComponent }) => {
   const toast = useToast()
   // state
   const [viewPort, setViewPort] = useState({
@@ -13,6 +13,7 @@ const Location = ({ nextForm }) => {
     longitude: -0.118,
     zoom: 10
   })
+
   const [currentLocation, setCurrentLocation] = useState({
     longitude: null,
     latitude: null
@@ -71,7 +72,7 @@ const Location = ({ nextForm }) => {
         latitude: null
       })
 
-      nextForm(1)
+      parent === 'register' ? nextForm(1) : closeComponent('location')
     } catch (error) {
       console.log(error.response.data.detail)
     }
@@ -137,8 +138,8 @@ const Location = ({ nextForm }) => {
       </div>
       
       <button onClick={getCurrentLocation} >Use CurrentLocation</button>
-      <button onClick={() => nextForm(-1)} >Previous</button>
-      <button onClick={handleSubmit} >Next</button>
+      {parent === 'register' && <button onClick={() => nextForm(-1)} >Previous</button>}
+      <button onClick={handleSubmit} >{parent === 'register' ? 'Next' : 'update'}</button>
     </>
     
   )

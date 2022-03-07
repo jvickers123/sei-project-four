@@ -5,7 +5,7 @@ import { useToast } from '@chakra-ui/react'
 // auth
 import { getTokenFromLocal } from '../../../helpers/auth'
 
-const Name = ({ nextForm }) => {
+const Name = ({ nextForm, parent }) => {
 
   const toast = useToast()
 
@@ -50,7 +50,7 @@ const Name = ({ nextForm }) => {
         last_name: ""
       })
 
-      nextForm(1)
+      if (parent === 'register') nextForm(1)
     } catch (error) {
       console.log(error.response.data.detail)
       setFormErrors({...formErrors, ...error.response.data.detail})
@@ -65,8 +65,8 @@ const Name = ({ nextForm }) => {
       <label htmlFor='last_name'>Last Name</label>
       <input type='last_name' name='last_name' placeholder='Last name' value={formData.last_name} onChange={handleChange} />
       {!!formErrors.last_name && <p>{formErrors.last_name}</p>}
-      <input type='submit' value='next' />
-      <input type='button' value='previous' onClick={() => nextForm(-1)}/>
+      <input type='submit' value={parent === 'register' ? 'Next' : 'Update'} />
+      {parent === 'register' && <input type='button' value='previous' onClick={() => nextForm(-1)}/>}
     </form>
   )
 }
