@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useToast } from '@chakra-ui/react'
+
 // components
-// import ImageUpload from '../../../helpers/ImageUpload'
 import ImageUploadField from '../../subComponents/ImageUploadField'
 import { getTokenFromLocal } from '../../../helpers/auth'
 
 const Pictures = ({nextForm, userId}) => {
 
   const toast = useToast()
+  const navigate = useNavigate()
 
   const [userImages, setUserImages] = useState({
     profile_pic: '',
@@ -44,9 +46,12 @@ const Pictures = ({nextForm, userId}) => {
   useEffect(() => {
     const uploadData = async () => {
       const token = getTokenFromLocal()
+      if (!userImages.profile_pic && !userImages.pictures.length) {
+        return
+      }
       try {
         console.log(userImages)
-        const { data } = await axios.put(`/api/auth/profile/${userId}/`, userImages, { headers: {Authorization: `Bearer ${token}` }})
+        const { data } = await axios.put('/api/auth/profile/', userImages, { headers: {Authorization: `Bearer ${token}` }})
         console.log(data)
         toast({
           title: 'Added image.',
@@ -74,7 +79,8 @@ const Pictures = ({nextForm, userId}) => {
       <ImageUploadField name='pic5' handleImageUrl={handleImageUrl} value={pictures.pic5}/>
       <ImageUploadField name='pic6' handleImageUrl={handleImageUrl} value={pictures.pic6}/>
       <button onClick={() => nextForm(-1)}>Previous</button>
-      <button onClick={() => nextForm(1)}>Next</button>
+      {/* <button onClick={() => nextForm(1)}>Next</button> */}
+      <button onClick={() => navigate('/profile')}>Next</button>
     </>
   )
 }

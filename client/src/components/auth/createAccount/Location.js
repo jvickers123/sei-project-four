@@ -5,7 +5,7 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import { useToast } from '@chakra-ui/react'
 import { getTokenFromLocal } from '../../../helpers/auth'
 
-const Location = ({ nextForm, userId }) => {
+const Location = ({ nextForm }) => {
   const toast = useToast()
   // state
   const [viewPort, setViewPort] = useState({
@@ -54,7 +54,7 @@ const Location = ({ nextForm, userId }) => {
     e.preventDefault()
     const token = getTokenFromLocal()
     try {
-      const { data } = await axios.put(`/api/auth/profile/${userId}/`, userLocation, { headers: {Authorization: `Bearer ${token}` }})
+      const { data } = await axios.put('/api/auth/profile/', userLocation, { headers: {Authorization: `Bearer ${token}` }})
       console.log(data)
 
       toast({

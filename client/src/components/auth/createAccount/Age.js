@@ -7,7 +7,7 @@ import Picker from 'react-mobile-picker-scroll'
 import { getTokenFromLocal } from '../../../helpers/auth'
 import { getDateArray, getYearsArray } from '../../../helpers/getDates'
 
-const Age = ({ nextForm, userId }) => {
+const Age = ({ nextForm }) => {
   const toast = useToast()
   const datesArray = getDateArray()
   const yearsArray = getYearsArray()
@@ -48,7 +48,7 @@ const Age = ({ nextForm, userId }) => {
     }
 
     try {
-      const { data } = await axios.put(`/api/auth/profile/${userId}/`,{ age: userAge }, { headers: {Authorization: `Bearer ${token}` }})
+      const { data } = await axios.put('/api/auth/profile/',{ age: userAge }, { headers: {Authorization: `Bearer ${token}` }})
       console.log(data)
 
       toast({

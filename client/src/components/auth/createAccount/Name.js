@@ -5,7 +5,7 @@ import { useToast } from '@chakra-ui/react'
 // auth
 import { getTokenFromLocal } from '../../../helpers/auth'
 
-const Name = ({ nextForm, userId }) => {
+const Name = ({ nextForm }) => {
 
   const toast = useToast()
 
@@ -34,7 +34,7 @@ const Name = ({ nextForm, userId }) => {
     e.preventDefault()
     const token = getTokenFromLocal()
     try {
-      const { data } = await axios.put(`/api/auth/profile/${userId}/`, formData, { headers: {Authorization: `Bearer ${token}` }})
+      const { data } = await axios.put('/api/auth/profile/', formData, { headers: {Authorization: `Bearer ${token}` }})
       console.log(data)
 
       toast({

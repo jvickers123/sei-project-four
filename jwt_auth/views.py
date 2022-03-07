@@ -68,6 +68,33 @@ class UserListView(APIView):
         serialized_users = UserSerializer(users, many=True)
         return Response(serialized_users.data, status = status.HTTP_200_OK)
 
+class ProfileDetailView(APIView):
+    
+
+    def get(self, request):
+        try:
+            user = User.objects.get(pk=request.user.id)
+        except User.DoesNotExist:
+            raise NotFound(detail = "Profile not found")
+        serialized_user = PopulatedUserSerializer(user)
+        return Response(serialized_user.data, status=status.HTTP_200_OK)
+    
+    def put(self, request) :
+        try:
+            user = User.objects.get(pk=request.user.id)
+        except User.DoesNotExist:
+            raise NotFound(detail = "Profile not found")
+        serialized_user = UserSerializer(user, data=request.data, partial=True)
+        try:
+            serialized_user.is_valid()
+            print('erorrs ---->', serialized_user.errors)
+            serialized_user.save()
+            return Response(serialized_user.data, status=status.HTTP_202_ACCEPTED)
+        except AssertionError:
+            return Response({ "detail": serialized_user.errors }, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+        except:
+            return Response("Unprocessable Entity", status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+
 class UserDetailView(APIView):
 
     permission_classes = (IsAuthenticatedOrReadOnly, )
@@ -83,18 +110,18 @@ class UserDetailView(APIView):
         serialised_user = PopulatedUserSerializer(user)
         return Response(serialised_user.data, status=status.HTTP_202_ACCEPTED)
 
-    def put(self, request, pk):
-        user = self.get_user(pk=pk)
-        serialized_user = UserSerializer(user, data=request.data, partial=True)
-        try:
-            serialized_user.is_valid()
-            print('erorrs ---->', serialized_user.errors)
-            serialized_user.save()
-            return Response(serialized_user.data, status=status.HTTP_202_ACCEPTED)
-        except AssertionError:
-            return Response({ "detail": serialized_user.errors }, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
-        except:
-            return Response("Unprocessable Entity", status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+    # def put(self, request, pk):
+    #     user = self.get_user(pk=pk)
+    #     serialized_user = UserSerializer(user, data=request.data, partial=True)
+    #     try:
+    #         serialized_user.is_valid()
+    #         print('erorrs ---->', serialized_user.errors)
+    #         serialized_user.save()
+    #         return Response(serialized_user.data, status=status.HTTP_202_ACCEPTED)
+    #     except AssertionError:
+    #         return Response({ "detail": serialized_user.errors }, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+    #     except:
+    #         return Response("Unprocessable Entity", status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
     def delete(self, request, pk):
         user = self.get_user(pk=pk)

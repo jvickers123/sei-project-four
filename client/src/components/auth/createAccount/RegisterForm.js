@@ -3,7 +3,7 @@ import axios from 'axios'
 // import { useNavigate } from 'react-router-dom'
 import { useToast } from '@chakra-ui/react'
 
-const RegisterForm = ({ nextForm, getUserId }) => {
+const RegisterForm = ({ nextForm }) => {
 
   const toast = useToast()
   // const navigate = useNavigate()
@@ -39,7 +39,7 @@ const RegisterForm = ({ nextForm, getUserId }) => {
     try {
       const { data: registerData } = await axios.post('/api/auth/register/', formData)
       console.log(registerData.id)
-      getUserId(registerData.id)
+      // getUserId(registerData.id)
 
       toast({
         title: 'Registered.',
