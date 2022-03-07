@@ -7,7 +7,8 @@ import { getTokenFromLocal } from '../../../helpers/auth'
 
 const Location = ({ nextForm, parent, closeComponent }) => {
   const toast = useToast()
-  // state
+
+  // STATE
   const [viewPort, setViewPort] = useState({
     latitude: 51.5,
     longitude: -0.118,
@@ -18,15 +19,17 @@ const Location = ({ nextForm, parent, closeComponent }) => {
     longitude: null,
     latitude: null
   })
+
   const [userLocation, setUserLocation] = useState({
     location: '',
     longitude: null,
     latitude: null
   })
+
   const [searchValue, setSearchValue] = useState('')
   const [searchOptions, setSearchOptions] = useState([])
 
-  // get current location
+  // GET CURRENT LOCATION
   const getCurrentLocation = () => {
     window.navigator.geolocation.getCurrentPosition(position => {
       const { latitude, longitude } = position.coords
@@ -51,6 +54,8 @@ const Location = ({ nextForm, parent, closeComponent }) => {
     getCurrentCity()
   }, [currentLocation])
     
+
+  // ADD LOCATION TO PROFILE
   const handleSubmit = async (e) => {
     e.preventDefault()
     const token = getTokenFromLocal()
@@ -83,6 +88,7 @@ const Location = ({ nextForm, parent, closeComponent }) => {
     console.log(searchValue)
   }
 
+  // SEARCH
   useEffect(() => {
     const search = async () => {
       try {
@@ -103,11 +109,11 @@ const Location = ({ nextForm, parent, closeComponent }) => {
       longitude: clickedLocation.center[0],
       latitude: clickedLocation.center[1]
     })
-    // setCurrentLocation({ longitude: clickedLocation.center[0], latitude: clickedLocation.center[1] })
     setViewPort({ latitude: clickedLocation.center[1], longitude: clickedLocation.center[0], zoom: 10 })
     setSearchValue('')
     setSearchOptions([])
   }
+
   return (
     <>
       <form>
@@ -122,6 +128,7 @@ const Location = ({ nextForm, parent, closeComponent }) => {
       }
 
       {!!currentLocation.longitude && <p>{userLocation.location}</p>}
+      
       <div className='map-container'>
         <ReactMapGl
           {...viewPort}

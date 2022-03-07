@@ -9,12 +9,13 @@ import ViewProfile from './ViewProfile'
 
 const UserProfile = () => {
 
+  // STATE
   const [user, setUser] = useState({})
   const [editing, setEditing] = useState(false)
   const [countToUpdateuser, setCountToUpdateUser] = useState(0)
 
+  // GET USER
   useEffect(() => {
-
     const getUser = async () => {
       const token = getTokenFromLocal()
       try {
@@ -28,9 +29,11 @@ const UserProfile = () => {
     getUser()
   }, [countToUpdateuser])
 
+  // TRACK WHEN USER IS UPDATED AND GET USER AGAIN
   const updateUser = () => {
     setCountToUpdateUser(countToUpdateuser + 1)
   }
+  
   return (
     <>
       <h1>{user.first_name}</h1>

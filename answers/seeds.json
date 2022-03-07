@@ -340,5 +340,185 @@
       "question": 19,
       "owner": 1
     }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 39,
+    "fields": {
+      "text": "Plan a holiday a month before",
+      "question": 20,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 40,
+    "fields": {
+      "text": "Last minute flight",
+      "question": 20,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 41,
+    "fields": {
+      "text": "Terrible horror movie",
+      "question": 21,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 42,
+    "fields": {
+      "text": "Unfunny rom-com",
+      "question": 21,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 43,
+    "fields": {
+      "text": "£100,000 to stare at paint",
+      "question": 22,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 44,
+    "fields": {
+      "text": "£11,000 to do anything but work",
+      "question": 22,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 45,
+    "fields": {
+      "text": "Really similar",
+      "question": 23,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 46,
+    "fields": {
+      "text": "Really different",
+      "question": 23,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 47,
+    "fields": {
+      "text": "A year without TV",
+      "question": 24,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 48,
+    "fields": {
+      "text": "A year without music",
+      "question": 24,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 49,
+    "fields": {
+      "text": "Never quite hear anyone",
+      "question": 25,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 50,
+    "fields": {
+      "text": "Never recognise a face",
+      "question": 25,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 51,
+    "fields": {
+      "text": "All skin like lip skin",
+      "question": 26,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 52,
+    "fields": {
+      "text": "Slimy hair",
+      "question": 26,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 53,
+    "fields": {
+      "text": "Know that there are aliens",
+      "question": 27,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 54,
+    "fields": {
+      "text": "Know there is nothing",
+      "question": 27,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 55,
+    "fields": {
+      "text": "Only read recipes after the article",
+      "question": 28,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 56,
+    "fields": {
+      "text": "2 ads for every YouTube video",
+      "question": 28,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 57,
+    "fields": {
+      "text": "Think you have to pee every night",
+      "question": 29,
+      "owner": 1
+    }
+  },
+  {
+    "model": "answers.answer",
+    "pk": 58,
+    "fields": {
+      "text": "Screaming children alarm clock",
+      "question": 29,
+      "owner": 1
+    }
   }
 ]

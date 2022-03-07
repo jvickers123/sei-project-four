@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
+// SUB COMPONENTS
 import { userAuth } from '../helpers/auth'
 
 const SiteNavbar = () => {
+
   const navigate = useNavigate()
 
+  // STATE
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
+  // CHECK IF LOGGED IN
   useEffect(() => {
     setIsLoggedIn(userAuth())
   })
 
+  // LOG OUT
   const logOut = () => {
     window.localStorage.removeItem('token-birds-of-a-feather')
     navigate('/')

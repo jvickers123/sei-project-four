@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useToast } from '@chakra-ui/react'
 
-// components
+// subcomponents
 import ImageUploadField from '../../subComponents/ImageUploadField'
 import { getTokenFromLocal } from '../../../helpers/auth'
 
@@ -12,6 +12,7 @@ const Pictures = ({nextForm, userId}) => {
   const toast = useToast()
   const navigate = useNavigate()
 
+  // STATE
   const [userImages, setUserImages] = useState({
     profile_pic: '',
     pictures: []
@@ -25,7 +26,7 @@ const Pictures = ({nextForm, userId}) => {
   })
 
   
-
+  // SET URLS TO STATE
   const handleImageUrl = (name, url) => {
     if (name === 'profile_pic') { 
       setUserImages({...userImages, [name]: url})
@@ -35,14 +36,14 @@ const Pictures = ({nextForm, userId}) => {
     }
   }
 
+  // SET PICTURES ARRAY TO STATE
   useEffect(() => {
       const urlArray = Object.values(pictures)
-      console.log(urlArray)
       const notBlankArray = urlArray.filter(url => url !== '')
-      console.log('not blank array', notBlankArray)
       setUserImages({ ...userImages, pictures: notBlankArray})
   }, [pictures])
 
+  // ADD PHOTOS TO USER
   useEffect(() => {
     const uploadData = async () => {
       const token = getTokenFromLocal()
@@ -50,9 +51,7 @@ const Pictures = ({nextForm, userId}) => {
         return
       }
       try {
-        console.log(userImages)
-        const { data } = await axios.put('/api/auth/profile/', userImages, { headers: {Authorization: `Bearer ${token}` }})
-        console.log(data)
+        await axios.put('/api/auth/profile/', userImages, { headers: {Authorization: `Bearer ${token}` }})
         toast({
           title: 'Added image.',
           description: `Added image to profile.`,
@@ -66,8 +65,6 @@ const Pictures = ({nextForm, userId}) => {
     }
     uploadData()
   }, [userImages])
-
-  
 
   return (
     <>

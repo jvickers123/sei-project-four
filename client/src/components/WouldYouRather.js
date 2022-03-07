@@ -4,18 +4,18 @@ import axios from 'axios'
 import { getTokenFromLocal } from '../helpers/auth'
 
 const WouldYouRather = () => {
-  // state
+  // STATE
   const [question, setQuestion] = useState(null)
   const [user, setUser] = useState(null)
   const [answeredAllQuestions, setAnsweredAllQuestions] = useState(false)
   const [userAnswered, setUserAnswered] = useState([])
 
+  // GET USER AND QUESTIONS ANSWERED ALREADY
   useEffect(() => {
     const getUser = async () => {
       const token = getTokenFromLocal()
       try {
         const { data } = await axios.get('/api/auth/profile', { headers: {Authorization: `Bearer ${token}` }})
-        console.log(data)
         setUser(data)
         setUserAnswered(data.answers)
       } catch (error) {
@@ -25,19 +25,20 @@ const WouldYouRather = () => {
     getUser()
   }, [])
 
+  // GET QUESTION
   useEffect(() => {
     const getQuestsionId = async () => {
       try {
         const {data: allQuestionsData} = await axios.get('/api/questions')
         const numOfQusetions = allQuestionsData.length
 
-        // check if user has answered all the questions
+        // CHECK IF USER ANSWERED ALL QUESTIONS
         if (userAnswered.length >= allQuestionsData.length) {
           setAnsweredAllQuestions(true)
           return
         }
 
-        // check wich questions have been answered
+        // GET RANDOM QUESTION WHICH HAS NOT ALREADY BEEN ANSWERED
         const randomQuestionId = async () => {
           const randomId = Math.ceil(Math.random() * numOfQusetions)
           if (userAnswered.some(answerId => Math.ceil(answerId / 2) === randomId)) {
@@ -62,11 +63,12 @@ const WouldYouRather = () => {
     getQuestsionId()
   }, [user, userAnswered])
 
-
+  // ADDS ANSWER TO STATE
   const chooseAnswer = (e) => {
     setUserAnswered([...userAnswered, e.target.id])
   }
 
+  // ADD ANSWER TO USER PROFILE
   useEffect(() => {
     const addAnsweredToUser = async () => {
       if (userAnswered.length === 0) {
@@ -77,7 +79,6 @@ const WouldYouRather = () => {
       try {
         const { data } = await axios.put('/api/auth/profile/', { answers: userAnswered }, { headers: {Authorization: `Bearer ${token}` }})
         console.log(data)
-        // setQuestion(null)
       } catch (error) {
         console.log(error.response.data.detail)
       }

@@ -9,7 +9,7 @@ const Name = ({ nextForm, parent, closeComponent }) => {
 
   const toast = useToast()
 
-  // state
+  // STATE
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: ""
@@ -21,15 +21,13 @@ const Name = ({ nextForm, parent, closeComponent }) => {
   })
 
 
-
-  // functions
   const handleChange = (e) => {
     const newObj = { ...formData, [e.target.name]: e.target.value}
-    console.log(newObj)
     setFormData(newObj)
     setFormErrors({ ...formErrors, [e.target.name]: '' })
   }
 
+  // UPDATE USER INFO
   const handleSubmit = async (e) => {
     e.preventDefault()
     const token = getTokenFromLocal()
@@ -59,14 +57,18 @@ const Name = ({ nextForm, parent, closeComponent }) => {
 
   return (
     <form onSubmit={handleSubmit}>
+      
       <label htmlFor='first_name'>First Name</label>
       <input type='first_name' name='first_name' placeholder='First name (required)' value={formData.first_name} onChange={handleChange} />
       {!!formErrors.first_name && <p>{formErrors.first_name}</p>}
+      
       <label htmlFor='last_name'>Last Name</label>
       <input type='last_name' name='last_name' placeholder='Last name' value={formData.last_name} onChange={handleChange} />
       {!!formErrors.last_name && <p>{formErrors.last_name}</p>}
+      
       <input type='submit' value={parent === 'register' ? 'Next' : 'Update'} />
       {parent === 'register' && <input type='button' value='previous' onClick={() => nextForm(-1)}/>}
+    
     </form>
   )
 }

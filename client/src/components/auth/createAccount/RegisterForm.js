@@ -1,14 +1,12 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-// import { useNavigate } from 'react-router-dom'
 import { useToast } from '@chakra-ui/react'
 
 const RegisterForm = ({ nextForm }) => {
 
   const toast = useToast()
-  // const navigate = useNavigate()
 
-  // state
+  // STATE
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -16,7 +14,6 @@ const RegisterForm = ({ nextForm }) => {
     likes_recieved: [],
     questions_owned: []
   })
-
   const [formErrors, setFormErrors] = useState({
     email: '',
     password: '',
@@ -25,7 +22,6 @@ const RegisterForm = ({ nextForm }) => {
     questions_owned: ''
   })
 
-  // Functions
 
   const handleChange = (e) => {
     const newObj = { ...formData, [e.target.name]: e.target.value}
@@ -37,8 +33,8 @@ const RegisterForm = ({ nextForm }) => {
   const handleSubmit = async (e) =>  {
     e.preventDefault()
     try {
+      // REGISTER USER
       await axios.post('/api/auth/register/', formData)
-
       toast({
         title: 'Registered.',
         description: "Your account is ready to be logged in.",
@@ -47,12 +43,11 @@ const RegisterForm = ({ nextForm }) => {
         isClosable: true,
       })
 
-      // log in
+      // LOG USER IN
       const { data: loginData } = await axios.post('/api/auth/login/',{ email: formData.email, password: formData.password })
       console.log(loginData)
       window.localStorage.setItem('token-birds-of-a-feather', loginData.token)
       
-
       toast({
         title: 'Logged in.',
         description: "Your account is ready to be logged in.",
@@ -69,14 +64,13 @@ const RegisterForm = ({ nextForm }) => {
         questions_owned: []
       })
 
-      // navigate('/register/name')
       nextForm(1)
     } catch (error) {
       console.log(error.response.data.detail)
       setFormErrors({...formErrors, ...error.response.data.detail})
     }
-    console.log('submitting')
   }
+  
   return (
     <>
       <form onSubmit={handleSubmit}>

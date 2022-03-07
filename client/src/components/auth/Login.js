@@ -8,30 +8,27 @@ const Login = () => {
   const navigate = useNavigate()
   const toast = useToast()
 
-  //setting local token
+  //SET TOKEN TO LOCAL STORAGE
   const setTokenFromLocal = (token) => {
     window.localStorage.setItem('token-birds-of-a-feather', token)
   }
 
-  //Login details
+  //STATE
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: '',
   })
-
-  //Error messages
   const [error, setError] = useState('')
 
+  // LOG USER IN
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
       const { data } = await axios.post('/api/auth/login/', loginInfo)
-      console.log(data)
       setTokenFromLocal(data.token)
       navigate('/profile')
     } catch (error) {
       setError(error.response.data.detail)
-      // console.log(err.response)
       toast({
         title: 'Error',
         description: "Failed to login.",
@@ -45,9 +42,9 @@ const Login = () => {
   const handleChange = (e) => {
     const newObj = { ...loginInfo, [e.target.name]: e.target.value }
     setLoginInfo(newObj)
-    console.log(loginInfo)
     setError('')
   }
+
   return (
     <>
       <h1>Log in</h1>
