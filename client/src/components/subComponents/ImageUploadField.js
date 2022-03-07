@@ -4,7 +4,7 @@ import axios from 'axios'
 const uploadUrl = process.env.REACT_APP_CLOUDINARY_URL
 const uploadPreset = process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET
 
-const ImageUploadField = ({ handleImageUrl, value, name }) => {
+const ImageUploadField = ({ handleImageUrl, url, name }) => {
 
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
@@ -29,9 +29,9 @@ const ImageUploadField = ({ handleImageUrl, value, name }) => {
     <>
       <label>{name}</label>
       <input className='input' type='file' onChange={handleUpload}/>
-      {value ?
+      {url ?
         <div>
-          <img src={value} alt={name}/>
+          <img src={url} alt={name}/>
         </div>
         : isLoading ?
           <p>loading...</p>
