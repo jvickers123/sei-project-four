@@ -8,7 +8,7 @@ import SiteNavbar from './components/SiteNavbar'
 import Home from './components/Home'
 import Likes from './components/Likes'
 import Matches from './components/Matches'
-import OtherProfile from './components/OtherProfile'
+import Find from './components/Find'
 import WouldYouRather from './components/WouldYouRather'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
@@ -26,7 +26,7 @@ function App() {
           <Route path='/register' element={<Register />} />
           <Route path='/login' element={<Login />} />
           <Route path='/profile' element={<UserProfile />} />
-          <Route path='/profile/:userId' element={<OtherProfile />} />
+          <Route path='/find' element={<Find />} />
           <Route path='/likes' element={<Likes />} />
           <Route path='/matches' element={<Matches />} />
           <Route path='/wouldyourather' element={<WouldYouRather />} />

@@ -32,6 +32,7 @@ const SiteNavbar = () => {
           <Link to='/likes'>Likes</Link>
           <Link to='/matches'>Matches</Link>
           <Link to='/wouldyourather'>Would You Rather</Link>
+          <Link to='/find'>Find</Link>
           <button onClick={logOut}>Logout</button>
         </> 
         :
