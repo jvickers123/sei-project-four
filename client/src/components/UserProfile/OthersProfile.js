@@ -17,6 +17,11 @@ const Others = ({ profileId }) => {
   const [altMatchAnsText, setAltMatchAnsText] = useState('') 
   const [getAnotherMatch, setGetAnotherMatch] = useState(0)
 
+  const [disagreeAnswers, setDisagreeAnsewrs] = useState([])
+  const [disagreeAnswerText1, setDisaagreeAnswerText1] = useState('')
+  const [disagreeAnswerText2, setDisaagreeAnswerText2] = useState('')
+  const [getAnotherDisagreement, setGetAnotherDisagreement] = useState(0)
+
   // GET FEATURED PROFILE
   useEffect(() => {
     if (!profileId) return
@@ -83,6 +88,7 @@ const Others = ({ profileId }) => {
 
   // GET ALTERNATIVE ANSWER
   useEffect(() => {
+    if(!randomMatchingAns) return
     if (randomMatchingAns % 2 === 0) setAltMatchAns(randomMatchingAns - 1)
     if (randomMatchingAns % 2 === 1) setAltMatchAns(randomMatchingAns + 1)
   }, [randomMatchingAns])
@@ -90,6 +96,7 @@ const Others = ({ profileId }) => {
 
    // GET ALTERNATIVE ANSWER TEXT
   useEffect(() => {
+    if(!altMatchAns) return
     const getAnswer = async () => {
       try {
         const { data } = await axios.get(`/api/answers/${altMatchAns}`)
@@ -101,7 +108,47 @@ const Others = ({ profileId }) => {
     getAnswer()
   }, [altMatchAns])
 
+  // GET DISAGREED ANSWERS
+  useEffect(() => {
+    if (!matchingAnswers.length) return
 
+    const userAnswers = user.answers.filter(answer => !matchingAnswers.includes(answer))
+    const featuredProfileAnswers = featuredProfile.answers.filter(answer => !matchingAnswers.includes(answer))
+
+    const sameQuestion = []
+    userAnswers.forEach(answer => {
+      for (let i = 0; i < featuredProfileAnswers.length; i++) {
+        if (Math.ceil(featuredProfileAnswers[i] / 2) === Math.ceil(answer / 2)){
+          sameQuestion.push([answer, featuredProfileAnswers[i]])
+        }}
+      })
+
+    setDisagreeAnsewrs(sameQuestion)
+    }, [matchingAnswers])
+
+  // GET RANDOM ANSWER TEXT
+  useEffect(() => {
+    if (!disagreeAnswers.length) return
+    const randomIndex = Math.floor(Math.random() * disagreeAnswers.length)
+    const getAnswer1 = async () => {
+      try {
+        const { data } = await axios.get(`/api/answers/${disagreeAnswers[randomIndex][0]}`)
+        setDisaagreeAnswerText1(data.text)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    const getAnswer2 = async () => {
+      try {
+        const { data } = await axios.get(`/api/answers/${disagreeAnswers[randomIndex][1]}`)
+        setDisaagreeAnswerText2(data.text)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getAnswer1()
+    getAnswer2()
+  }, [disagreeAnswers, getAnotherDisagreement])
   return (
     <>
       {featuredProfile.id ?
@@ -152,8 +199,10 @@ const Others = ({ profileId }) => {
         <div className='answer-container'>
           {featuredProfile.answers.length ?
           <>
-            <p>You'd both rather </p>
-            {/* {matchAnsText2 && <p>{matchAnsText2} than {altMatchAnsText2}</p>} */}
+            <p>You disagree on whether you'd rather </p>
+            {disagreeAnswerText1 && <p>{disagreeAnswerText1} or {disagreeAnswerText2}</p>}
+            <button onClick={() => setGetAnotherDisagreement(getAnotherDisagreement + 1)}>Get another Disagreement</button>
+
           </>
             :
             <p>Lookes like they need to answer some questions</p>}
