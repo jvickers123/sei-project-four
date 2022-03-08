@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
+import { useToast } from '@chakra-ui/react'
 
 // subcomponents
 import ImageUploadField from '../subComponents/ImageUploadField'
@@ -10,6 +11,8 @@ import Age from '../auth/createAccount/Age'
 import ChangePassword from '../subComponents/ChangePassword'
 
 const EditProfile = ({ user, updateUser }) => {
+
+  const toast = useToast()
 
   // STATE
   const [userPictures, setUserPictures] = useState({
@@ -37,13 +40,29 @@ const EditProfile = ({ user, updateUser }) => {
     }
   }
 
+  // ADD USER IMAGES TO STATE
+  useEffect(() => {
+    setUserPictures({
+      profile_pic: user.profile_pic,
+      pictures: user.pictures
+    })
+  }, [])
+
   // POST NEW IMAGES TO USER PROFILE
   useEffect(() => {
     const postPicture = async () => {
       const token = getTokenFromLocal()
+      if (!userPictures.profile_pic && !userPictures.pictures.length) return
       try {
         await axios.put('/api/auth/profile/', userPictures, { headers: {Authorization: `Bearer ${token}` }})
         updateUser()
+        toast({
+          title: 'Added image.',
+          description: `Added image to profile.`,
+          status: 'success',
+          duration: 9000,
+          isClosable: true,
+        })
       } catch (error) {
         console.log(error.response.data.detail)
       }
