@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, {useState, useEffect} from 'react'
 
 import { getTokenFromLocal } from '../../helpers/auth'
+// import SeedUsersAnswerAllQuestions from '../../helpers/seedFunctions'
 
 const Others = ({ profileId }) => {
   
@@ -39,8 +40,11 @@ const Others = ({ profileId }) => {
     }
     getUser()
   }, [])
+
+
   return (
     <>
+      {/* <SeedUsersAnswerAllQuestions /> */}
       {featuredProfile.id ?
         <>
         {featuredProfile.profile_pic ?
