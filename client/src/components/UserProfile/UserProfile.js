@@ -23,7 +23,7 @@ const UserProfile = () => {
         console.log(data)
         setUser(data)
       } catch (error) {
-        console.log(error)
+        console.log(error.response.data.detail)
       }
     }
     getUser()
