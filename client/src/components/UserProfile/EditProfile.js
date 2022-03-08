@@ -78,8 +78,6 @@ const EditProfile = ({ user, updateUser }) => {
 
   return (
     <>
-      <h2>Edit Profile</h2>
-
       {!!user.profile_pic &&
         <img src={user.profile_pic} alt={user.first_name} />}
         <ImageUploadField name='profile_pic' handleImageUrl={handleImageUrl} url={''}/>
