@@ -61,11 +61,17 @@ const Others = ({ profileId }) => {
     getUser()
   }, [featuredProfile])
 
-  // // GET MATCH RATING
-  // useEffect(() => {
-  //   if(!matchingAnswers.length) return
-  //   const combinedAnswers
-  // }, [matchingAnswers])
+  // GET MATCH RATING
+  useEffect(() => {
+    if(!matchingAnswers.length) return
+    const combinedAnswers = [...user.answers]
+    featuredProfile.answers.forEach(ans => !combinedAnswers.includes(ans) && combinedAnswers.push(ans))
+    let matchRatingPercentage = Math.floor((matchingAnswers.length * 2) / combinedAnswers.length * 100)
+    if (matchRatingPercentage > 100) {
+      matchRatingPercentage = 100
+    }
+    setMatchRating(matchRatingPercentage)
+  }, [matchingAnswers])
 
   // GET RANDOM SELECTION OF RANDOM ANSWERS
   useEffect(() => {
@@ -190,16 +196,9 @@ const Others = ({ profileId }) => {
           <p>Spice up your profile with a profile pic</p>
         }
 
-        <div className='answer-container'>
-          {featuredProfile.answers.length ?
-          <>
-            <p>You'd both rather </p>
-            {matchAnsText1 && <p>{matchAnsText1} than {altMatchAnsText1}</p>}
-
-          </>
-            :
-            <p>Lookes like you need to answer some questions</p>}
-        </div>
+        <div className='match-rating-container' >
+          <h2>Match Rating: {matchRating}%</h2>
+          </div>
 
         <div className='profile-info-container'>
           <p>{featuredProfile.first_name} {featuredProfile.last_name}</p>
