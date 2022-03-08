@@ -41,7 +41,74 @@ const Others = ({ profileId }) => {
   }, [])
   return (
     <>
-      {profileId && profileId}
+      {featuredProfile.id ?
+        <>
+        {featuredProfile.profile_pic ?
+          <img src={featuredProfile.profile_pic} alt={featuredProfile.first_name} />
+          :
+          <p>Spice up your profile with a profile pic</p>
+        }
+
+        <div className='answer-container'>
+          {featuredProfile.answers.length ?
+          <>
+            <p>I'd rather </p>
+            {/* {altAnsText1 && <p>{ansText1} than {altAnsText1}</p>} */}
+
+          </>
+            :
+            <p>Lookes like you need to answer some questions</p>}
+        </div>
+
+        <div className='profile-info-container'>
+          <p>{featuredProfile.first_name} {featuredProfile.last_name}</p>
+          <p>{featuredProfile.city}</p>
+          <p>Age: {featuredProfile.age}</p>
+        </div>
+        {featuredProfile.pictures.length ?
+          <img src={featuredProfile.pictures[0]} alt={featuredProfile.first_name}/>
+          :
+          <p>Spice up your profile with some extra photos</p>}
+
+        {featuredProfile.pictures.length >= 2 ?
+        <img src={featuredProfile.pictures[1]} alt={featuredProfile.first_name}/>
+          :
+          <p>Spice up your profile with some extra photos</p>}
+        
+        <div className='answer-container'>
+          {featuredProfile.answers.length > 1 ?
+          <>
+            <p>I'd rather </p>
+            {/* {altAnsText2 && <p>{ansText2} than {altAnsText2}</p>} */}
+          </>
+            :
+            <p>Lookes like you need to answer some questions</p>}
+        </div>
+        {featuredProfile.pictures.length >= 3 ?
+          <img src={featuredProfile.pictures[2]} alt={featuredProfile.first_name}/>
+          : 
+          <p>Spice up your profile with some extra photos</p>
+        }
+        
+        <div className='answer-container'>
+          {featuredProfile.answers.length > 2 ?
+          <>
+            <p>I'd rather </p>
+            {/* {altAnsText3 && <p>{ansText3} than {altAnsText3}</p>} */}
+          </>
+            :
+            <p>Lookes like you need to answer some questions</p>}
+        </div>
+
+        {featuredProfile.pictures.length >= 4 &&
+          <img src={featuredProfile.pictures[3]} alt={featuredProfile.first_name}/>}
+        
+        {featuredProfile.pictures.length >= 5 &&
+          <img src={featuredProfile.pictures[4]} alt={featuredProfile.first_name}/>}
+        
+      </>
+        :
+        <p>Loading</p>}
     </>
   )
 }
