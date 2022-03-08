@@ -33,7 +33,7 @@ const ViewProfile = ({ user }) => {
   // GET SECOND USER ANSWER
   useEffect(() => {
     if (!user.first_name) return
-    if(user.answers.length < 1) return
+    if(user.answers.length <= 1) return
     const options = user.answers.filter(id => id !== answer1)
     console.log(options)
     setAnswer2(options[Math.floor(Math.random() * options.length)])
@@ -42,7 +42,7 @@ const ViewProfile = ({ user }) => {
   // GET THIRD USER ANSWER
   useEffect(() => {
     if (!user.first_name) return
-    if(user.answers.length < 2) return
+    if(user.answers.length <= 2) return
     const options = user.answers.filter(id => id !== answer1 && id !== answer2)
     console.log(options)
     setAnswer3(options[Math.floor(Math.random() * options.length)])

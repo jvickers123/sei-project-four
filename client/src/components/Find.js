@@ -34,7 +34,7 @@ const Find = () => {
         const token = getTokenFromLocal()
         try {
           const { data } = await axios.get('/api/auth/profile', { headers: {Authorization: `Bearer ${token}` }})
-          console.log(data)
+          // console.log(data)
           setCurrentUser(data)
         } catch (error) {
           console.log(error.response.data.detail)

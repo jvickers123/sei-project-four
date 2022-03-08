@@ -2,13 +2,31 @@ import axios from 'axios'
 import React, {useState, useEffect} from 'react'
 
 import { getTokenFromLocal } from '../../helpers/auth'
-// import SeedUsersAnswerAllQuestions from '../../helpers/seedFunctions'
 
 const Others = ({ profileId }) => {
   
   // STATE
   const [featuredProfile, setFeaturedProfile] = useState({})
   const [user, setUser] = useState({})
+  const [matchingAnswers, setMatchingAnswers] = useState([])
+
+  const [matchingAns1, setMatchingAns1] = useState(null)
+  const [matchingAns2, setMatchingAns2] = useState(null)
+  const [matchingAns3, setMatchingAns3] = useState(null)
+
+  const [matchAnsText1, setMatchAnsText1] = useState('')
+  const [matchAnsText2, setMatchAnsText2] = useState('')
+  const [matchAnsText3, setMatchAnsText3] = useState('')
+
+  const [altMatchAns1, setAltMatchAns1] = useState(null)
+  const [altMatchAns2, setAltMatchAns2] = useState(null)
+  const [altMatchAns3, setAltMatchAns3] = useState(null)
+
+  const [altMatchAnsText1, setAltMatchAnsText1] = useState('')
+  const [altMatchAnsText2, setAltMatchAnsText2] = useState('')
+  const [altMatchAnsText3, setAltMatchAnsText3] = useState('')
+
+
 
   // GET FEATURED PROFILE
   useEffect(() => {
@@ -16,7 +34,7 @@ const Others = ({ profileId }) => {
     const getProfile = async () => {
       try {
         const { data } = await axios.get(`/api/auth/profiles/${profileId}/`)
-        console.log(data)
+        // console.log(data)
         setFeaturedProfile(data)
       } catch (error) {
         console.log(error.response.data.detail)
@@ -25,28 +43,140 @@ const Others = ({ profileId }) => {
     getProfile()
   }, [profileId])
 
-  // GET CURRENT USER
+  // GET CURRENT USER AND MATCHING ANSWERS
   useEffect(() => {
     if (!featuredProfile.id) return
     const getUser = async () => {
       const token = getTokenFromLocal()
       try {
         const { data } = await axios.get('/api/auth/profile', { headers: {Authorization: `Bearer ${token}` }})
-        console.log(data)
         setUser(data)
+        const matchingAns = data.answers.filter(ans => featuredProfile.answers.includes(ans))
+        setMatchingAnswers(matchingAns)
       } catch (error) {
         console.log(error.response.data.detail)
       }
     }
     getUser()
-  }, [])
+  }, [featuredProfile])
 
+  // GET RANDOM SELECTION OF RANDOM ANSWERS
+  useEffect(() => {
+    if(!matchingAnswers.length) return
+    setMatchingAns1(matchingAnswers[Math.floor(Math.random() * matchingAnswers.length)])
+  }, [matchingAnswers])
+
+  useEffect(() => {
+    if(!matchingAns1) return
+    if(matchingAnswers.length <= 1) return
+    const options = matchingAnswers.filter(id => id !== matchingAns1)
+    console.log(options)
+    setMatchingAns2(options[Math.floor(Math.random() * options.length)])
+  }, [matchingAns1])
+
+  useEffect(() => {
+    if(!matchingAns2) return
+    if(matchingAnswers.length <= 2) return
+    const options = matchingAnswers.filter(id => id !== matchingAns1 && id !== matchingAns2)
+    console.log(options)
+    setMatchingAns3(options[Math.floor(Math.random() * options.length)])
+  }, [matchingAns2])
+
+  // GET SHARED ANSWER TEXT
+  useEffect(() => {
+    const getText = async () => {
+      try {
+        const { data } = await axios.get(`/api/answers/${matchingAns1}`)
+        setMatchAnsText1(data.text)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getText()
+  }, [matchingAns1])
+
+  useEffect(() => {
+    const getText = async () => {
+      try {
+        const { data } = await axios.get(`/api/answers/${matchingAns2}`)
+        setMatchAnsText2(data.text)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getText()
+  }, [matchingAns2])
+
+  useEffect(() => {
+    const getText = async () => {
+      try {
+        const { data } = await axios.get(`/api/answers/${matchingAns3}`)
+        setMatchAnsText3(data.text)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getText()
+  }, [matchingAns3])
+
+  // GET ALTERNATIVE ANSWERS
+  useEffect(() => {
+    if (matchingAns1 % 2 === 0) setAltMatchAns1(matchingAns1 - 1)
+    if (matchingAns1 % 2 === 1) setAltMatchAns1(matchingAns1 + 1)
+  }, [matchingAns1])
+
+  useEffect(() => {
+    if (matchingAns2 % 2 === 0) setAltMatchAns2(matchingAns2 - 1)
+    if (matchingAns2 % 2 === 1) setAltMatchAns2(matchingAns2 + 1)
+  }, [matchingAns2])
+
+  useEffect(() => {
+    if (matchingAns3 % 2 === 0) setAltMatchAns3(matchingAns3 - 1)
+    if (matchingAns3 % 2 === 1) setAltMatchAns3(matchingAns3 + 1)
+  }, [matchingAns3])
+
+   // GET ALTERNATIVE ANSWER TEXT
+  useEffect(() => {
+    const getAnswer = async () => {
+      try {
+        const { data } = await axios.get(`/api/answers/${altMatchAns1}`)
+        setAltMatchAnsText1(data.text)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getAnswer()
+  }, [altMatchAns1])
+
+  useEffect(() => {
+    const getAnswer = async () => {
+      try {
+        const { data } = await axios.get(`/api/answers/${altMatchAns2}`)
+        setAltMatchAnsText2(data.text)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getAnswer()
+  }, [altMatchAns2])
+
+  useEffect(() => {
+    const getAnswer = async () => {
+      try {
+        const { data } = await axios.get(`/api/answers/${altMatchAns3}`)
+        setAltMatchAnsText3(data.text)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getAnswer()
+  }, [altMatchAns3])
 
   return (
     <>
-      {/* <SeedUsersAnswerAllQuestions /> */}
       {featuredProfile.id ?
         <>
+        <h1>{featuredProfile.first_name}</h1>
         {featuredProfile.profile_pic ?
           <img src={featuredProfile.profile_pic} alt={featuredProfile.first_name} />
           :
@@ -56,8 +186,8 @@ const Others = ({ profileId }) => {
         <div className='answer-container'>
           {featuredProfile.answers.length ?
           <>
-            <p>I'd rather </p>
-            {/* {altAnsText1 && <p>{ansText1} than {altAnsText1}</p>} */}
+            <p>You'd both rather </p>
+            {matchAnsText1 && <p>{matchAnsText1} than {altMatchAnsText1}</p>}
 
           </>
             :
@@ -82,8 +212,8 @@ const Others = ({ profileId }) => {
         <div className='answer-container'>
           {featuredProfile.answers.length > 1 ?
           <>
-            <p>I'd rather </p>
-            {/* {altAnsText2 && <p>{ansText2} than {altAnsText2}</p>} */}
+            <p>You'd both rather </p>
+            {matchAnsText1 && <p>{matchAnsText2} than {altMatchAnsText2}</p>}
           </>
             :
             <p>Lookes like you need to answer some questions</p>}

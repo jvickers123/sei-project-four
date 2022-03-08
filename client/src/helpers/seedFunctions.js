@@ -31,7 +31,7 @@ const SeedUsersAnswerAllQuestions = () => {
 
   useEffect(() => {
     if(!updateDone) return
-    if(updateDone > 15) return
+    if(updateDone >= 14) return
     setProfileId(profileId + 1)
   }, [updateDone])
   
