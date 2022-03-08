@@ -11,23 +11,11 @@ const Others = ({ profileId }) => {
   const [matchingAnswers, setMatchingAnswers] = useState([])
   const [matchRating, setMatchRating] = useState(null)
 
-  const [matchingAns1, setMatchingAns1] = useState(null)
-  const [matchingAns2, setMatchingAns2] = useState(null)
-  const [matchingAns3, setMatchingAns3] = useState(null)
-
-  const [matchAnsText1, setMatchAnsText1] = useState('')
-  const [matchAnsText2, setMatchAnsText2] = useState('')
-  const [matchAnsText3, setMatchAnsText3] = useState('')
-
-  const [altMatchAns1, setAltMatchAns1] = useState(null)
-  const [altMatchAns2, setAltMatchAns2] = useState(null)
-  const [altMatchAns3, setAltMatchAns3] = useState(null)
-
-  const [altMatchAnsText1, setAltMatchAnsText1] = useState('')
-  const [altMatchAnsText2, setAltMatchAnsText2] = useState('')
-  const [altMatchAnsText3, setAltMatchAnsText3] = useState('')
-
-
+  const [randomMatchingAns, setRandomMatchingAns] = useState(null)
+  const [matchAnsText, setMatchAnsText] = useState('')
+  const [altMatchAns, setAltMatchAns] = useState(null)
+  const [altMatchAnsText, setAltMatchAnsText] = useState('') 
+  const [getAnotherMatch, setGetAnotherMatch] = useState(0)
 
   // GET FEATURED PROFILE
   useEffect(() => {
@@ -73,117 +61,46 @@ const Others = ({ profileId }) => {
     setMatchRating(matchRatingPercentage)
   }, [matchingAnswers])
 
-  // GET RANDOM SELECTION OF RANDOM ANSWERS
+  // GET RANDOM MATCHING ANSWER
   useEffect(() => {
     if(!matchingAnswers.length) return
-    setMatchingAns1(matchingAnswers[Math.floor(Math.random() * matchingAnswers.length)])
-  }, [matchingAnswers])
-
-  useEffect(() => {
-    if(!matchingAns1) return
-    if(matchingAnswers.length <= 1) return
-    const options = matchingAnswers.filter(id => id !== matchingAns1)
-    console.log(options)
-    setMatchingAns2(options[Math.floor(Math.random() * options.length)])
-  }, [matchingAns1])
-
-  useEffect(() => {
-    if(!matchingAns2) return
-    if(matchingAnswers.length <= 2) return
-    const options = matchingAnswers.filter(id => id !== matchingAns1 && id !== matchingAns2)
-    console.log(options)
-    setMatchingAns3(options[Math.floor(Math.random() * options.length)])
-  }, [matchingAns2])
+    setRandomMatchingAns(matchingAnswers[Math.floor(Math.random() * matchingAnswers.length)])
+  }, [matchingAnswers, getAnotherMatch])
 
   // GET SHARED ANSWER TEXT
   useEffect(() => {
+    if (!matchingAnswers.length) return
     const getText = async () => {
       try {
-        const { data } = await axios.get(`/api/answers/${matchingAns1}`)
-        setMatchAnsText1(data.text)
+        const { data } = await axios.get(`/api/answers/${randomMatchingAns}`)
+        setMatchAnsText(data.text)
       } catch (error) {
-        console.log(error)
+        console.log(error.response.data.detail)
       }
     }
     getText()
-  }, [matchingAns1])
+  }, [randomMatchingAns])
 
+  // GET ALTERNATIVE ANSWER
   useEffect(() => {
-    const getText = async () => {
-      try {
-        const { data } = await axios.get(`/api/answers/${matchingAns2}`)
-        setMatchAnsText2(data.text)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    getText()
-  }, [matchingAns2])
+    if (randomMatchingAns % 2 === 0) setAltMatchAns(randomMatchingAns - 1)
+    if (randomMatchingAns % 2 === 1) setAltMatchAns(randomMatchingAns + 1)
+  }, [randomMatchingAns])
 
-  useEffect(() => {
-    const getText = async () => {
-      try {
-        const { data } = await axios.get(`/api/answers/${matchingAns3}`)
-        setMatchAnsText3(data.text)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    getText()
-  }, [matchingAns3])
-
-  // GET ALTERNATIVE ANSWERS
-  useEffect(() => {
-    if (matchingAns1 % 2 === 0) setAltMatchAns1(matchingAns1 - 1)
-    if (matchingAns1 % 2 === 1) setAltMatchAns1(matchingAns1 + 1)
-  }, [matchingAns1])
-
-  useEffect(() => {
-    if (matchingAns2 % 2 === 0) setAltMatchAns2(matchingAns2 - 1)
-    if (matchingAns2 % 2 === 1) setAltMatchAns2(matchingAns2 + 1)
-  }, [matchingAns2])
-
-  useEffect(() => {
-    if (matchingAns3 % 2 === 0) setAltMatchAns3(matchingAns3 - 1)
-    if (matchingAns3 % 2 === 1) setAltMatchAns3(matchingAns3 + 1)
-  }, [matchingAns3])
 
    // GET ALTERNATIVE ANSWER TEXT
   useEffect(() => {
     const getAnswer = async () => {
       try {
-        const { data } = await axios.get(`/api/answers/${altMatchAns1}`)
-        setAltMatchAnsText1(data.text)
+        const { data } = await axios.get(`/api/answers/${altMatchAns}`)
+        setAltMatchAnsText(data.text)
       } catch (error) {
-        console.log(error)
+        console.log(error.response.data.detail)
       }
     }
     getAnswer()
-  }, [altMatchAns1])
+  }, [altMatchAns])
 
-  useEffect(() => {
-    const getAnswer = async () => {
-      try {
-        const { data } = await axios.get(`/api/answers/${altMatchAns2}`)
-        setAltMatchAnsText2(data.text)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    getAnswer()
-  }, [altMatchAns2])
-
-  useEffect(() => {
-    const getAnswer = async () => {
-      try {
-        const { data } = await axios.get(`/api/answers/${altMatchAns3}`)
-        setAltMatchAnsText3(data.text)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    getAnswer()
-  }, [altMatchAns3])
 
   return (
     <>
@@ -216,14 +133,16 @@ const Others = ({ profileId }) => {
           <p>Spice up your profile with some extra photos</p>}
         
         <div className='answer-container'>
-          {featuredProfile.answers.length > 1 ?
+          {featuredProfile.answers.length ?
           <>
             <p>You'd both rather </p>
-            {matchAnsText1 && <p>{matchAnsText2} than {altMatchAnsText2}</p>}
+            {matchAnsText && <p>{matchAnsText} than {altMatchAnsText}</p>}
+            <button onClick={() => setGetAnotherMatch(getAnotherMatch + 1)}>Get another Match</button>
           </>
             :
-            <p>Lookes like you need to answer some questions</p>}
+            <p>Lookes like they need to answer some questions</p>}
         </div>
+
         {featuredProfile.pictures.length >= 3 ?
           <img src={featuredProfile.pictures[2]} alt={featuredProfile.first_name}/>
           : 
@@ -231,13 +150,13 @@ const Others = ({ profileId }) => {
         }
         
         <div className='answer-container'>
-          {featuredProfile.answers.length > 2 ?
+          {featuredProfile.answers.length ?
           <>
-            <p>I'd rather </p>
-            {/* {altAnsText3 && <p>{ansText3} than {altAnsText3}</p>} */}
+            <p>You'd both rather </p>
+            {/* {matchAnsText2 && <p>{matchAnsText2} than {altMatchAnsText2}</p>} */}
           </>
             :
-            <p>Lookes like you need to answer some questions</p>}
+            <p>Lookes like they need to answer some questions</p>}
         </div>
 
         {featuredProfile.pictures.length >= 4 &&
