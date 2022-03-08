@@ -4,26 +4,21 @@ import axios from 'axios'
 const ViewProfile = ({ user }) => {
 
   // STATE
-  // const [answersPicked, setAnswersPicked] = useState([])
-  // const [answersShown, setAnswersShown] = useState([])
-  // const [answerIds, setAnswerIds] = useState({
-  //   answer1: null,
-  //   answer2: null,
-  //   answer3: null
-  // })
-  // const [questions, setQuestions] = useState(null)
-  // const [alternativeAnswers, setAlternativeAnswers] = useState([])
   const [answer1, setAnswer1] = useState(null)
   const [answer2, setAnswer2] = useState(null)
   const [answer3, setAnswer3] = useState(null)
+
+  const [ansText1, setAnsText1] = useState('')
+  const [ansText2, setAnsText2] = useState('')
+  const [ansText3, setAnsText3] = useState('')
 
   const [alternativeAnswer1, setAlternativeAnswer1] = useState(null)
   const [alternativeAnswer2, setAlternativeAnswer2] = useState(null)
   const [alternativeAnswer3, setAlternativeAnswer3] = useState(null)
 
-  const [altAnsText1, setAltAnsText1] = useState(null)
-  const [altAnsText2, setAltAnsText2] = useState(null)
-  const [altAnsText3, setAltAnsText3] = useState(null)
+  const [altAnsText1, setAltAnsText1] = useState('')
+  const [altAnsText2, setAltAnsText2] = useState('')
+  const [altAnsText3, setAltAnsText3] = useState('')
 
 
 
@@ -52,6 +47,43 @@ const ViewProfile = ({ user }) => {
     console.log(options)
     setAnswer3(options[Math.floor(Math.random() * options.length)])
   }, [answer2])
+
+  // GET ANSWER TEXT
+  useEffect(() => {
+    const getText = async () => {
+      try {
+        const { data } = await axios.get(`/api/answers/${answer1}`)
+        setAnsText1(data.text)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getText()
+  }, [answer1])
+
+  useEffect(() => {
+    const getText = async () => {
+      try {
+        const { data } = await axios.get(`/api/answers/${answer2}`)
+        setAnsText2(data.text)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getText()
+  }, [answer2])
+
+  useEffect(() => {
+    const getText = async () => {
+      try {
+        const { data } = await axios.get(`/api/answers/${answer3}`)
+        setAnsText3(data.text)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getText()
+  }, [answer3])
 
   // GET ALTERNATIVE ANSWERS
   useEffect(() => {
@@ -106,72 +138,6 @@ const ViewProfile = ({ user }) => {
     getAnswer()
   }, [alternativeAnswer3])
 
-  //GET RANDOM SELECTION OF ANSWERS 
-  // useEffect(() => {
-
-  //   const getRandomId = () => {
-  //     if (!user.first_name) return 
-  //     let ans1
-  //     let ans2
-  //     let ans3
-  //     const getAns1 = () => {
-  //       ans1 = user.answers[Math.floor(Math.random() * user.answers.length)]
-  //     }
-
-  //     const getAns2 = () => {
-  //       const answer = user.answers[Math.floor(Math.random() * user.answers.length)]
-  //       if (answer === ans1) {
-  //         ans2()} else {
-  //           ans2 = answer
-  //         }
-  //     }
-
-  //     const getAns3 = () => {
-  //       const answer = user.answers[Math.floor(Math.random() * user.answers.length)]
-  //       if (answer === ans1 || answer === ans2) {
-  //         ans3()} else {
-  //           ans3 = answer
-  //         }
-  //     }
-  //     getAns1()
-  //     getAns2()
-  //     getAns3()
-  //     setAnswerIds({
-  //       answer1: ans1,
-  //       answer2: ans2,
-  //       answer3: ans3
-  //     })
-  //     }
-  //   getRandomId()
-  // }, [user])
-
-  // useEffect(() => {
-  //   const getAlternativeAnswers = async () => {
-  //     if (!user.first_name) return
-      
-  //     try {
-        
-  //     } catch (error) {
-        
-  //     }
-  //   }
-  //   getAlternativeAnswers()
-  // }, [answerIds])
-
-  // GET QUESTIONS ASOCIATED WITH ANSWERS
-  // useEffect(() => {
-  //   const getQuestions = async () => {
-  //     const questions = []
-  //     try {
-  //       const { data } = await axios.get('/api/')
-  //     } catch (error) {
-        
-  //     }
-      
-  //   }
-  // }, [answerIds])
-
-
   return (
     <>
       {user.first_name ? 
@@ -182,7 +148,8 @@ const ViewProfile = ({ user }) => {
             {user.answers.length ?
             <>
               <p>I'd rather </p>
-              {/* {answersShown.length ? <p>{answersShown[0]}</p> : <p>loading...</p>} */}
+              {altAnsText1 && <p>{ansText1} than {altAnsText1}</p>}
+
             </>
               :
               <p>Lookes like you need to answer some questions</p>}
@@ -201,7 +168,7 @@ const ViewProfile = ({ user }) => {
             {user.answers.length > 1 ?
             <>
               <p>I'd rather </p>
-              {/* {<p>{user.answers[Math.floor(Math.random() * user.answers.length)]}</p>} */}
+              {altAnsText2 && <p>{ansText2} than {altAnsText2}</p>}
             </>
               :
               <p>Lookes like you need to answer some questions</p>}
@@ -213,7 +180,7 @@ const ViewProfile = ({ user }) => {
             {user.answers.length > 2 ?
             <>
               <p>I'd rather </p>
-              {/* {answersShown.length ? <p>{answersShown[1]}</p> : <p>loading...</p>} */}
+              {altAnsText3 && <p>{ansText3} than {altAnsText3}</p>}
             </>
               :
               <p>Lookes like you need to answer some questions</p>}
