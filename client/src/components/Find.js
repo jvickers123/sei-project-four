@@ -9,7 +9,7 @@ const Find = () => {
 
   // STATE
   const [alluserIds, setAllUserIds] = useState([])
-  const [currentUserId, setCurrentUserId] = useState(null)
+  const [currentUser, setCurrentUser] = useState({})
   const [alreadyViewedIds, setAlreadyViewedIds] = useState([])
   const [profileId, setProfileId] = useState(null)
   
@@ -29,12 +29,13 @@ const Find = () => {
 
   // GET CURRENT USER ID
   useEffect(() => {
+    if(!alluserIds.length) return
       const getUser = async () => {
         const token = getTokenFromLocal()
         try {
           const { data } = await axios.get('/api/auth/profile', { headers: {Authorization: `Bearer ${token}` }})
           console.log(data)
-          setCurrentUserId(data.id)
+          setCurrentUser(data)
         } catch (error) {
           console.log(error.response.data.detail)
         }
@@ -42,13 +43,17 @@ const Find = () => {
       getUser()
   }, [alluserIds])
 
-  // GET NEXT PROFILE
+  // GET NEXT PROFILE THAT ISNT ALREADY VIEWED OR MATCHED
   useEffect(() => {
-    if (!currentUserId) return
-    const options = alluserIds.filter(id => (!alreadyViewedIds.includes(id)) && id !== currentUserId)
+    if (!currentUser.id) return
+    const options = alluserIds.filter(id => 
+      (!alreadyViewedIds.includes(id)) 
+      && id !== currentUser.id
+      &&(!currentUser.matches.includes(id))
+      && (!currentUser.likes_sent.includes(id)) )
     const randomId = options[Math.floor(Math.random() * options.length)]
     setProfileId(randomId)
-  }, [alluserIds])
+  }, [currentUser])
 
   return (
     <div>
