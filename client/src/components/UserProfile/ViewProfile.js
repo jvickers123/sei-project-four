@@ -17,6 +17,16 @@ const ViewProfile = ({ user }) => {
   const [answer2, setAnswer2] = useState(null)
   const [answer3, setAnswer3] = useState(null)
 
+  const [alternativeAnswer1, setAlternativeAnswer1] = useState(null)
+  const [alternativeAnswer2, setAlternativeAnswer2] = useState(null)
+  const [alternativeAnswer3, setAlternativeAnswer3] = useState(null)
+
+  const [altAnsText1, setAltAnsText1] = useState(null)
+  const [altAnsText2, setAltAnsText2] = useState(null)
+  const [altAnsText3, setAltAnsText3] = useState(null)
+
+
+
   // GET FIRST USER ANSWER
   useEffect(() => {
     if (!user.first_name) return
@@ -34,6 +44,7 @@ const ViewProfile = ({ user }) => {
     setAnswer2(options[Math.floor(Math.random() * options.length)])
   }, [answer1])
 
+  // GET THIRD USER ANSWER
   useEffect(() => {
     if (!user.first_name) return
     if(user.answers.length < 2) return
@@ -41,6 +52,59 @@ const ViewProfile = ({ user }) => {
     console.log(options)
     setAnswer3(options[Math.floor(Math.random() * options.length)])
   }, [answer2])
+
+  // GET ALTERNATIVE ANSWERS
+  useEffect(() => {
+    if (answer1 % 2 === 0) setAlternativeAnswer1(answer1 - 1)
+    if (answer1 % 2 === 1) setAlternativeAnswer1(answer1 + 1)
+  }, [answer1])
+
+  useEffect(() => {
+    if (answer2 % 2 === 0) setAlternativeAnswer2(answer2 - 1)
+    if (answer2 % 2 === 1) setAlternativeAnswer2(answer2 + 1)
+  }, [answer2])
+
+  useEffect(() => {
+    if (answer3 % 2 === 0) setAlternativeAnswer3(answer3 - 1)
+    if (answer3 % 2 === 1) setAlternativeAnswer3(answer3 + 1)
+  }, [answer3])
+
+  // GET ALTERNATIVE ANSWER TEXT
+  useEffect(() => {
+    const getAnswer = async () => {
+      try {
+        const { data } = await axios.get(`/api/answers/${alternativeAnswer1}`)
+        setAltAnsText1(data.text)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getAnswer()
+  }, [alternativeAnswer1])
+
+  useEffect(() => {
+    const getAnswer = async () => {
+      try {
+        const { data } = await axios.get(`/api/answers/${alternativeAnswer2}`)
+        setAltAnsText2(data.text)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getAnswer()
+  }, [alternativeAnswer2])
+
+  useEffect(() => {
+    const getAnswer = async () => {
+      try {
+        const { data } = await axios.get(`/api/answers/${alternativeAnswer3}`)
+        setAltAnsText3(data.text)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getAnswer()
+  }, [alternativeAnswer3])
 
   //GET RANDOM SELECTION OF ANSWERS 
   // useEffect(() => {

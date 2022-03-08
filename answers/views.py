@@ -30,6 +30,11 @@ class AnswerDetailView(APIView):
         except Answer.DoesNotExist:
             raise NotFound(detail="Answer not found.")
 
+    def get(self, _request, pk):
+        answer = self.get_answer(pk=pk)
+        serialized_answer = AnswerSerializer(answer)
+        return Response(serialized_answer.data, status=status.HTTP_200_OK)
+
     def put(self, request, pk):
         
         answer = self.get_answer(pk=pk)
