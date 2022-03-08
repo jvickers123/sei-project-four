@@ -9,6 +9,7 @@ const Others = ({ profileId }) => {
   const [featuredProfile, setFeaturedProfile] = useState({})
   const [user, setUser] = useState({})
   const [matchingAnswers, setMatchingAnswers] = useState([])
+  const [matchRating, setMatchRating] = useState(null)
 
   const [matchingAns1, setMatchingAns1] = useState(null)
   const [matchingAns2, setMatchingAns2] = useState(null)
@@ -59,6 +60,12 @@ const Others = ({ profileId }) => {
     }
     getUser()
   }, [featuredProfile])
+
+  // // GET MATCH RATING
+  // useEffect(() => {
+  //   if(!matchingAnswers.length) return
+  //   const combinedAnswers
+  // }, [matchingAnswers])
 
   // GET RANDOM SELECTION OF RANDOM ANSWERS
   useEffect(() => {
