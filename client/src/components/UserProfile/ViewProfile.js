@@ -142,7 +142,11 @@ const ViewProfile = ({ user }) => {
     <>
       {user.first_name ? 
         <>
-          <img src={user.profile_pic} alt={user.first_name} />
+          {user.profile_pic ?
+            <img src={user.profile_pic} alt={user.first_name} />
+            :
+            <p>Spice up your profile with a profile pic</p>
+          }
 
           <div className='answer-container'>
             {user.answers.length ?
@@ -160,9 +164,15 @@ const ViewProfile = ({ user }) => {
             <p>{user.city}</p>
             <p>Age: {user.age}</p>
           </div>
-          
-          <img src={user.pictures[0]} alt={user.first_name}/>
+          {user.pictures.length ?
+            <img src={user.pictures[0]} alt={user.first_name}/>
+            :
+            <p>Spice up your profile with some extra photos</p>}
+
+          {user.pictures.length >= 2 ?
           <img src={user.pictures[1]} alt={user.first_name}/>
+            :
+            <p>Spice up your profile with some extra photos</p>}
           
           <div className='answer-container'>
             {user.answers.length > 1 ?
@@ -173,8 +183,11 @@ const ViewProfile = ({ user }) => {
               :
               <p>Lookes like you need to answer some questions</p>}
           </div>
-
-          <img src={user.pictures[3]} alt={user.first_name}/>
+          {user.pictures.length >= 3 ?
+            <img src={user.pictures[2]} alt={user.first_name}/>
+            : 
+            <p>Spice up your profile with some extra photos</p>
+          }
           
           <div className='answer-container'>
             {user.answers.length > 2 ?
@@ -186,8 +199,11 @@ const ViewProfile = ({ user }) => {
               <p>Lookes like you need to answer some questions</p>}
           </div>
 
-          <img src={user.pictures[4]} alt={user.first_name}/>
-          <img src={user.pictures[5]} alt={user.first_name}/>
+          {user.pictures.length >= 4 &&
+            <img src={user.pictures[3]} alt={user.first_name}/>}
+          
+          {user.pictures.length >= 5 &&
+            <img src={user.pictures[4]} alt={user.first_name}/>}
           
         </>
         :
