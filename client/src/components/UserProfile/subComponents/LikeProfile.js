@@ -6,8 +6,10 @@ import { getTokenFromLocal } from '../../../helpers/auth'
 const LikeProfile = ({ currentUser, profileId, addToAlreadyViewed }) => {
 
   const likeProfile = async () => {
-    const likesSent = [...currentUser.likes_sent]
-    console.log(likesSent)
+    const likesAlreadySent = [...currentUser.likes_sent]
+    console.log(likesAlreadySent)
+    const likesSent = likesAlreadySent.map(profile => profile.id)
+    console.log('just IDs',likesSent)
     likesSent.push(profileId)
     console.log(likesSent)
     const token = getTokenFromLocal()

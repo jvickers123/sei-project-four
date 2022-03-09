@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { getTokenFromLocal } from '../../helpers/auth'
 
-const Others = ({ profileId }) => {
+const OthersProfile = ({ profileId }) => {
   const navigate = useNavigate()
   
   // STATE
@@ -244,4 +244,4 @@ const Others = ({ profileId }) => {
   )
 }
 
-export default Others
+export default OthersProfile
