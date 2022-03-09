@@ -20,8 +20,7 @@ const ViewProfile = ({ user }) => {
   const [altAnsText2, setAltAnsText2] = useState('')
   const [altAnsText3, setAltAnsText3] = useState('')
 
-
-
+  
   // GET FIRST USER ANSWER
   useEffect(() => {
     if (!user.first_name) return

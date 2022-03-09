@@ -28,7 +28,6 @@ const Others = ({ profileId }) => {
     const getProfile = async () => {
       try {
         const { data } = await axios.get(`/api/auth/profiles/${profileId}/`)
-        // console.log(data)
         setFeaturedProfile(data)
       } catch (error) {
         console.log(error.response.data.detail)
@@ -149,6 +148,8 @@ const Others = ({ profileId }) => {
     getAnswer1()
     getAnswer2()
   }, [disagreeAnswers, getAnotherDisagreement])
+
+  
   return (
     <>
       {featuredProfile.id ?
@@ -182,9 +183,18 @@ const Others = ({ profileId }) => {
         <div className='answer-container'>
           {featuredProfile.answers.length ?
           <>
-            <p>You'd both rather </p>
-            {matchAnsText && <p>{matchAnsText} than {altMatchAnsText}</p>}
-            <button onClick={() => setGetAnotherMatch(getAnotherMatch + 1)}>Get another Match</button>
+            {matchAnsText ?
+              <>
+                <p>You'd both rather </p>
+                <p>{matchAnsText} than {altMatchAnsText}</p>
+                <button onClick={() => setGetAnotherMatch(getAnotherMatch + 1)}>Get another Match</button>
+              </> 
+              : 
+              <>
+                <p>Looks like you agree on nothing </p>
+                <p>Answer some more would you rathers and see if this is still the case</p>
+              </>
+            }
           </>
             :
             <p>Lookes like they need to answer some questions</p>}

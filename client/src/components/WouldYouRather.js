@@ -6,9 +6,9 @@ import { getTokenFromLocal } from '../helpers/auth'
 const WouldYouRather = () => {
   // STATE
   const [question, setQuestion] = useState(null)
-  const [user, setUser] = useState(null)
+  // const [user, setUser] = useState(null)
   const [answeredAllQuestions, setAnsweredAllQuestions] = useState(false)
-  const [userAnswered, setUserAnswered] = useState([])
+  const [userAnswered, setUserAnswered] = useState(0)
 
   // GET USER AND QUESTIONS ANSWERED ALREADY
   useEffect(() => {
@@ -16,7 +16,7 @@ const WouldYouRather = () => {
       const token = getTokenFromLocal()
       try {
         const { data } = await axios.get('/api/auth/profile', { headers: {Authorization: `Bearer ${token}` }})
-        setUser(data)
+        // setUser(data)
         setUserAnswered(data.answers)
       } catch (error) {
         console.log(error)
@@ -27,6 +27,7 @@ const WouldYouRather = () => {
 
   // GET QUESTION
   useEffect(() => {
+    if(userAnswered.length === 0) return
     const getQuestsionId = async () => {
       try {
         const {data: allQuestionsData} = await axios.get('/api/questions')
@@ -61,7 +62,7 @@ const WouldYouRather = () => {
       }
     }
     getQuestsionId()
-  }, [user, userAnswered])
+  }, [userAnswered])
 
   // ADDS ANSWER TO STATE
   const chooseAnswer = (e) => {
