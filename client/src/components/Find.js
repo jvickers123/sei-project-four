@@ -3,6 +3,7 @@ import axios from 'axios'
 
 // SUB COMPONENTS
 import OthersProfile from './UserProfile/OthersProfile'
+import LikeProfile from './UserProfile/subComponents/LikeProfile'
 import { getTokenFromLocal } from '../helpers/auth'
 
 const Find = () => {
@@ -33,7 +34,7 @@ const Find = () => {
       const getUser = async () => {
         const token = getTokenFromLocal()
         try {
-          const { data } = await axios.get('/api/auth/profile', { headers: {Authorization: `Bearer ${token}` }})
+          const { data } = await axios.get('/api/auth/profile/', { headers: {Authorization: `Bearer ${token}` }})
           // console.log(data)
           setCurrentUser(data)
         } catch (error) {
@@ -53,11 +54,19 @@ const Find = () => {
       && (!currentUser.likes_sent.includes(id)) )
     const randomId = options[Math.floor(Math.random() * options.length)]
     setProfileId(randomId)
-  }, [currentUser])
+  }, [currentUser, alreadyViewedIds])
+
+  // ADD PROFILE TO ALREADY VIEWED
+  const addToAlreadyViewed = (id) => {
+    setAlreadyViewedIds([...alreadyViewedIds, id])
+  }
 
   return (
     <div>
       <OthersProfile profileId={profileId}/>
+      <div className='likeprofile-container'>
+        <LikeProfile currentUser={currentUser} profileId={profileId} addToAlreadyViewed={addToAlreadyViewed}/>
+        </div>
     </div>
   )
 }
