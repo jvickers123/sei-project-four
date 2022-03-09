@@ -1,9 +1,11 @@
 import axios from 'axios'
 import React, {useState, useEffect} from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { getTokenFromLocal } from '../../helpers/auth'
 
 const Others = ({ profileId }) => {
+  const navigate = useNavigate()
   
   // STATE
   const [featuredProfile, setFeaturedProfile] = useState({})
@@ -193,6 +195,7 @@ const Others = ({ profileId }) => {
               <>
                 <p>Looks like you agree on nothing </p>
                 <p>Answer some more would you rathers and see if this is still the case</p>
+                <button onClick={() => navigate('/wouldyourather')}>Answer more Would You Rathers</button>
               </>
             }
           </>
@@ -209,9 +212,19 @@ const Others = ({ profileId }) => {
         <div className='answer-container'>
           {featuredProfile.answers.length ?
           <>
-            <p>You disagree on whether you'd rather </p>
-            {disagreeAnswerText1 && <p>{disagreeAnswerText1} or {disagreeAnswerText2}</p>}
-            <button onClick={() => setGetAnotherDisagreement(getAnotherDisagreement + 1)}>Get another Disagreement</button>
+            {disagreeAnswerText1 ? 
+              <>
+                <p>You disagree on whether you'd rather </p>
+                <p>{disagreeAnswerText1} or {disagreeAnswerText2}</p>
+                <button onClick={() => setGetAnotherDisagreement(getAnotherDisagreement + 1)}>Get another Disagreement</button>
+              </>
+              :
+              <>
+                <p>You don't disagree on anything</p>
+                <p>Probably a sign you need to answer more questions</p>
+                <button onClick={() => navigate('/wouldyourather')}>Answer more Would You Rathers</button>
+              </>
+              }
 
           </>
             :
