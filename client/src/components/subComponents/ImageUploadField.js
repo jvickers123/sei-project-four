@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import axios from 'axios'
 
 // STYLING
@@ -13,6 +13,9 @@ const ImageUploadField = ({ handleImageUrl, url, name }) => {
   // STATE
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
+
+  // REF
+  const inputFileRef = useRef(null)
 
   // UPLOAD PHOTO
   const handleUpload = async (e) => {
@@ -30,9 +33,14 @@ const ImageUploadField = ({ handleImageUrl, url, name }) => {
     }
   }  
 
+  const handleClick = () => {
+    inputFileRef.current.click()
+  }
+
   return (
-    <Box className='image-upload-container' marginRight={3} marginTop={4} borderRadius={7} width='100px' height='100px' border='2px' borderStyle='dotted' borderColor='black'>
-      <input className='input' type='file' onChange={handleUpload}/>
+    <Box className='image-upload-container' display='flex' alignItems='center' marginRight={3} marginTop={4} borderRadius={7} width='100px' height='100px'>
+      <button className='add-image-btn' onClick={handleClick}>+</button>
+      <input className='input' ref={inputFileRef} type='file' onChange={handleUpload}/>
       {url ?
         <div>
           <Image src={url} alt={name} objectFit='cover' marginTop={5} borderRadius={7} boxSize='100px'/>

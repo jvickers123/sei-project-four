@@ -110,7 +110,7 @@ const EditProfile = ({ user, updateUser }) => {
       
       <div className='profile-info-container'>
 
-        <h2>My info</h2>
+        <p className='faint'>My info</p>
 
         <p>Name: {user.first_name} {user.last_name}</p>
         <button onClick={() => setIsEditing({...isEditing, name: true})}>Update</button>
