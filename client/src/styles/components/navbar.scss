@@ -1,0 +1,9 @@
+.navbar-container {
+  position: sticky;
+  top: 94vh;
+  background: $txt-color;
+  padding: 2vh 0;
+  path {
+    color: lighten($txt-color, 50%);
+  }
+}

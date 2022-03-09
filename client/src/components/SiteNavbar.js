@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+
+// STYLING
+import { HStack,} from '@chakra-ui/react'
+
+// ICONS
+import { FaFeather, FaUser, FaRegHeart, FaQuestion, FaBinoculars, FaHeart } from "react-icons/fa";
+import { GiLovers } from "react-icons/gi";
 
 // SUB COMPONENTS
 import { userAuth } from '../helpers/auth'
 
 const SiteNavbar = () => {
-
-  const navigate = useNavigate()
 
   // STATE
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -16,24 +21,17 @@ const SiteNavbar = () => {
     setIsLoggedIn(userAuth())
   })
 
-  // LOG OUT
-  const logOut = () => {
-    window.localStorage.removeItem('token-birds-of-a-feather')
-    navigate('/')
-  }
-
   return (
-    <>
-      <h2>SiteNavbar</h2>
-      <Link to='/'>Home</Link>
+    <div className='navbar-container'>
+      <HStack justifyContent='space-around' margin>
+      <Link to='/'><FaFeather /></Link>
       {isLoggedIn ?
         <>
-          <Link to='/profile'>Profile</Link>
-          <Link to='/likes'>Likes</Link>
-          <Link to='/matches'>Matches</Link>
-          <Link to='/wouldyourather'>Would You Rather</Link>
-          <Link to='/find'>Find</Link>
-          <button onClick={logOut}>Logout</button>
+          <Link to='/likes'><FaRegHeart /></Link>
+          <Link to='/matches'><GiLovers /></Link>
+          <Link to='/wouldyourather'><FaQuestion /></Link>
+          <Link to='/find'><FaBinoculars /></Link>
+          <Link to='/profile'><FaUser /></Link>
         </> 
         :
         <>
@@ -41,10 +39,8 @@ const SiteNavbar = () => {
           <Link to='/Login'>Login</Link>
         </>
         }
-      
-      
-    </>
-    
+    </HStack>
+    </div>
   )
 }
 
