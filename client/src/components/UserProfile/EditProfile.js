@@ -9,6 +9,7 @@ import Name from '../auth/createAccount/Name'
 import Location from '../auth/createAccount/Location'
 import Age from '../auth/createAccount/Age'
 import ChangePassword from '../subComponents/ChangePassword'
+import DeleteProfile from './subComponents/DeleteProfile'
 
 const EditProfile = ({ user, updateUser }) => {
 
@@ -110,6 +111,7 @@ const EditProfile = ({ user, updateUser }) => {
         {!!isEditing.age && <Age parent='profile' closeComponent={closeComponent}/>}
 
         <ChangePassword />
+        <DeleteProfile />
 
       </div>
     </>

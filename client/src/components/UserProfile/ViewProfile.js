@@ -49,6 +49,7 @@ const ViewProfile = ({ user }) => {
 
   // GET ANSWER TEXT
   useEffect(() => {
+    if(!answer1) return
     const getText = async () => {
       try {
         const { data } = await axios.get(`/api/answers/${answer1}`)
@@ -61,6 +62,7 @@ const ViewProfile = ({ user }) => {
   }, [answer1])
 
   useEffect(() => {
+    if(!answer2) return
     const getText = async () => {
       try {
         const { data } = await axios.get(`/api/answers/${answer2}`)
@@ -73,6 +75,7 @@ const ViewProfile = ({ user }) => {
   }, [answer2])
 
   useEffect(() => {
+    if(!answer3) return
     const getText = async () => {
       try {
         const { data } = await axios.get(`/api/answers/${answer3}`)
@@ -86,22 +89,26 @@ const ViewProfile = ({ user }) => {
 
   // GET ALTERNATIVE ANSWERS
   useEffect(() => {
+    if(!answer1) return
     if (answer1 % 2 === 0) setAlternativeAnswer1(answer1 - 1)
     if (answer1 % 2 === 1) setAlternativeAnswer1(answer1 + 1)
   }, [answer1])
 
   useEffect(() => {
+    if(!answer2) return
     if (answer2 % 2 === 0) setAlternativeAnswer2(answer2 - 1)
     if (answer2 % 2 === 1) setAlternativeAnswer2(answer2 + 1)
   }, [answer2])
 
   useEffect(() => {
+    if(!answer3) return
     if (answer3 % 2 === 0) setAlternativeAnswer3(answer3 - 1)
     if (answer3 % 2 === 1) setAlternativeAnswer3(answer3 + 1)
   }, [answer3])
 
   // GET ALTERNATIVE ANSWER TEXT
   useEffect(() => {
+    if(!alternativeAnswer1) return
     const getAnswer = async () => {
       try {
         const { data } = await axios.get(`/api/answers/${alternativeAnswer1}`)
@@ -114,6 +121,7 @@ const ViewProfile = ({ user }) => {
   }, [alternativeAnswer1])
 
   useEffect(() => {
+    if(!alternativeAnswer2) return
     const getAnswer = async () => {
       try {
         const { data } = await axios.get(`/api/answers/${alternativeAnswer2}`)
@@ -126,12 +134,13 @@ const ViewProfile = ({ user }) => {
   }, [alternativeAnswer2])
 
   useEffect(() => {
+    if(!alternativeAnswer3) return
     const getAnswer = async () => {
       try {
         const { data } = await axios.get(`/api/answers/${alternativeAnswer3}`)
         setAltAnsText3(data.text)
       } catch (error) {
-        console.log(error)
+        console.log(error.response.data)
       }
     }
     getAnswer()
@@ -139,7 +148,7 @@ const ViewProfile = ({ user }) => {
 
   return (
     <>
-      {user.first_name ? 
+      {user.id ? 
         <>
           {user.profile_pic ?
             <img src={user.profile_pic} alt={user.first_name} />

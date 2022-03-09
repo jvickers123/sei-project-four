@@ -95,6 +95,14 @@ class ProfileDetailView(APIView):
         except:
             return Response("Unprocessable Entity", status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
+    def delete(self, request):
+        try:
+            user = User.objects.get(pk=request.user.id)
+        except User.DoesNotExist:
+            raise NotFound(detail = "Profile not found")
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 class UserDetailView(APIView):
 
     # permission_classes = (IsAuthenticatedOrReadOnly, )
@@ -123,12 +131,7 @@ class UserDetailView(APIView):
         except:
             return Response("Unprocessable Entity", status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
-    def delete(self, request, pk):
-        user = self.get_user(pk=pk)
-        if user.id != request.user.id:
-            raise PermissionDenied(detail="Unauthorised")
-        user.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class ChangePasswordView(APIView):
     permission_classes = (IsAuthenticated, )
