@@ -127,7 +127,7 @@ const Location = ({ nextForm, parent, closeComponent }) => {
         ))  
       }
 
-      {!!currentLocation.longitude && <p>{userLocation.location}</p>}
+      {!!userLocation.longitude && <p>{userLocation.location}</p>}
       
       <div className='map-container'>
         <ReactMapGl
@@ -137,7 +137,7 @@ const Location = ({ nextForm, parent, closeComponent }) => {
           mapStyle="mapbox://styles/mapbox/streets-v9"
           mapboxAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
         >
-          {!!currentLocation.longitude && 
+          {!!userLocation.longitude && 
             <Popup closeOnMove={false} closeOnClick={false} latitude={userLocation.latitude} longitude={userLocation.longitude} anchor='bottom'>
               {userLocation.location}
             </Popup>}
