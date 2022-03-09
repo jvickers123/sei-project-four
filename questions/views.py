@@ -55,8 +55,8 @@ class QuestionListView(APIView):
 
             return Response(serialized_question.data, status=status.HTTP_201_CREATED)
 
-        except AssertionError as e:
-            return Response({"detail": str(e) }, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+        except AssertionError:
+            return Response({"detail": serialized_question.errors}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         except KeyError as e:
             print(e)
             return Response({ "detail": "missing field"}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
@@ -89,8 +89,8 @@ class QuestionDetailView(APIView):
             serialized_question.is_valid()
             serialized_question.save()
             return Response(serialized_question.data, status=status.HTTP_202_ACCEPTED)
-        except AssertionError as e:
-            return Response({ "detail": str(e) }, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+        except AssertionError:
+            return Response({ "detail": serialized_question.errors }, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         except:
             return Response("Unprocessable Entity", status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 

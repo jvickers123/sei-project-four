@@ -34,8 +34,8 @@ class RegisterView(APIView):
         
         except ValidationError as e:
             return Response({ "detail": str(e)}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
-        except AssertionError as e:
-            return Response({ "detail": str(e)}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+        except AssertionError:
+            return Response({ "detail": user_to_create.errors}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
 class LoginView(APIView):
 
@@ -44,10 +44,10 @@ class LoginView(APIView):
         try:
             user_to_login = User.objects.get(email=request.data.get('email'))
         except User.DoesNotExist:
-            return PermissionDenied(detail="Unauthorised")
+            raise PermissionDenied(detail="Unauthorised")
         
         if not user_to_login.check_password(request.data.get('password')):
-            return PermissionDenied(detail="Unauthorised")
+            raise PermissionDenied(detail="Unauthorised")
 
         dt = datetime.now() + timedelta(days=7)
 
@@ -68,9 +68,44 @@ class UserListView(APIView):
         serialized_users = UserSerializer(users, many=True)
         return Response(serialized_users.data, status = status.HTTP_200_OK)
 
+class ProfileDetailView(APIView):
+    
+
+    def get(self, request):
+        try:
+            user = User.objects.get(pk=request.user.id)
+        except User.DoesNotExist:
+            raise NotFound(detail = "Profile not found")
+        serialized_user = PopulatedUserSerializer(user)
+        return Response(serialized_user.data, status=status.HTTP_200_OK)
+    
+    def put(self, request) :
+        try:
+            user = User.objects.get(pk=request.user.id)
+        except User.DoesNotExist:
+            raise NotFound(detail = "Profile not found")
+        serialized_user = UserSerializer(user, data=request.data, partial=True)
+        try:
+            serialized_user.is_valid()
+            print('erorrs ---->', serialized_user.errors)
+            serialized_user.save()
+            return Response(serialized_user.data, status=status.HTTP_202_ACCEPTED)
+        except AssertionError:
+            return Response({ "detail": serialized_user.errors }, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+        except:
+            return Response("Unprocessable Entity", status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+    def delete(self, request):
+        try:
+            user = User.objects.get(pk=request.user.id)
+        except User.DoesNotExist:
+            raise NotFound(detail = "Profile not found")
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 class UserDetailView(APIView):
 
-    permission_classes = (IsAuthenticatedOrReadOnly, )
+    # permission_classes = (IsAuthenticatedOrReadOnly, )
 
     def get_user(self, pk):
         try:
@@ -91,33 +126,28 @@ class UserDetailView(APIView):
             print('erorrs ---->', serialized_user.errors)
             serialized_user.save()
             return Response(serialized_user.data, status=status.HTTP_202_ACCEPTED)
-        except AssertionError as e:
-            return Response({ "detail": str(e) }, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+        except AssertionError:
+            return Response({ "detail": serialized_user.errors }, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         except:
             return Response("Unprocessable Entity", status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
-    def delete(self, request, pk):
-        user = self.get_user(pk=pk)
-        if user.id != request.user.id:
-            raise PermissionDenied(detail="Unauthorised")
-        user.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class ChangePasswordView(APIView):
     permission_classes = (IsAuthenticated, )
 
-    def put(self, request, pk):
+    def put(self, request):
 
         try:
-            user_to_change_password= User.objects.get(pk=pk)
+            user_to_change_password= User.objects.get(pk=request.user.id)
         except User.DoesNotExist:
-            return PermissionDenied(detail="Unauthorised")
-
-        if user_to_change_password.id != request.user.id:
             raise PermissionDenied(detail="Unauthorised")
 
+        # if user_to_change_password.id != request.user.id:
+        #     raise PermissionDenied(detail="Unauthorised")
+
         if not user_to_change_password.check_password(request.data.get('old_password')):
-            return PermissionDenied(detail="Unauthorised")
+            raise PermissionDenied(detail="Unauthorised")
         
         serialized_user = UserSerializer(user_to_change_password, data=request.data, partial=True)
 
@@ -125,8 +155,8 @@ class ChangePasswordView(APIView):
             serialized_user.is_valid()
             serialized_user.save()
             return Response(status=status.HTTP_204_NO_CONTENT)
-        except AssertionError as e:
-            return Response({ "detail": str(e) }, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+        except AssertionError:
+            return Response({ "detail": serialized_user.errors }, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         except:
             return Response({"detail": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
         

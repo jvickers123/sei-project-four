@@ -11,7 +11,7 @@
     "model": "questions.question",
     "pk": 2,
     "fields": {
-      "text": "have a slightly boring long term relationship or several hot flings?",
+      "text": "have a slightly boring long term relationship or several meaningless but nontheless spicy hot flings?",
       "owner": 1
     }
   },
@@ -148,6 +148,86 @@
     "pk": 19,
     "fields": {
       "text": "go to Italy or China?",
+      "owner": 1
+    }
+  },
+  {
+    "model": "questions.question",
+    "pk": 20,
+    "fields": {
+      "text": "plan a holiday a month in advance or get a last minute flight?",
+      "owner": 1
+    }
+  },
+  {
+    "model": "questions.question",
+    "pk": 21,
+    "fields": {
+      "text": "star in a truly terrible horror movie or a painfully unfunny rom-com?",
+      "owner": 1
+    }
+  },
+  {
+    "model": "questions.question",
+    "pk": 22,
+    "fields": {
+      "text": "earn £100,000 a year to intensly stare at different shades of paint for 40 hours a week or earn £11,000 a year to do anything you want as long as it is not work?",
+      "owner": 1
+    }
+  },
+  {
+    "model": "questions.question",
+    "pk": 23,
+    "fields": {
+      "text": "be really similar to your partner or really different?",
+      "owner": 1
+    }
+  },
+  {
+    "model": "questions.question",
+    "pk": 24,
+    "fields": {
+      "text": "go a year without TV for a year without music?",
+      "owner": 1
+    }
+  },
+  {
+    "model": "questions.question",
+    "pk": 25,
+    "fields": {
+      "text": "never quite hear anyone the first time they say something or never recognise a face until it's too late?",
+      "owner": 1
+    }
+  },
+  {
+    "model": "questions.question",
+    "pk": 26,
+    "fields": {
+      "text": "have all your skin the same as your lip skin or hair that looks normal but is actually really slimy?",
+      "owner": 1
+    }
+  },
+  {
+    "model": "questions.question",
+    "pk": 27,
+    "fields": {
+      "text": "known that there were aliens out there or know that there is nothing?",
+      "owner": 1
+    }
+  },
+  {
+    "model": "questions.question",
+    "pk": 28,
+    "fields": {
+      "text": "only be able to read a recipe if you have thoroughly read the entire article before it or have two long ads before every youtube video you watched?",
+      "owner": 1
+    }
+  },
+  {
+    "model": "questions.question",
+    "pk": 29,
+    "fields": {
+      "text": "think you need to pee in the middle of the every night until you have got out of bed or have the noise of screaming children as your morning alarm?",
       "owner": 1
     }
   }

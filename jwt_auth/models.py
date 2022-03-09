@@ -5,22 +5,20 @@ from django.contrib.postgres.fields import ArrayField
 # Create your models here.
 class User(AbstractUser):
     email = models.CharField(max_length=50, unique=True)
-    # username = models.CharField(max_length=50)
     username=None
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
-    first_name = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=50, blank=True)
     profile_pic = models.CharField(max_length=500, blank=True)
     pictures = ArrayField(
         models.CharField(max_length=500), 
-        size=5,
         default=list,
         blank=True
     )
     location = models.CharField(max_length=50, blank=True)
-    latitude = models.IntegerField(default=0)
-    longitude = models.IntegerField(default=0)
+    latitude = models.FloatField(default=0)
+    longitude = models.FloatField(default=0)
     age = models.IntegerField(default=0)
     gender = models.CharField(max_length=50, blank=True)
     interested_in = models.CharField(max_length=50, blank=True)
