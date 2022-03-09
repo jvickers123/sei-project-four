@@ -2,6 +2,9 @@ import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import { useToast } from '@chakra-ui/react'
 
+// STYLING
+import { Image, Box } from '@chakra-ui/react'
+
 // subcomponents
 import ImageUploadField from '../subComponents/ImageUploadField'
 import { getTokenFromLocal } from '../../helpers/auth'
@@ -79,20 +82,31 @@ const EditProfile = ({ user, updateUser }) => {
 
   return (
     <>
-      {!!user.profile_pic &&
-        <img src={user.profile_pic} alt={user.first_name} />}
-        <ImageUploadField name='profile_pic' handleImageUrl={handleImageUrl} url={''}/>
+      <Box marginTop={55}  padding={3} width='100%'>
+        <p className='faint'>My Profile Pic</p>
+        <Box display='flex'>
+          {!!user.profile_pic &&
+            <Image src={user.profile_pic} alt={user.first_name} objectFit='cover' margin={5} borderRadius={7} boxSize='100px'/>}
+          <ImageUploadField name='profile_pic' handleImageUrl={handleImageUrl} url={''}/>
+        </Box>
+      </Box>
 
-      <p>My Photo's & Videos</p>
-      {!!user.pictures.length && 
-        user.pictures.map((url, i) => (
-          <div key={i} className='edit-photos-container'>
-            <button onClick={() => removePicture(i)}>X</button>
-            <img src={url} alt={user.first_name + i} />
-            </div>
-        ))}
-        {user.pictures.length < 5 &&
-          <ImageUploadField name='pictures' handleImageUrl={handleImageUrl} url={''}/>}
+      <Box width='100%' padding={3}>
+        <p className='faint'>My Photo's & Videos</p>
+        <Box display='flex' flexWrap='wrap'>
+          {!!user.pictures.length && 
+            user.pictures.map((url, i) => (
+              <div key={i} className='edit-photos-container'>
+                <button onClick={() => removePicture(i)}>x</button>
+                <Image src={url} alt={user.first_name + i} objectFit='cover' marginRight={5} borderRadius={7} boxSize='100px'/>
+                </div>
+            ))}
+            {user.pictures.length < 5 &&
+              <ImageUploadField name='pictures' handleImageUrl={handleImageUrl} url={''} />}
+        </Box>
+        
+        
+      </Box>
       
       <div className='profile-info-container'>
 
@@ -111,6 +125,7 @@ const EditProfile = ({ user, updateUser }) => {
         {!!isEditing.age && <Age parent='profile' closeComponent={closeComponent}/>}
 
         <ChangePassword />
+        
         <DeleteProfile />
 
       </div>

@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 
-
+// STYLING
+import { Image, Box } from '@chakra-ui/react'
 
 const ImageUploadField = ({ handleImageUrl, url, name }) => {
 
@@ -30,19 +31,18 @@ const ImageUploadField = ({ handleImageUrl, url, name }) => {
   }  
 
   return (
-    <>
-      <label>{name}</label>
+    <Box className='image-upload-container' marginRight={3} marginTop={4} borderRadius={7} width='100px' height='100px' border='2px' borderStyle='dotted' borderColor='black'>
       <input className='input' type='file' onChange={handleUpload}/>
       {url ?
         <div>
-          <img src={url} alt={name}/>
+          <Image src={url} alt={name} objectFit='cover' marginTop={5} borderRadius={7} boxSize='100px'/>
         </div>
         : isLoading ?
           <p>loading...</p>
           : isError &&
             <p>There was an error. Please try another file</p>
       }
-    </>
+    </Box>
   )
 }
 

@@ -1,0 +1,14 @@
+.faint {
+  color: lighten($txt-color, 50%);
+}
+
+.edit-photos-container {
+  margin-top: -30px;
+  button {
+    transform: translate(90px, 25px);
+    padding: 10px;
+    background-color: $light-grey;
+    border-radius: 100%;
+
+  }
+}
