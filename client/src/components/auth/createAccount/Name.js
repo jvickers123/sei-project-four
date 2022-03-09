@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useToast } from '@chakra-ui/react'
 
-// auth
+// AUTH
 import { getTokenFromLocal } from '../../../helpers/auth'
+
+// SEED HELPER
+import { seedRandomProfileIds } from '../../../helpers/seedRandomProfileIds'
 
 const Name = ({ nextForm, parent, closeComponent }) => {
 
@@ -54,6 +57,14 @@ const Name = ({ nextForm, parent, closeComponent }) => {
       setFormErrors({...formErrors, ...error.response.data.detail})
     }
   }
+
+  // SEED RADOM LIKES RECIEVED
+  useEffect(() => {
+    const likesRecieved = seedRandomProfileIds()
+    console.log(likesRecieved)
+    setFormData({...formData, likes_recieved: likesRecieved })
+  }, [])
+
 
   return (
     <form onSubmit={handleSubmit}>

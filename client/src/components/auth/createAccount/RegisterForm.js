@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { useToast } from '@chakra-ui/react'
 
+// HELPERS
+// import { seedRandomProfileIds } from '../../../helpers/seedRandomProfileIds'
+
 const RegisterForm = ({ nextForm }) => {
 
   const toast = useToast()
@@ -42,6 +45,8 @@ const RegisterForm = ({ nextForm }) => {
         duration: 9000,
         isClosable: true,
       })
+
+      
 
       // LOG USER IN
       const { data: loginData } = await axios.post('/api/auth/login/',{ email: formData.email, password: formData.password })
