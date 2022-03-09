@@ -2,7 +2,15 @@ import axios from 'axios'
 import React, {useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
 
+// HELPERS
 import { getTokenFromLocal } from '../../helpers/auth'
+
+// STYLING
+import { Heading, Image, Box, HStack } from '@chakra-ui/react'
+
+// ICONS
+import { AiOutlineHome } from "react-icons/ai"
+import { BiCake } from "react-icons/bi"
 
 const OthersProfile = ({ profileId }) => {
   const navigate = useNavigate()
@@ -156,67 +164,80 @@ const OthersProfile = ({ profileId }) => {
     <>
       {featuredProfile.id ?
         <>
-        <h1>{featuredProfile.first_name}</h1>
-        {featuredProfile.profile_pic ?
-          <img src={featuredProfile.profile_pic} alt={featuredProfile.first_name} />
-          :
-          <p>Spice up your profile with a profile pic</p>
-        }
-
-        <div className='match-rating-container' >
-          <h2>Match Rating: {matchRating}%</h2>
-          </div>
-
-        <div className='profile-info-container'>
-          <p>{featuredProfile.first_name} {featuredProfile.last_name}</p>
-          <p>{featuredProfile.city}</p>
-          <p>Age: {featuredProfile.age}</p>
+        <div className='main-user-profile-header'>
+          <header className='profile-header'>
+            <Heading as='h1' size='md'>{featuredProfile.first_name}</Heading>
+          </header>
         </div>
+        
+        <div className='image-container'>
+          {featuredProfile.profile_pic ?
+            <Image src={featuredProfile.profile_pic} alt={featuredProfile.first_name} objectFit='cover' marginTop={55} borderRadius={7} boxSize='360px'/>
+            :
+            <p>No profile image for them yet</p>
+          }
+
+        </div>
+        
+
+        <Box className='match-rating-container text-container' width='360px' margin={5} borderRadius={7} paddingTop={10} paddingBottom={10} paddingLeft={5} paddingRight={5}>
+          <p>Match Rating</p> 
+          <h3 id='match-rating'>{matchRating}%</h3>
+          </Box>
+
+        <Box className='info-container' margin={5} borderRadius={7} paddingTop={7} paddingBottom={7} paddingLeft={5} minW='360px' paddingRight={5}>
+          <HStack className='inside-info-container' marginBottom={5}>
+            <AiOutlineHome />
+            <p>{featuredProfile.location}</p>
+          </HStack>
+          <HStack className='inside-info-container'>
+            <BiCake />
+            <p>{featuredProfile.age}</p>
+          </HStack>
+        </Box>
+
         {featuredProfile.pictures.length ?
-          <img src={featuredProfile.pictures[0]} alt={featuredProfile.first_name}/>
+          <Image src={featuredProfile.pictures[0]} alt={featuredProfile.first_name} objectFit='cover' marginTop={5} borderRadius={7} boxSize='360px'/>
           :
           <p>Spice up your profile with some extra photos</p>}
 
         {featuredProfile.pictures.length >= 2 ?
-        <img src={featuredProfile.pictures[1]} alt={featuredProfile.first_name}/>
+        <Image src={featuredProfile.pictures[1]} alt={featuredProfile.first_name} objectFit='cover' marginTop={5} borderRadius={7} boxSize='360px'/>
           :
           <p>Spice up your profile with some extra photos</p>}
         
-        <div className='answer-container'>
+        <Box className='text-container' margin={5} borderRadius={7} paddingTop={10} paddingBottom={10} paddingLeft={5} paddingRight={5}>
           {featuredProfile.answers.length ?
           <>
             {matchAnsText ?
               <>
                 <p>You'd both rather </p>
-                <p>{matchAnsText} than {altMatchAnsText}</p>
-                <button onClick={() => setGetAnotherMatch(getAnotherMatch + 1)}>Get another Match</button>
+                <h3>{matchAnsText} than {altMatchAnsText}</h3>
+                <button className='pink' onClick={() => setGetAnotherMatch(getAnotherMatch + 1)}>Get another Match</button>
               </> 
               : 
               <>
                 <p>Looks like you agree on nothing </p>
                 <p>Answer some more would you rathers and see if this is still the case</p>
-                <button onClick={() => navigate('/wouldyourather')}>Answer more Would You Rathers</button>
+                <button  onClick={() => navigate('/wouldyourather')}>Answer more Would You Rathers</button>
               </>
             }
           </>
             :
             <p>Lookes like they need to answer some questions</p>}
-        </div>
+        </Box>
 
-        {featuredProfile.pictures.length >= 3 ?
-          <img src={featuredProfile.pictures[2]} alt={featuredProfile.first_name}/>
-          : 
-          <p>Spice up your profile with some extra photos</p>
-        }
+        {featuredProfile.pictures.length >= 3 &&
+          <Image src={featuredProfile.pictures[2]} alt={featuredProfile.first_name} objectFit='cover' marginTop={5} borderRadius={7} boxSize='360px'/>}
         
-        <div className='answer-container'>
+        <Box className='text-container' margin={5} borderRadius={7} paddingTop={10} paddingBottom={10} paddingLeft={5} paddingRight={5}>
           {featuredProfile.answers.length ?
           <>
             {disagreeAnswerText1 ? 
               <>
                 <p>You disagree on whether you'd rather </p>
-                <p>{disagreeAnswerText1} or {disagreeAnswerText2}</p>
-                <button onClick={() => setGetAnotherDisagreement(getAnotherDisagreement + 1)}>Get another Disagreement</button>
+                <h3>{disagreeAnswerText1} or {disagreeAnswerText2}</h3>
+                <button className='pink' onClick={() => setGetAnotherDisagreement(getAnotherDisagreement + 1)}>Get another Disagreement</button>
               </>
               :
               <>
@@ -229,13 +250,13 @@ const OthersProfile = ({ profileId }) => {
           </>
             :
             <p>Lookes like they need to answer some questions</p>}
-        </div>
+        </Box>
 
         {featuredProfile.pictures.length >= 4 &&
-          <img src={featuredProfile.pictures[3]} alt={featuredProfile.first_name}/>}
+          <Image src={featuredProfile.pictures[3]} alt={featuredProfile.first_name} objectFit='cover' marginTop={5} borderRadius={7} boxSize='360px'/>}
         
         {featuredProfile.pictures.length >= 5 &&
-          <img src={featuredProfile.pictures[4]} alt={featuredProfile.first_name}/>}
+          <Image src={featuredProfile.pictures[4]} alt={featuredProfile.first_name} objectFit='cover' marginTop={5} borderRadius={7} boxSize='360px'/>}
         
       </>
         :

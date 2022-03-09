@@ -1,0 +1,40 @@
+.pink {
+  background-color: $light-pink;
+  font-weight: 700;
+  padding: 10px;
+  width: 100%;
+  margin-top: 15px;
+  border-radius: 25px;
+}
+
+.likebtns-container {
+  position: sticky;
+  bottom: 10%;
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+  button {
+    margin: 0 25px;
+    font-size: 2rem;
+    padding: 5px 15px;
+    color: $dark-pink;
+    background-color: $white;
+    border-radius: 50%;
+    @extend %box-shadow;
+    path{
+      color: $dark-pink;
+    }
+  }
+  .reject-btn {
+    padding: 5px 20px 10px 20px;
+  }
+}
+
+.all-btn {
+  position: sticky;
+  top: 15px;
+  align-self: flex-start;
+  margin-left: 15px;
+  margin-top: -35px;
+  z-index: 2;
+}

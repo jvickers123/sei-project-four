@@ -3,6 +3,8 @@ import axios from 'axios'
 
 import { getTokenFromLocal } from '../../../helpers/auth'
 
+import { BiMessageDetail } from 'react-icons/bi'
+
 const MessageProfile = ({ currentUser, profileId, refreshMatches }) => {
 
   const rejectProfile = async () => {
@@ -20,10 +22,10 @@ const MessageProfile = ({ currentUser, profileId, refreshMatches }) => {
     }
   }
   return (
-    <>
-      <button onClick={rejectProfile}>Reject</button>
-      <button onClick={() => window.alert('coming soon')}>message</button>
-    </>
+    <div className='likebtns-container'>
+      <button className='reject-btn' onClick={rejectProfile}>x</button>
+      <button className='like-btn' onClick={() => window.alert('coming soon')}><BiMessageDetail /></button>
+    </div>
   )
 }
 

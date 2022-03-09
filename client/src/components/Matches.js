@@ -48,11 +48,9 @@ const Matches = () => {
     <div className='main'>
       {featuredProfileId ?
         <>
-          <button onClick={goBack}>All</button>
+          <button className='all-btn' onClick={goBack}>All</button>
           <OthersProfile profileId={featuredProfileId} />
-          <div className='likeprofile-container'>
-            <MessageProfile currentUser={user} profileId={featuredProfileId} refreshMatches={refreshMatches}/>
-          </div>
+          <MessageProfile currentUser={user} profileId={featuredProfileId} refreshMatches={refreshMatches}/>
         </>
         :
         <MatchesTiles matches={matches} goToFeaturedProfile={goToFeaturedProfile}/>

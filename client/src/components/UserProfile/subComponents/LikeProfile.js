@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import { getTokenFromLocal } from '../../../helpers/auth'
 
+import { FaRegHeart } from 'react-icons/fa'
 const LikeProfile = ({ currentUser, profileId, addToAlreadyViewed }) => {
 
   const likeProfile = async () => {
@@ -26,10 +27,10 @@ const LikeProfile = ({ currentUser, profileId, addToAlreadyViewed }) => {
     addToAlreadyViewed(profileId)
   }
   return (
-    <>
-      <button onClick={rejectProfile}>Reject</button>
-      <button onClick={likeProfile}>Like</button>
-    </>
+    <div className='likebtns-container'>
+      <button className='reject-btn' onClick={rejectProfile}>x</button>
+      <button className='like-btn' onClick={likeProfile}><FaRegHeart /></button>
+    </div>
   )
 }
 

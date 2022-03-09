@@ -187,7 +187,6 @@ const ViewProfile = ({ user }) => {
                 <BiCake />
                 <p>{user.age}</p>
               </HStack>
-
           </Box>
 
 
@@ -210,6 +209,7 @@ const ViewProfile = ({ user }) => {
               :
               <p>Lookes like you need to answer some questions</p>}
           </Box>
+          
           {user.pictures.length >= 3 ?
             <Image src={user.pictures[2]} alt={user.first_name} objectFit='cover' marginTop={5} borderRadius={7} boxSize='360px'/>
             : 

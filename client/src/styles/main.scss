@@ -5,11 +5,12 @@
 @import './components/textContainers.scss';
 @import './components/imageUpload.scss';
 @import './components/editProfile.scss';
+@import './components/buttons.scss';
 
 * {
   box-sizing: border-box;
   font-family: 'IBM Plex Sans', sans-serif;
-  font-weight: 700;
+  font-weight: 500;
   color: $txt-color;
 
 }
@@ -31,9 +32,6 @@ button {
   font-family: 'IBM Plex Sans', sans-serif;
 }
 
-.likeprofile-container {
-  position: sticky;
-  bottom: 10%;
-  background: white;
-}
+
+
 

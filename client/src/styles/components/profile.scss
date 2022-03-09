@@ -33,9 +33,26 @@
   }
 }
 
+#match-rating {
+  font-size: 4rem;
+  color: $dark-pink;
+}
+
+.all-btn {
+  position: sticky;
+  top: 15px;
+  align-self: flex-start;
+  margin-left: 15px;
+  margin-top: -35px;
+  z-index: 2;
+}
+
 
 @media screen and (min-width: 450px){
   .main-user-profile-header{
-    top: 7vh;
+    top: 40px;
+  }
+  #all-btn{
+    top: 55px;
   }
 }
