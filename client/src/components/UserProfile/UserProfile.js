@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react'
 import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
 
+// STYLING
+import {Heading, Text } from '@chakra-ui/react'
+
+// HELPERS
 import { getTokenFromLocal } from '../../helpers/auth'
 
 // components
@@ -44,17 +48,26 @@ const UserProfile = () => {
   }
   
   return (
-    <>
-      <button onClick={logOut}>Logout</button>
-      <h1>{user.first_name}</h1>
-      <button onClick={() => setEditing(false)} >View</button>
-      <button onClick={() => setEditing(true)} >Edit</button>
+    <div className='main'>
+      <div className='main-user-profile-header'>
+        <header className='profile-header'>
+          <Heading as='h2' size='sm'>Profile</Heading>
+          <Heading as='h1' size='md'>{user.first_name}</Heading>
+          <button onClick={logOut}>Logout</button>
+        </header>
+        
+        <div className='view-edit-container'>
+          <button onClick={() => setEditing(false)} className={!editing && 'highlighted'}>View</button>
+          <button onClick={() => setEditing(true)} className={editing && 'highlighted'}>Edit</button>
+        </div>
+      </div>
+
       {editing ?
         <EditProfile user={user} updateUser={updateUser}/>
         : 
         <ViewProfile user={user}/>
         }
-    </>
+    </div>
   )
 }
 

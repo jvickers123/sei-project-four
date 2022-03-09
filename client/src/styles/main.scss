@@ -1,22 +1,37 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&family=Source+Serif+Pro:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&family=Source+Serif+Pro:wght@600;700;900&display=swap');
 @import './variables.scss';
 @import './components/navbar.scss';
+@import './components/profile.scss';
+@import './components/textContainers.scss';
+
 * {
   box-sizing: border-box;
   font-family: 'IBM Plex Sans', sans-serif;
-  font-weight: 500;
+  font-weight: 700;
   color: $txt-color;
+
 }
 
 .map-container {
   height: 60vh;
   width: 60vh;
 }
+
 .main {
   min-height: 100vh;
+  @include flex-center(column);
+  top: 0px;
+  background-color: $light-grey;
+
 }
+
+button {
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+
 .likeprofile-container {
   position: sticky;
   bottom: 10%;
   background: white;
 }
+

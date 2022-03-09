@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
+// STYLING
+import { Image, Box, HStack } from '@chakra-ui/react'
+
+
+// ICONS
+import { AiOutlineHome } from "react-icons/ai"
+import { BiCake } from "react-icons/bi"
+
 const ViewProfile = ({ user }) => {
 
   // STATE
@@ -150,68 +158,79 @@ const ViewProfile = ({ user }) => {
     <>
       {user.id ? 
         <>
-          {user.profile_pic ?
-            <img src={user.profile_pic} alt={user.first_name} />
-            :
-            <p>Spice up your profile with a profile pic</p>
-          }
+          <div className='image-container'>
+            {user.profile_pic ?
+              <Image src={user.profile_pic} alt={user.first_name} objectFit='cover' marginTop={55} borderRadius={7} boxSize='360px'/>
+              :
+              <p>Spice up your profile with a profile pic</p>
+            }
+          </div>
+          
 
-          <div className='answer-container'>
+          <Box className='text-container' margin={5} borderRadius={7} paddingTop={10} paddingBottom={10} paddingLeft={5} paddingRight={5}>
             {user.answers.length ?
             <>
               <p>I'd rather </p>
-              {altAnsText1 && <p>{ansText1} than {altAnsText1}</p>}
+              {altAnsText1 && <h3>{ansText1} than {altAnsText1}</h3>}
 
             </>
               :
               <p>Lookes like you need to answer some questions</p>}
-          </div>
+          </Box>
 
-          <div className='profile-info-container'>
-            <p>{user.first_name} {user.last_name}</p>
-            <p>{user.city}</p>
-            <p>Age: {user.age}</p>
-          </div>
+          <Box className='info-container' margin={5} borderRadius={7} paddingTop={7} paddingBottom={7} paddingLeft={5} minW='360px' paddingRight={5}>
+            <HStack className='inside-info-container' marginBottom={5}>
+                <AiOutlineHome />
+                <p>{user.location}</p>
+              </HStack>
+              <HStack className='inside-info-container'>
+                <BiCake />
+                <p>{user.age}</p>
+              </HStack>
+
+          </Box>
+
+
           {user.pictures.length ?
-            <img src={user.pictures[0]} alt={user.first_name}/>
+            <Image src={user.pictures[0]} alt={user.first_name} objectFit='cover' marginTop={5} borderRadius={7} boxSize='360px'/>
             :
             <p>Spice up your profile with some extra photos</p>}
 
           {user.pictures.length >= 2 ?
-          <img src={user.pictures[1]} alt={user.first_name}/>
+          <Image src={user.pictures[1]} alt={user.first_name} objectFit='cover' marginTop={5} borderRadius={7} boxSize='360px'/>
             :
             <p>Spice up your profile with some extra photos</p>}
           
-          <div className='answer-container'>
+          <Box className='text-container' margin={5} borderRadius={7} paddingTop={10} paddingBottom={10} paddingLeft={5} paddingRight={5}>
             {user.answers.length > 1 ?
             <>
               <p>I'd rather </p>
-              {altAnsText2 && <p>{ansText2} than {altAnsText2}</p>}
+              {altAnsText2 && <h3>{ansText2} than {altAnsText2}</h3>}
             </>
               :
               <p>Lookes like you need to answer some questions</p>}
-          </div>
+          </Box>
           {user.pictures.length >= 3 ?
-            <img src={user.pictures[2]} alt={user.first_name}/>
+            <Image src={user.pictures[2]} alt={user.first_name} objectFit='cover' marginTop={5} borderRadius={7} boxSize='360px'/>
             : 
             <p>Spice up your profile with some extra photos</p>
           }
           
-          <div className='answer-container'>
+          <Box className='text-container' margin={5} borderRadius={7} paddingTop={10} paddingBottom={10} paddingLeft={5} paddingRight={5}>
             {user.answers.length > 2 ?
             <>
               <p>I'd rather </p>
-              {altAnsText3 && <p>{ansText3} than {altAnsText3}</p>}
+              {altAnsText3 && <h3>{ansText3} than {altAnsText3}</h3>}
             </>
               :
               <p>Lookes like you need to answer some questions</p>}
-          </div>
+          </Box>
 
           {user.pictures.length >= 4 &&
-            <img src={user.pictures[3]} alt={user.first_name}/>}
+            <Image src={user.pictures[3]} alt={user.first_name} objectFit='cover' marginTop={5} borderRadius={7} boxSize='360px'/>}
           
           {user.pictures.length >= 5 &&
-            <img src={user.pictures[4]} alt={user.first_name}/>}
+            <Image src={user.pictures[4]} alt={user.first_name} objectFit='cover' marginTop={5} marginBottom={55} borderRadius={7} boxSize='360px'/>}
           
         </>
         :

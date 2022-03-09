@@ -1,5 +1,17 @@
 $txt-color: #1a1a1a;
 $white: #fffefd;
+$light-grey: #f1f1f1;
 $light-pink: #fed3c2;
 $dark-pink: #682b60;
 $dark-blue: #6a41ec;
+
+@mixin flex-center($direction){
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: $direction;
+}
+
+%box-shadow {
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.26);
+}
