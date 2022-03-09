@@ -12,7 +12,9 @@
   height: 60vh;
   width: 60vh;
 }
-
+.main {
+  min-height: 100vh;
+}
 .likeprofile-container {
   position: sticky;
   bottom: 10%;

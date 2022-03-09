@@ -62,7 +62,7 @@ const Find = () => {
   }
 
   return (
-    <div>
+    <div className='main'>
       <OthersProfile profileId={profileId}/>
       <div className='likeprofile-container'>
         <LikeProfile currentUser={currentUser} profileId={profileId} addToAlreadyViewed={addToAlreadyViewed}/>

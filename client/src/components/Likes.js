@@ -45,7 +45,7 @@ const Likes = () => {
   }
 
   return (
-    <>
+    <div className='main'>
       {featuredProfileId ?
         <>
           <button onClick={goBack}>All</button>
@@ -57,7 +57,7 @@ const Likes = () => {
         :
         <LikesYouTiles likesRecieved={likesRecieved} goToFeaturedProfile={goToFeaturedProfile}/>
       }
-    </>
+    </div>
     
   )
 }

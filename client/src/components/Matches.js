@@ -45,7 +45,7 @@ const Matches = () => {
   }
 
   return (
-    <>
+    <div className='main'>
       {featuredProfileId ?
         <>
           <button onClick={goBack}>All</button>
@@ -57,7 +57,7 @@ const Matches = () => {
         :
         <MatchesTiles matches={matches} goToFeaturedProfile={goToFeaturedProfile}/>
       }
-    </>
+    </div>
     
   )
 }

@@ -88,7 +88,7 @@ const WouldYouRather = () => {
   }, [userAnswered])
     
   return (
-    <>
+    <div className='main'>
       <h1>WouldYouRather...</h1>
       {answeredAllQuestions ? 
         <p>you have answered all the questions</p>
@@ -99,7 +99,7 @@ const WouldYouRather = () => {
             <button id={question.answers[0].id} onClick={chooseAnswer}>{question.answers[0].text}</button>
             <button id={question.answers[1].id} onClick={chooseAnswer}>{question.answers[1].text}</button>
           </>}
-    </>
+    </div>
     
   )
 }
