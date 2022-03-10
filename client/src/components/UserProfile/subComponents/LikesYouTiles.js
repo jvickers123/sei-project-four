@@ -1,17 +1,18 @@
 import React from "react";
 
+import {Box, Image} from '@chakra-ui/react'
+
 const LikesYouTiles = ({ likesRecieved, goToFeaturedProfile }) => {
 
   return (
     <>
-      <h1>Likes You</h1>
       {likesRecieved.length ?
 
         likesRecieved.map(profile => (
-          <div key={profile.id} className='likes-profile-container' onClick={() => goToFeaturedProfile(profile.id)}>
+          <Box key={profile.id} className='likes-profile-container' onClick={() => goToFeaturedProfile(profile.id)} margin={5} borderRadius={7} paddingTop={10} paddingBottom={10} paddingLeft={5} paddingRight={5}>
             <h2>{profile.first_name}</h2>
-            <img src={profile.profile_pic} alt={profile.first_name} />
-          </div>
+            <Image src={profile.profile_pic} alt={profile.first_name} objectFit='cover' marginTop={5} borderRadius={7} boxSize='300px'/>
+          </Box>
         ))
         :
         <p>No likes quite yet</p>

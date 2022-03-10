@@ -7,6 +7,9 @@ import LikesYouTiles from './UserProfile/subComponents/LikesYouTiles'
 import OthersProfile from './UserProfile/OthersProfile'
 import MatchProfile from './UserProfile/subComponents/MatchProfile'
 
+// STYLING
+import { Heading } from '@chakra-ui/react'
+
 const Likes = () => {
 
   // STATE
@@ -45,7 +48,7 @@ const Likes = () => {
   }
 
   return (
-    <div className='main'>
+    <div className={featuredProfileId ? 'main' : 'wyr-main'}>
       {featuredProfileId ?
         <>
           <button className='all-btn' onClick={goBack}>All</button>
@@ -53,7 +56,11 @@ const Likes = () => {
           <MatchProfile currentUser={user} profileId={featuredProfileId} refreshLikes={refreshLikes}/>
         </>
         :
-        <LikesYouTiles likesRecieved={likesRecieved} goToFeaturedProfile={goToFeaturedProfile}/>
+        <>
+          <Heading as='h1' marginBottom={5} size='xl'>Likes you</Heading>
+          <LikesYouTiles likesRecieved={likesRecieved} goToFeaturedProfile={goToFeaturedProfile}/>
+        </>
+
       }
     </div>
     
