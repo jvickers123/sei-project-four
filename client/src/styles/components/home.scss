@@ -1,0 +1,28 @@
+#home-background {
+  background-image: url("https://media.gettyimages.com/photos/lesbian-same-sex-wedding-and-friends-having-dinner-party-picture-id1285121583?k=20&m=1285121583&s=612x612&w=0&h=96HSEam56O1Z47BcIv1W36YgaCDZEKFZAiAjjpMLdec=");
+  background-size: cover;
+  background-position: center;
+  h1, h3, button {
+    color: $white;
+  }
+  justify-content: space-between;
+  .title-container{
+    margin-top: 100px;
+    @include flex-center(column);
+    height: 80px;
+    justify-content: space-between;
+    h3 {
+      font-weight: 700;
+    }
+  }
+  .home-btns-container {
+    @include flex-center(column);
+    height: 120px;
+    justify-content: space-between;
+    width: 300px;
+    margin-bottom: 100px;
+    button {
+      font-weight: 700;
+    }
+  }
+}

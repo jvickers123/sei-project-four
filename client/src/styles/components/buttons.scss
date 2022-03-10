@@ -7,6 +7,21 @@
   border-radius: 25px;
 }
 
+.dark-pink {
+  background-color: $dark-pink;
+  font-weight: 700;
+  padding: 10px;
+  width: 100%;
+  margin-top: 15px;
+  border-radius: 25px;
+  color: $white;
+}
+
+.home-btns-container {
+  @include flex-center(column);
+  width: 80%;
+}
+
 .likebtns-container {
   position: sticky;
   bottom: 10%;

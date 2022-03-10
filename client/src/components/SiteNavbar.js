@@ -25,20 +25,15 @@ const SiteNavbar = () => {
   return (
     <div className='navbar-container'>
       <HStack justifyContent='space-around' margin>
-      <Link to='/'onClick={() => setClicked('home')} className={clicked === 'home' && 'highlight'}><FaFeather /></Link>
-      {isLoggedIn ?
+      <Link to='/'onClick={() => setClicked('home')} className={clicked === 'home' ? 'highlight' : ''}><FaFeather /></Link>
+      {isLoggedIn &&
         <>
-          <Link to='/likes' onClick={() => setClicked('likes')} className={clicked === 'likes' && 'highlight'}><FaRegHeart /></Link>
-          <Link to='/matches' onClick={() => setClicked('matches')} className={clicked === 'matches' && 'highlight'}><GiLovers /></Link>
-          <Link to='/wouldyourather' onClick={() => setClicked('wyr')} className={clicked === 'wyr' && 'highlight'}><FaQuestion /></Link>
-          <Link to='/find' onClick={() => setClicked('find')} className={clicked === 'find' && 'highlight'}><FaBinoculars /></Link>
-          <Link to='/profile' onClick={() => setClicked('profile')} className={clicked === 'profile' && 'highlight'}><FaUser /></Link>
+          <Link to='/likes' onClick={() => setClicked('likes')} className={clicked === 'likes' ? 'highlight' : ''}><FaRegHeart /></Link>
+          <Link to='/matches' onClick={() => setClicked('matches')} className={clicked === 'matches' ? 'highlight' : ''}><GiLovers /></Link>
+          <Link to='/wouldyourather' onClick={() => setClicked('wyr')} className={clicked === 'wyr' ? 'highlight' : ''}><FaQuestion /></Link>
+          <Link to='/find' onClick={() => setClicked('find')} className={clicked === 'find' ? 'highlight' : ''}><FaBinoculars /></Link>
+          <Link to='/profile' onClick={() => setClicked('profile')} className={clicked === 'profile' ? 'highlight' : ''}><FaUser /></Link>
         </> 
-        :
-        <>
-          <Link to='/register'>Register</Link>
-          <Link to='/Login'>Login</Link>
-        </>
         }
     </HStack>
     </div>
