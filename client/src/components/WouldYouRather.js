@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
+// HELPERS
 import { getTokenFromLocal } from '../helpers/auth'
+
+// STYLING
+import { Heading, Box } from '@chakra-ui/react'
 
 const WouldYouRather = () => {
   // STATE
@@ -9,6 +13,7 @@ const WouldYouRather = () => {
   const [user, setUser] = useState(null)
   const [answeredAllQuestions, setAnsweredAllQuestions] = useState(false)
   const [userAnswered, setUserAnswered] = useState([])
+  const [skippedQuestions, setSkippedQuestions] = useState([])
 
   // GET USER AND QUESTIONS ANSWERED ALREADY
   useEffect(() => {
@@ -42,7 +47,7 @@ const WouldYouRather = () => {
         // GET RANDOM QUESTION WHICH HAS NOT ALREADY BEEN ANSWERED
         const randomQuestionId = async () => {
           const randomId = Math.ceil(Math.random() * numOfQusetions)
-          if (userAnswered.some(answerId => Math.ceil(answerId / 2) === randomId)) {
+          if (userAnswered.some(answerId => Math.ceil(answerId / 2) === randomId) || skippedQuestions.includes(randomId)) {
             console.log('do it again', randomId)
             randomQuestionId()
           } else {
@@ -62,11 +67,11 @@ const WouldYouRather = () => {
       }
     }
     getQuestsionId()
-  }, [userAnswered])
+  }, [userAnswered, skippedQuestions])
 
   // ADDS ANSWER TO STATE
   const chooseAnswer = (e) => {
-    setUserAnswered([...userAnswered, e.target.id])
+    setUserAnswered([...userAnswered, parseInt(e.target.id)])
   }
 
   // ADD ANSWER TO USER PROFILE
@@ -86,19 +91,35 @@ const WouldYouRather = () => {
     }
     addAnsweredToUser()
   }, [userAnswered])
+
+  // SKIP QUESTION
+  const skipQuestion = (e) => {
+    setSkippedQuestions([...skippedQuestions, parseInt(e.target.id)])
+  }
     
   return (
-    <div className='main'>
-      <h1>WouldYouRather...</h1>
+    <div className='wyr-main'>
+      <Heading as='h1' size='lg'>Would You Rather</Heading>
+      
+      <div className='question-answer-container'>
       {answeredAllQuestions ? 
-        <p>you have answered all the questions</p>
-        :
-        !!question &&
-          <>
-            <h2>{question.text}</h2>
-            <button id={question.answers[0].id} onClick={chooseAnswer}>{question.answers[0].text}</button>
-            <button id={question.answers[1].id} onClick={chooseAnswer}>{question.answers[1].text}</button>
-          </>}
+          <p>you have answered all the questions</p>
+          :
+          !!question &&
+            <>
+              <Box className='question-container' margin={5} borderRadius={7} paddingTop={10} paddingBottom={10} paddingLeft={5} paddingRight={5}>
+                <p className='faint'>Would You Rather</p>
+                <h3>{question.text}</h3>
+              </Box>
+
+
+              <button className='pink' id={question.answers[0].id} onClick={chooseAnswer}>{question.answers[0].text}</button>
+              <button className='pink' id={question.answers[1].id} onClick={chooseAnswer}>{question.answers[1].text}</button>
+              <button id={question.id} className='skip-btn' onClick={skipQuestion}>Skip</button>
+            </>}
+      
+      </div>
+        
     </div>
     
   )

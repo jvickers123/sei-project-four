@@ -67,7 +67,7 @@
   @include flex-center(row);
 }
 
-.location-previous {
+.location-previous, .skip-btn {
   margin-top: 20px;
 }
 
@@ -80,3 +80,4 @@
   margin-bottom: 60px;
   max-width: 360px;
 }
+

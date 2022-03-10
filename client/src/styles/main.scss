@@ -9,6 +9,7 @@
 @import './components/home.scss';
 @import './components/register-login.scss';
 @import './components/location.scss';
+@import './components/wouldYouRather.scss';
 
 * {
   box-sizing: border-box;
@@ -23,7 +24,6 @@
   @include flex-center(column);
   top: 0px;
   background-color: $light-grey;
-
 }
 
 button {
