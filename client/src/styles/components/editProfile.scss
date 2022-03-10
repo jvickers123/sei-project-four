@@ -12,3 +12,11 @@
 
   }
 }
+
+.edit-info-container {
+  width: 300px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  border-bottom: 1px solid $light-grey;
+}

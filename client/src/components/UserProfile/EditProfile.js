@@ -13,6 +13,7 @@ import Location from '../auth/createAccount/Location'
 import Age from '../auth/createAccount/Age'
 import ChangePassword from '../subComponents/ChangePassword'
 import DeleteProfile from './subComponents/DeleteProfile'
+import EditingProfileModal from './subComponents/EditingModal'
 
 const EditProfile = ({ user, updateUser }) => {
 
@@ -22,11 +23,6 @@ const EditProfile = ({ user, updateUser }) => {
   const [userPictures, setUserPictures] = useState({
     profile_pic: '',
     pictures: []
-  })
-  const [isEditing, setIsEditing] = useState({
-    name: false,
-    location: false,
-    age: false
   })
 
   // REMOVE PHOTOS
@@ -76,7 +72,6 @@ const EditProfile = ({ user, updateUser }) => {
 
   // CLOSE COMPONENT WHEN EDITING SUBMITTED
   const closeComponent = (component) => {
-    setIsEditing({...isEditing, [component]: false})
     updateUser()
   } 
 
@@ -108,27 +103,35 @@ const EditProfile = ({ user, updateUser }) => {
         
       </Box>
       
-      <div className='profile-info-container'>
+      <p className='faint'>My info</p>
 
-        <p className='faint'>My info</p>
-
-        <p>Name: {user.first_name} {user.last_name}</p>
-        <button onClick={() => setIsEditing({...isEditing, name: true})}>Update</button>
-        {!!isEditing.name && <Name parent='profile' closeComponent={closeComponent}/>}
-
-        <p>Location {user.location} </p>
-        <button onClick={() => setIsEditing({...isEditing, location: true})}>Update</button>
-        {!!isEditing.location && <Location parent='profile' closeComponent={closeComponent}/>}
-
-        <p>Age: {user.age}</p>
-        <button onClick={() => setIsEditing({...isEditing, age: true})}>Update</button>
-        {!!isEditing.age && <Age parent='profile' closeComponent={closeComponent}/>}
-
-        <ChangePassword />
+      <Box className='text-container' margin={5} borderRadius={7} paddingTop={10} paddingBottom={10} paddingLeft={5} paddingRight={5}>
         
-        <DeleteProfile />
+        <div className='edit-info-container'>
+          <p>Name: {user.first_name} {user.last_name}</p>
+          <EditingProfileModal content={<Name parent='profile' closeComponent={closeComponent} />} />
+        </div>
+        
+        <div className='edit-info-container'>
+          <p>Location: {user.location} </p>
+          <EditingProfileModal content={<Location parent='profile' closeComponent={closeComponent} />} />
+        </div>
 
-      </div>
+
+        <div className='edit-info-container'>
+          <p>Age: {user.age}</p>
+          <EditingProfileModal content={<Age parent='profile' closeComponent={closeComponent} />} />
+        </div>
+
+        
+
+      </Box>
+        
+      <ChangePassword />
+        
+      <DeleteProfile />
+
+
     </>
   )
 }
