@@ -49,19 +49,24 @@ const Likes = () => {
 
   return (
     <div className={featuredProfileId ? 'main' : 'wyr-main'}>
-      {featuredProfileId ?
-        <>
-          <button className='all-btn' onClick={goBack}>All</button>
-          <OthersProfile profileId={featuredProfileId} />
-          <MatchProfile currentUser={user} profileId={featuredProfileId} refreshLikes={refreshLikes}/>
-        </>
-        :
-        <>
-          <Heading as='h1' marginBottom={5} size='xl'>Likes you</Heading>
-          <LikesYouTiles likesRecieved={likesRecieved} goToFeaturedProfile={goToFeaturedProfile}/>
-        </>
+        {featuredProfileId ?
+          <>
+            <button className='all-btn' onClick={goBack}>All</button>
+            <OthersProfile profileId={featuredProfileId} />
+            <MatchProfile currentUser={user} profileId={featuredProfileId} refreshLikes={refreshLikes}/>
+          </>
+          :
+          <>
+            <Heading as='h1' marginBottom={5} size='xl'>Likes you</Heading>
+            
+            <div className='likes-tiles-container'>
+              <LikesYouTiles likesRecieved={likesRecieved} goToFeaturedProfile={goToFeaturedProfile}/>
+            </div>
+          </>
+            
 
-      }
+        }
+      
     </div>
     
   )

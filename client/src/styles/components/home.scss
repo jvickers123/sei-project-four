@@ -1,9 +1,12 @@
 #home-background {
-  background-image: url("https://media.gettyimages.com/photos/lesbian-same-sex-wedding-and-friends-having-dinner-party-picture-id1285121583?k=20&m=1285121583&s=612x612&w=0&h=96HSEam56O1Z47BcIv1W36YgaCDZEKFZAiAjjpMLdec=");
+  background-image: url("https://assets.hinge.co/Home_01_Hero_4cc39e87c6.jpg");
   background-size: cover;
   background-position: center;
   h1, h3, button {
     color: $white;
+  }
+  h1 {
+    font-family: 'Source Serif Pro', serif;
   }
   justify-content: space-between;
   .title-container{

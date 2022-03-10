@@ -14,14 +14,7 @@ import { BiMessage } from 'react-icons/bi';
 const SiteNavbar = ({ isLoggedIn }) => {
 
   // STATE
-  // const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [clicked, setClicked] = useState('home')
-  // const [onRegisterPage, setOnRegisterPage] = useState(false)
-
-  // useEffect(() => {
-  //   const url = window.location.href.split('/')
-  //   url.includes('register') ? setOnRegisterPage(true) : setOnRegisterPage(false)
-  // })
 
 
   return (

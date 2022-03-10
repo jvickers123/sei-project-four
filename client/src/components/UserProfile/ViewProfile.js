@@ -160,7 +160,7 @@ const ViewProfile = ({ user }) => {
         <>
           <div className='image-container'>
             {user.profile_pic ?
-              <Image src={user.profile_pic} alt={user.first_name} objectFit='cover' marginTop={55} borderRadius={7} boxSize='360px'/>
+              <Image id='profile-pic' src={user.profile_pic} alt={user.first_name} objectFit='cover' marginTop={55} borderRadius={7} boxSize='360px'/>
               :
               <p>Spice up your profile with a profile pic</p>
             }

@@ -30,7 +30,6 @@ const Pictures = ({ nextForm, logInState }) => {
   const handleImageUrl = (name, url) => {
     if (name === 'profile_pic') { 
       setUserImages({...userImages, [name]: url})
-      console.log('hello')
     } else {
       setPictures({...pictures, [name]: url})
     }

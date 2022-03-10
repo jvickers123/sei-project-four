@@ -76,8 +76,8 @@ const EditProfile = ({ user, updateUser, logOutState }) => {
   } 
 
   return (
-    <>
-      <Box marginTop={55}  padding={3} width='100%'>
+    <div className='edit-profile-flex-container'>
+      <Box marginTop={55}  padding={3} width='100%' id='edit-profile-pic-container'>
         <p className='faint'>My Profile Pic</p>
         <Box display='flex'>
           {/* {!!user.profile_pic &&
@@ -88,7 +88,7 @@ const EditProfile = ({ user, updateUser, logOutState }) => {
 
       <Box width='100%' padding={3}>
         <p className='faint'>My Photo's</p>
-        <Box display='flex' flexWrap='wrap'>
+        <Box display='flex' flexWrap='wrap' className='edit-photos-flex-container'>
           {!!user.pictures.length && 
             user.pictures.map((url, i) => (
               <div key={i} className='edit-photos-container'>
@@ -132,7 +132,7 @@ const EditProfile = ({ user, updateUser, logOutState }) => {
       <DeleteProfile logOutState={logOutState}/>
 
 
-    </>
+    </div>
   )
 }
 

@@ -9,7 +9,7 @@
     padding: 10px;
     background-color: $light-grey;
     border-radius: 100%;
-
+    z-index: 0;
   }
 }
 
@@ -19,4 +19,27 @@
   align-items: baseline;
   justify-content: space-between;
   border-bottom: 1px solid $light-grey;
+}
+
+@media screen and (min-width: 600px) {
+  #edit-profile-pic-container {
+    margin-top: 100px;
+    .chakra-image {
+      width: 360px;
+      height: 360px;
+    }
+  }
+  .edit-photos-flex-container {
+    width: 80vw;
+    .edit-photos-container {
+      .chakra-image {
+        width: 360px;
+        height: 360px;
+      }
+      button {
+        transform: translate(320px, 25px);
+      }
+    }
+  }
+  
 }

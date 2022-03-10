@@ -199,12 +199,12 @@ const OthersProfile = ({ profileId }) => {
         {featuredProfile.pictures.length ?
           <Image src={featuredProfile.pictures[0]} alt={featuredProfile.first_name} objectFit='cover' marginTop={5} borderRadius={7} boxSize='360px'/>
           :
-          <p>Spice up your profile with some extra photos</p>}
+          <p>Looks like they need some more photos</p>}
 
         {featuredProfile.pictures.length >= 2 ?
         <Image src={featuredProfile.pictures[1]} alt={featuredProfile.first_name} objectFit='cover' marginTop={5} borderRadius={7} boxSize='360px'/>
           :
-          <p>Spice up your profile with some extra photos</p>}
+          <p>Looks like they need some more photos</p>}
         
         <Box className='text-container' margin={5} borderRadius={7} paddingTop={10} paddingBottom={10} paddingLeft={5} paddingRight={5}>
           {featuredProfile.answers.length ?

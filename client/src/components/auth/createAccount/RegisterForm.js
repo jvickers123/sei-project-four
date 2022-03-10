@@ -52,7 +52,6 @@ const RegisterForm = ({ nextForm }) => {
       const { data: loginData } = await axios.post('/api/auth/login/',{ email: formData.email, password: formData.password })
       console.log(loginData)
       window.localStorage.setItem('token-birds-of-a-feather', loginData.token)
-      // logInState()
       toast({
         title: 'Logged in.',
         description: "Your account is ready to be logged in.",

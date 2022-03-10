@@ -32,6 +32,20 @@ button {
   font-family: 'IBM Plex Sans', sans-serif;
 }
 
-
-
-
+@media screen and (min-width: 600px){
+  .main {
+    padding: 0 50px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    > * {
+      margin: 20px;
+    }
+  }
+  .wyr-main {
+    padding: 0 10%;
+    h1 {
+      margin-top: 80px;
+    }
+  }
+}

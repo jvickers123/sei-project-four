@@ -8,6 +8,7 @@
     .question-container {
       justify-self: center;
       border: 1px solid $light-grey;
+      max-width: 500px;
       @extend %box-shadow;
       h3 {
         font-family: 'Source Serif Pro', serif;
