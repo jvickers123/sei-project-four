@@ -23,8 +23,7 @@ const Register = ({ logInState }) => {
   // }
 
   return (
-    <div className='main'>
-      <h1>Register</h1>
+    <div className='form-main'>
       {formShowing.form === 0 && <RegisterForm nextForm={nextForm} logInState={logInState}/>}
       {formShowing.form === 1 && <Name nextForm={nextForm} parent='register'/>}
       {formShowing.form === 2 && <Age nextForm={nextForm} parent='register'/>}

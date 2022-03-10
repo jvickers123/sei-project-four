@@ -5,23 +5,43 @@
   @include flex-center(column);
   justify-content: flex-start;
   form {
-    margin: 100px 30px;
+    width: 100%;
+    margin-top: 100px;
+    padding: 0 30px;
     max-width: 400px;
     display: flex;
     flex-direction: column;
     label {
       font-family: 'Source Serif Pro', serif;
-      font-size: 2rem;
+      font-size: 1.5rem;
       margin: 20px 0;
     }
     input:not(input[type=submit]) {
       border-bottom: 1px solid $dark-pink;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       margin-bottom: 20px;
     }
     input[type=submit] {
       margin-top: 50px;
     }
+    button {
+      font-weight: 700;
+      margin-top: 30px;
+    }
+
+    .location-label{
+      margin-top: -50px;
+    }
   }
-  
+
 }
+
+.picker-highlight {
+  border-top: 1px solid $dark-pink;
+  border-bottom: 1px solid $dark-pink;
+  background-color: $light-grey;
+  z-index: -1;
+}
+
+
+

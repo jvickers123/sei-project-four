@@ -8,19 +8,15 @@
 @import './components/buttons.scss';
 @import './components/home.scss';
 @import './components/register-login.scss';
+@import './components/location.scss';
 
 * {
   box-sizing: border-box;
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 500;
   color: $txt-color;
-
 }
 
-.map-container {
-  height: 60vh;
-  width: 60vh;
-}
 
 .main {
   min-height: 100vh;

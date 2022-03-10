@@ -5,6 +5,9 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import { useToast } from '@chakra-ui/react'
 import { getTokenFromLocal } from '../../../helpers/auth'
 
+// STYLING
+import { MdMyLocation } from 'react-icons/md'
+
 const Location = ({ nextForm, parent, closeComponent }) => {
   const toast = useToast()
 
@@ -28,13 +31,16 @@ const Location = ({ nextForm, parent, closeComponent }) => {
 
   const [searchValue, setSearchValue] = useState('')
   const [searchOptions, setSearchOptions] = useState([])
+  const [loadingCurrentLocation, setLoadingCurrentLocation] = useState(false)
 
   // GET CURRENT LOCATION
   const getCurrentLocation = () => {
+    setLoadingCurrentLocation(true)
     window.navigator.geolocation.getCurrentPosition(position => {
       const { latitude, longitude } = position.coords
       setCurrentLocation({ latitude: latitude, longitude: longitude })
       setViewPort({ latitude: latitude, longitude: longitude, zoom: 10 })
+      setLoadingCurrentLocation(false)
     })
   }
 
@@ -117,17 +123,22 @@ const Location = ({ nextForm, parent, closeComponent }) => {
   return (
     <>
       <form>
-        <input type='search' placeholder='enter your neighborhood' value={searchValue} onChange={handleChange}/>
+        <label className='location-label' htmlFor='location'>Where do you live?</label>
+        <input type='search' name='location' placeholder='enter your neighborhood' value={searchValue} onChange={handleChange}/>
       </form>
-      {!!searchOptions.length && 
-        searchOptions.map(result => (
-          <div  key={result.id} >
-            <p onClick={handleClick} name={result.text} id={result.id} data={result.center}>{result.place_name}</p>
-          </div>
-        ))  
-      }
 
-      {!!userLocation.longitude && <p>{userLocation.location}</p>}
+      <div className='search-options-container'>
+        {!!searchOptions.length && 
+          searchOptions.map(result => (
+            <div  key={result.id} className='search-options'>
+              <p onClick={handleClick} name={result.text} id={result.id} data={result.center}>{result.place_name}</p>
+            </div>
+          ))  
+        }
+      </div>
+      
+
+      {!!userLocation.longitude && <p className='location-text'>{userLocation.location}</p>}
       
       <div className='map-container'>
         <ReactMapGl
@@ -143,10 +154,14 @@ const Location = ({ nextForm, parent, closeComponent }) => {
             </Popup>}
         </ReactMapGl>
       </div>
-      
-      <button onClick={getCurrentLocation} >Use CurrentLocation</button>
-      {parent === 'register' && <button onClick={() => nextForm(-1)} >Previous</button>}
-      <button onClick={handleSubmit} >{parent === 'register' ? 'Next' : 'update'}</button>
+
+      {loadingCurrentLocation ?
+        <button className='current-location-btn' onClick={getCurrentLocation} >loading...</button>
+        :
+        <button className='current-location-btn' onClick={getCurrentLocation} ><MdMyLocation /> Use CurrentLocation</button>
+        }
+      <button className='pink' onClick={handleSubmit} >{parent === 'register' ? 'Next' : 'update'}</button>
+      {parent === 'register' && <button className='location-previous' onClick={() => nextForm(-1)} >Previous</button>}
     </>
     
   )

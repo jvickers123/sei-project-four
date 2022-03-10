@@ -58,7 +58,7 @@ const Login = ({ logInState }) => {
         {!!error && <p>{error}</p>}
         <label htmlFor='password'>Enter your password</label>
         <input type='password' name='password' value={loginInfo.password} onChange={handleChange} />
-        <input class='pink' type='submit' value='Sign in' />
+        <input className='pink' type='submit' value='Sign in' />
       </form>
     </div>
   )

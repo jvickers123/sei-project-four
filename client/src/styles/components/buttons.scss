@@ -5,6 +5,7 @@
   width: 100%;
   margin-top: 15px;
   border-radius: 25px;
+  max-width: 360px;
 }
 
 .dark-pink {
@@ -49,4 +50,21 @@
   margin-left: 15px;
   margin-top: -35px;
   z-index: 2;
+}
+
+.current-location-btn {
+  transform: translateY(-60px);
+  z-index: 1;
+  background-color: $white;
+  font-weight: 500;
+  padding: 7px;
+  width: 250px;
+  margin-top: 15px;
+  border-radius: 25px;
+  @extend %box-shadow;
+  @include flex-center(row);
+}
+
+.location-previous {
+  margin-top: 20px;
 }

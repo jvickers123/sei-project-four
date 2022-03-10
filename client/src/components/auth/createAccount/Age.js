@@ -79,9 +79,10 @@ const Age = ({ nextForm, parent, closeComponent }) => {
   return (
     <>
       <form onSubmit={handleSubmit}>
+        <label>What's your date of birth?</label>
         <Picker valueGroups={valueGroups} optionGroups={optionGroups} onChange={handleChange}/>
-        <input type='submit' value={parent === 'register' ? 'Next' : 'Update'} />
-        {parent === 'register' && <input type='button' value='previous' onClick={() => nextForm(-1)}/>}
+        <input type='submit' className='pink' value={parent === 'register' ? 'Next' : 'Update'} />
+        {parent === 'register' && <button onClick={() => nextForm(-1)}>Go back</button>}
       </form>
     </>
   

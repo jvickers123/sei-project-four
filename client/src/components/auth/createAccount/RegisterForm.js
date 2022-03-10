@@ -88,7 +88,7 @@ const RegisterForm = ({ nextForm, logInState }) => {
         {!!formErrors.password && <p>{formErrors.password}</p>}
         <input type='password' name='password_confirmation' value={formData.password_confirmation} onChange={handleChange} />
         {!!formErrors.password_confirmation && <p>{formErrors.password_confirmation}</p>}
-        <input type='submit' value='Next' />
+        <input type='submit' className='pink' value='Next' />
       </form>
     </>
   )
