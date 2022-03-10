@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useToast } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 
-const Login = () => {
+const Login = ({ logInState }) => {
 
   const navigate = useNavigate()
   const toast = useToast()
@@ -26,6 +26,7 @@ const Login = () => {
     try {
       const { data } = await axios.post('/api/auth/login/', loginInfo)
       setTokenFromLocal(data.token)
+      logInState()
       navigate('/profile')
     } catch (error) {
       setError(error.response.data.detail)
@@ -46,7 +47,7 @@ const Login = () => {
   }
 
   return (
-    <>
+    <div className='main'>
       <h1>Log in</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor='email'>Enter your email</label>
@@ -56,7 +57,7 @@ const Login = () => {
         <input type='password' name='password' value={loginInfo.password} onChange={handleChange} />
         <input type='submit' value='Sign in' />
       </form>
-    </>
+    </div>
   )
 }
 

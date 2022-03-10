@@ -12,7 +12,7 @@ import { getTokenFromLocal } from '../../helpers/auth'
 import EditProfile from './EditProfile'
 import ViewProfile from './ViewProfile'
 
-const UserProfile = () => {
+const UserProfile = ({ logOutState }) => {
 
   const navigate = useNavigate()
 
@@ -45,6 +45,7 @@ const UserProfile = () => {
   const logOut = () => {
     window.localStorage.removeItem('token-birds-of-a-feather')
     navigate('/')
+    logOutState()
   }
   
   return (
@@ -63,7 +64,7 @@ const UserProfile = () => {
       </div>
 
       {editing ?
-        <EditProfile user={user} updateUser={updateUser}/>
+        <EditProfile user={user} updateUser={updateUser} />
         : 
         <ViewProfile user={user}/>
         }

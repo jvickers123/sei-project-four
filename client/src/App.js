@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { ChakraProvider } from '@chakra-ui/react'
 
@@ -13,18 +13,29 @@ import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 import UserProfile from './components/UserProfile/UserProfile'
 
+// HELPER
+import { userAuth } from './helpers/auth'
+
 
 function App() {
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  useEffect(() => {
+    setIsLoggedIn(userAuth())
+  })
+
+  const logOutState = () => setIsLoggedIn(false)
+  const logInState = () => setIsLoggedIn(true)
   return (
     <ChakraProvider>
       <BrowserRouter>
-        <SiteNavbar />
+        <SiteNavbar isLoggedIn={isLoggedIn}/>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/register' element={<Register />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/profile' element={<UserProfile />} />
+          <Route path='/register' element={<Register logInState={logInState}/>} />
+          <Route path='/login' element={<Login logInState={logInState}/>} />
+          <Route path='/profile' element={<UserProfile logOutState={logOutState}/>} />
           <Route path='/find' element={<Find />} />
           <Route path='/likes' element={<Likes />} />
           <Route path='/matches' element={<Matches />} />
