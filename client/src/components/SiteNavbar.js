@@ -16,17 +16,17 @@ const SiteNavbar = ({ isLoggedIn }) => {
   // STATE
   // const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [clicked, setClicked] = useState('home')
-  const [onRegisterPage, setOnRegisterPage] = useState(false)
+  // const [onRegisterPage, setOnRegisterPage] = useState(false)
 
-  useEffect(() => {
-    const url = window.location.href.split('/')
-    url.includes('register') ? setOnRegisterPage(true) : setOnRegisterPage(false)
-  })
+  // useEffect(() => {
+  //   const url = window.location.href.split('/')
+  //   url.includes('register') ? setOnRegisterPage(true) : setOnRegisterPage(false)
+  // })
 
 
   return (
     <>
-      {isLoggedIn && !onRegisterPage &&
+      {isLoggedIn &&
         <div className='navbar-container'>
           <HStack justifyContent='space-around' margin>
           <p><FaFeather /></p>

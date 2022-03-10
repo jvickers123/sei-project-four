@@ -5,7 +5,7 @@ import { useToast } from '@chakra-ui/react'
 // HELPERS
 // import { seedRandomProfileIds } from '../../../helpers/seedRandomProfileIds'
 
-const RegisterForm = ({ nextForm, logInState }) => {
+const RegisterForm = ({ nextForm }) => {
 
   const toast = useToast()
 
@@ -52,7 +52,7 @@ const RegisterForm = ({ nextForm, logInState }) => {
       const { data: loginData } = await axios.post('/api/auth/login/',{ email: formData.email, password: formData.password })
       console.log(loginData)
       window.localStorage.setItem('token-birds-of-a-feather', loginData.token)
-      logInState()
+      // logInState()
       toast({
         title: 'Logged in.',
         description: "Your account is ready to be logged in.",

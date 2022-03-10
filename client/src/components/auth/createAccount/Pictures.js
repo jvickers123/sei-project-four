@@ -7,7 +7,7 @@ import { useToast } from '@chakra-ui/react'
 import ImageUploadField from '../../subComponents/ImageUploadField'
 import { getTokenFromLocal } from '../../../helpers/auth'
 
-const Pictures = ({ nextForm }) => {
+const Pictures = ({ nextForm, logInState }) => {
 
   const toast = useToast()
   const navigate = useNavigate()
@@ -66,6 +66,11 @@ const Pictures = ({ nextForm }) => {
     uploadData()
   }, [userImages])
 
+  const handleCreateAccount = () => {
+    logInState()
+    navigate('/profile')
+  }
+
   return (
     <>
       <form>
@@ -88,7 +93,7 @@ const Pictures = ({ nextForm }) => {
         <ImageUploadField name='pic6' handleImageUrl={handleImageUrl} url={pictures.pic6}/>
       </div>
 
-      <button className='pink' onClick={() => navigate('/profile')}>Next</button>
+      <button className='pink' onClick={handleCreateAccount }>Create account</button>
       <button className='location-previous' onClick={() => nextForm(-1)}>Previous</button>
 
     </>
