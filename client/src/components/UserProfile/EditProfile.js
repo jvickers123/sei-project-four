@@ -15,7 +15,7 @@ import ChangePassword from '../subComponents/ChangePassword'
 import DeleteProfile from './subComponents/DeleteProfile'
 import EditingProfileModal from './subComponents/EditingModal'
 
-const EditProfile = ({ user, updateUser }) => {
+const EditProfile = ({ user, updateUser, logOutState }) => {
 
   const toast = useToast()
 
@@ -129,7 +129,7 @@ const EditProfile = ({ user, updateUser }) => {
         
       <ChangePassword />
         
-      <DeleteProfile />
+      <DeleteProfile logOutState={logOutState}/>
 
 
     </>

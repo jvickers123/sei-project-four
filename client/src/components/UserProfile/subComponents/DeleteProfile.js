@@ -9,7 +9,7 @@ import { getTokenFromLocal } from '../../../helpers/auth'
 import {Modal, useDisclosure, ModalContent, ModalBody, ModalCloseButton } from '@chakra-ui/react'
 
 
-const DeleteProfile = ({ user }) => {
+const DeleteProfile = ({ logOutState }) => {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -17,10 +17,11 @@ const DeleteProfile = ({ user }) => {
 
   const deleteProfile = async () => {
     const token = getTokenFromLocal()
+    navigate('/')
     try {
       await axios.delete('/api/auth/profile/', { headers: {Authorization: `Bearer ${token}` }})
+      logOutState()
       window.localStorage.removeItem('token-birds-of-a-feather')
-      navigate('/')
     } catch (error) {
       console.log(error.response.data.detail)
     }

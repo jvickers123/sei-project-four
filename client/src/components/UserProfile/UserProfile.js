@@ -64,7 +64,7 @@ const UserProfile = ({ logOutState }) => {
       </div>
 
       {editing ?
-        <EditProfile user={user} updateUser={updateUser} />
+        <EditProfile user={user} updateUser={updateUser} logOutState={logOutState}/>
         : 
         <ViewProfile user={user}/>
         }
