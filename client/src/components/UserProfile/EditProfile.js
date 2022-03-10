@@ -85,9 +85,9 @@ const EditProfile = ({ user, updateUser }) => {
       <Box marginTop={55}  padding={3} width='100%'>
         <p className='faint'>My Profile Pic</p>
         <Box display='flex'>
-          {!!user.profile_pic &&
-            <Image src={user.profile_pic} alt={user.first_name} objectFit='cover' margin={5} borderRadius={7} boxSize='100px'/>}
-          <ImageUploadField name='profile_pic' handleImageUrl={handleImageUrl} url={''}/>
+          {/* {!!user.profile_pic &&
+            <Image src={user.profile_pic} alt={user.first_name} objectFit='cover' margin={5} borderRadius={7} boxSize='100px'/>} */}
+          <ImageUploadField name='profile_pic' handleImageUrl={handleImageUrl} url={userPictures.profile_pic}/>
         </Box>
       </Box>
 

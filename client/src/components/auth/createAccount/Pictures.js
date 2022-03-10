@@ -7,7 +7,7 @@ import { useToast } from '@chakra-ui/react'
 import ImageUploadField from '../../subComponents/ImageUploadField'
 import { getTokenFromLocal } from '../../../helpers/auth'
 
-const Pictures = ({nextForm, userId}) => {
+const Pictures = ({ nextForm }) => {
 
   const toast = useToast()
   const navigate = useNavigate()

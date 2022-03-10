@@ -9,18 +9,15 @@ import Location from './createAccount/Location'
 
 const Register = ({ logInState }) => {
 
-  // state
+  // STATE
   const [formShowing, setFormShowing] = useState({ form: 0 })
-  // const [userId, setUserId] = useState(null)
 
+  // GET NEXT FORM 
   const nextForm = (num) => {
     const nextForm = { form: formShowing.form + num}
     setFormShowing(nextForm)
   }
 
-  // const getUserId = (id) => {
-  //   setUserId(id)
-  // }
 
   return (
     <div className='form-main'>

@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
 
 // STYLING
-import {Heading, Text } from '@chakra-ui/react'
+import { Heading } from '@chakra-ui/react'
 
 // HELPERS
 import { getTokenFromLocal } from '../../helpers/auth'
