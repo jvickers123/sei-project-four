@@ -3,6 +3,9 @@ import axios from 'axios'
 import { useToast } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 
+// STYLING
+import { Heading } from '@chakra-ui/react'
+
 const Login = ({ logInState }) => {
 
   const navigate = useNavigate()
@@ -47,15 +50,15 @@ const Login = ({ logInState }) => {
   }
 
   return (
-    <div className='main'>
-      <h1>Log in</h1>
+    <div className='form-main'>
+      {/* <Heading as='h1' size='2xl'>Sign in</Heading> */}
       <form onSubmit={handleSubmit}>
         <label htmlFor='email'>Enter your email</label>
         <input type='email' name='email' value={loginInfo.email} placeholder='email@email.com' onChange={handleChange} />
         {!!error && <p>{error}</p>}
         <label htmlFor='password'>Enter your password</label>
         <input type='password' name='password' value={loginInfo.password} onChange={handleChange} />
-        <input type='submit' value='Sign in' />
+        <input class='pink' type='submit' value='Sign in' />
       </form>
     </div>
   )
