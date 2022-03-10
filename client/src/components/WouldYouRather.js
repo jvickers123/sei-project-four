@@ -108,7 +108,7 @@ const WouldYouRather = () => {
           !!question &&
             <>
               <Box className='question-container' margin={5} borderRadius={7} paddingTop={10} paddingBottom={10} paddingLeft={5} paddingRight={5}>
-                <p className='faint'>Would You Rather</p>
+                <p className='faint'>Would you rather</p>
                 <h3>{question.text}</h3>
               </Box>
 

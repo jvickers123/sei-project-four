@@ -7,6 +7,9 @@ import MatchesTiles from './UserProfile/subComponents/MatchesTiles'
 import OthersProfile from './UserProfile/OthersProfile'
 import MessageProfile from './UserProfile/subComponents/MessageProfile'
 
+// STYLING
+import { Heading } from '@chakra-ui/react'
+
 const Matches = () => {
 
   // STATE
@@ -45,7 +48,7 @@ const Matches = () => {
   }
 
   return (
-    <div className='main'>
+    <div className='wyr-main'>
       {featuredProfileId ?
         <>
           <button className='all-btn' onClick={goBack}>All</button>
@@ -53,7 +56,11 @@ const Matches = () => {
           <MessageProfile currentUser={user} profileId={featuredProfileId} refreshMatches={refreshMatches}/>
         </>
         :
-        <MatchesTiles matches={matches} goToFeaturedProfile={goToFeaturedProfile}/>
+        <>
+          <Heading as='h1' marginBottom={5} size='xl'>Matches</Heading>
+          <MatchesTiles matches={matches} goToFeaturedProfile={goToFeaturedProfile}/>
+        </>
+
       }
     </div>
     

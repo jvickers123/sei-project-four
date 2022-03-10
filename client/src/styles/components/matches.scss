@@ -1,0 +1,18 @@
+
+.matches-tile-background {
+  min-height: 100vh;
+  background-color: $white;
+  width: 100%;
+  .matches-tile-container {
+    border-top: 1px solid $light-grey;
+    border-bottom: 1px solid $light-grey;
+    width: 100%;
+    padding: 15px;
+    h3 {
+      font-weight: 900;
+    }
+    .chakra-avatar {
+      margin-right: 20px;
+    }
+  }
+}
