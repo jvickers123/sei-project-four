@@ -16,15 +16,17 @@ const SiteNavbar = ({ isLoggedIn }) => {
   // STATE
   // const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [clicked, setClicked] = useState('home')
+  const [onRegisterPage, setOnRegisterPage] = useState(false)
 
-  // CHECK IF LOGGED IN
-  // useEffect(() => {
-  //   setIsLoggedIn(userAuth())
-  // })
+  useEffect(() => {
+    const url = window.location.href.split('/')
+    url.includes('register') ? setOnRegisterPage(true) : setOnRegisterPage(false)
+  })
+
 
   return (
     <>
-      {isLoggedIn &&
+      {isLoggedIn && !onRegisterPage &&
         <div className='navbar-container'>
           <HStack justifyContent='space-around' margin>
           <p><FaFeather /></p>
