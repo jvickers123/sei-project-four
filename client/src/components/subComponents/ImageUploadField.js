@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react'
 import axios from 'axios'
 
 // STYLING
-import { Image, Box } from '@chakra-ui/react'
+import { Image, Box, VStack } from '@chakra-ui/react'
 
 const ImageUploadField = ({ handleImageUrl, url, name }) => {
 
@@ -38,19 +38,28 @@ const ImageUploadField = ({ handleImageUrl, url, name }) => {
   }
 
   return (
-    <Box className='image-upload-container' display='flex' alignItems='center' marginRight={3} marginTop={4} borderRadius={7} width='100px' height='100px'>
-      <button className='add-image-btn' onClick={handleClick}>+</button>
+    <>
       <input className='input' ref={inputFileRef} type='file' onChange={handleUpload}/>
       {url ?
-        <div>
-          <Image src={url} alt={name} objectFit='cover' marginTop={5} borderRadius={7} boxSize='100px'/>
-        </div>
-        : isLoading ?
-          <p>loading...</p>
-          : isError &&
+            <VStack marginRight={3}>
+              <Image src={url} alt={name} objectFit='cover' marginTop={5} borderRadius={7} boxSize='100px'/>
+              <button className='add-image-btn pink small-btn' onClick={handleClick}>Change Photo</button>
+            </VStack>
+            : 
+            <Box className='image-upload-container' display='flex' alignItems='center' marginRight={3} marginTop={4} borderRadius={7} width='100px' height='100px'>
+              {isLoading ?
+                <p>loading...</p>
+                : 
+                <button className='add-image-btn' onClick={handleClick}>+</button>
+                }
+            </Box>
+          }
+          {isError &&
             <p>There was an error. Please try another file</p>
-      }
-    </Box>
+          }
+    </>
+    
+
   )
 }
 

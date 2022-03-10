@@ -92,7 +92,7 @@ const EditProfile = ({ user, updateUser }) => {
       </Box>
 
       <Box width='100%' padding={3}>
-        <p className='faint'>My Photo's & Videos</p>
+        <p className='faint'>My Photo's</p>
         <Box display='flex' flexWrap='wrap'>
           {!!user.pictures.length && 
             user.pictures.map((url, i) => (

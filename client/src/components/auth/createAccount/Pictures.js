@@ -68,17 +68,32 @@ const Pictures = ({nextForm, userId}) => {
 
   return (
     <>
-      <h1>Pick your photos</h1>
-      <ImageUploadField name='profile_pic' handleImageUrl={handleImageUrl} url={userImages.profile_pic}/>
-      <ImageUploadField name='pic2' handleImageUrl={handleImageUrl} url={pictures.pic2}/>
-      <ImageUploadField name='pic3' handleImageUrl={handleImageUrl} url={pictures.pic3}/>
-      <ImageUploadField name='pic4' handleImageUrl={handleImageUrl} url={pictures.pic4}/>
-      <ImageUploadField name='pic5' handleImageUrl={handleImageUrl} url={pictures.pic5}/>
-      <ImageUploadField name='pic6' handleImageUrl={handleImageUrl} url={pictures.pic6}/>
-      <button onClick={() => nextForm(-1)}>Previous</button>
-      {/* <button onClick={() => nextForm(1)}>Next</button> */}
-      <button onClick={() => navigate('/profile')}>Next</button>
+      <form>
+        <label className='location-label'>Pick your photos</label>
+      </form>
+
+      <div className='register-profile-pic-container'>
+        <p className='faint'>My Profile Pic</p>
+        <div className='profile-upload-container'>
+          <ImageUploadField name='profile_pic' handleImageUrl={handleImageUrl} url={userImages.profile_pic}/>
+        </div>
+      </div>
+
+      <p className='faint'>My Photos</p>
+      <div className='upload-images-container-register'>
+        <ImageUploadField name='pic2' handleImageUrl={handleImageUrl} url={pictures.pic2}/>
+        <ImageUploadField name='pic3' handleImageUrl={handleImageUrl} url={pictures.pic3}/>
+        <ImageUploadField name='pic4' handleImageUrl={handleImageUrl} url={pictures.pic4}/>
+        <ImageUploadField name='pic5' handleImageUrl={handleImageUrl} url={pictures.pic5}/>
+        <ImageUploadField name='pic6' handleImageUrl={handleImageUrl} url={pictures.pic6}/>
+      </div>
+
+      <button className='pink' onClick={() => navigate('/profile')}>Next</button>
+      <button className='location-previous' onClick={() => nextForm(-1)}>Previous</button>
+
     </>
+    
+    
   )
 }
 
