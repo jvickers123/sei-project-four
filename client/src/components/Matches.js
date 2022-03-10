@@ -5,6 +5,7 @@ import axios from 'axios'
 import { getTokenFromLocal } from '../helpers/auth'
 import MatchesTiles from './UserProfile/subComponents/MatchesTiles'
 import OthersProfile from './UserProfile/OthersProfile'
+import RejectMatch from './UserProfile/subComponents/RejectMatch'
 import MessageProfile from './UserProfile/subComponents/MessageProfile'
 
 // STYLING
@@ -17,6 +18,7 @@ const Matches = () => {
   const [matches, setMatches] = useState([])
   const [featuredProfileId, setFeaturedProfileId] = useState(null)
   const [resetMatches, setResetMatches] = useState(0)
+  const [viewingMessages, setViewingMessages] = useState(false)
 
   // GET USER
   useEffect(() => {
@@ -48,13 +50,28 @@ const Matches = () => {
   }
 
   return (
-    <div className='wyr-main'>
+    <div className={featuredProfileId ? 'main' : 'wyr-main'}>
       {featuredProfileId ?
         <>
-          <button className='all-btn' onClick={goBack}>All</button>
-          <OthersProfile profileId={featuredProfileId} />
-          <MessageProfile currentUser={user} profileId={featuredProfileId} refreshMatches={refreshMatches}/>
+          {!viewingMessages && <button className='all-btn' onClick={goBack}>All</button>}
+          <div className='match-user-profile-header'>
+            <div className='profile-message-container'>
+              <button onClick={() => setViewingMessages(false)} className={!viewingMessages && 'highlighted'}>Profile</button>
+              <button onClick={() => setViewingMessages(true)} className={viewingMessages && 'highlighted'}>Chat</button>
+            </div>
+          </div>
+
+          {viewingMessages ?
+            <MessageProfile currentUser={user} profileId={featuredProfileId} refreshMatches={refreshMatches}/>
+            :
+            <>
+              <OthersProfile profileId={featuredProfileId} />
+              <RejectMatch />
+            </>
+            }
         </>
+
+        
         :
         <>
           <Heading as='h1' marginBottom={5} size='xl'>Matches</Heading>
