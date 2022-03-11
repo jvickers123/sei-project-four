@@ -13,6 +13,7 @@ const Find = () => {
   const [currentUser, setCurrentUser] = useState({})
   const [alreadyViewedIds, setAlreadyViewedIds] = useState([])
   const [profileId, setProfileId] = useState(null)
+  const [viewedAllProfiles, setViewedAllProfiles] = useState(false)
   
   // GET ALL USERS
   useEffect(() => {
@@ -53,6 +54,9 @@ const Find = () => {
       &&(!currentUser.matches.includes(id))
       && (!currentUser.likes_sent.includes(id)) )
     const randomId = options[Math.floor(Math.random() * options.length)]
+    if (randomId === undefined) {
+      setViewedAllProfiles(true)
+    }
     setProfileId(randomId)
   }, [currentUser, alreadyViewedIds])
 
@@ -63,8 +67,17 @@ const Find = () => {
 
   return (
     <div className='main'>
-      <OthersProfile profileId={profileId}/>
-      <LikeProfile currentUser={currentUser} profileId={profileId} addToAlreadyViewed={addToAlreadyViewed}/>
+      {viewedAllProfiles?
+        <>
+          <p className='faint'>Looks like you've viewed all the profiles</p>
+          <p className='faint'>Come back again later to see if there are more</p>
+        </>
+        :
+        <>
+          <OthersProfile profileId={profileId}/>
+          <LikeProfile currentUser={currentUser} profileId={profileId} addToAlreadyViewed={addToAlreadyViewed}/>
+        </>
+      }
     </div>
   )
 }

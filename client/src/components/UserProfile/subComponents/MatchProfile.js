@@ -3,7 +3,8 @@ import axios from 'axios'
 
 import { getTokenFromLocal } from '../../../helpers/auth'
 
-import { GiLovers } from "react-icons/gi";
+import { BiMessage } from 'react-icons/bi';
+
 
 const MatchProfile = ({ currentUser, profileId, refreshLikes }) => {
 
@@ -43,7 +44,7 @@ const MatchProfile = ({ currentUser, profileId, refreshLikes }) => {
   return (
     <div className='likebtns-container'>
       <button className='reject-btn' onClick={rejectProfile}>x</button>
-      <button className='like-btn'onClick={MatchProfile}><GiLovers /></button>
+      <button className='like-btn'onClick={MatchProfile}><BiMessage /></button>
     </div>
   )
 }

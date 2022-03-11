@@ -66,14 +66,9 @@ const OthersProfile = ({ profileId }) => {
   // GET MATCH RATING
   useEffect(() => {
     if(!matchingAnswers.length) return
-    const combinedAnswers = [...user.answers]
-    featuredProfile.answers.forEach(ans => !combinedAnswers.includes(ans) && combinedAnswers.push(ans))
-    let matchRatingPercentage = Math.floor((matchingAnswers.length * 2) / combinedAnswers.length * 100)
-    if (matchRatingPercentage > 100) {
-      matchRatingPercentage = 100
-    }
-    setMatchRating(matchRatingPercentage)
-  }, [matchingAnswers])
+    if(!disagreeAnswers.length) return
+    setMatchRating(parseInt((matchingAnswers.length / (disagreeAnswers.length + matchingAnswers.length)) * 100))
+  }, [disagreeAnswers])
 
   // GET RANDOM MATCHING ANSWER
   useEffect(() => {
@@ -182,7 +177,16 @@ const OthersProfile = ({ profileId }) => {
 
         <Box className='match-rating-container text-container' width='360px' margin={5} borderRadius={7} paddingTop={10} paddingBottom={10} paddingLeft={5} paddingRight={5}>
           <p>Match Rating</p> 
-          <h3 id='match-rating'>{matchRating}%</h3>
+          {matchRating ?
+            <>
+              <h3 id='match-rating'>{matchRating}%</h3>
+              <p className='faint'>You answered {matchingAnswers.length} questions the same and {disagreeAnswers.length} differently</p>
+            </>
+            :
+            <p className='faint'>Answer more would you rather questions to get a rating</p>
+          }
+          
+          
           </Box>
 
         <Box className='info-container' margin={5} borderRadius={7} paddingTop={7} paddingBottom={7} paddingLeft={5} minW='360px' paddingRight={5}>
