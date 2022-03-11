@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { getTokenFromLocal } from '../../helpers/auth'
 
 // STYLING
-import { Heading, Image, Box, HStack } from '@chakra-ui/react'
+import { Heading, Image, Box, HStack, Spinner } from '@chakra-ui/react'
 
 // ICONS
 import { AiOutlineHome } from "react-icons/ai"
@@ -264,7 +264,7 @@ const OthersProfile = ({ profileId }) => {
         
       </>
         :
-        <p>Loading</p>}
+        <Spinner />}
     </>
   )
 }

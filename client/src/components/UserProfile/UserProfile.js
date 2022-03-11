@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
 
 // STYLING
-import { Heading } from '@chakra-ui/react'
+import { Heading, Spinner } from '@chakra-ui/react'
 
 // HELPERS
 import { getTokenFromLocal } from '../../helpers/auth'
@@ -50,24 +50,31 @@ const UserProfile = ({ logOutState }) => {
   
   return (
     <div className='main'>
-      <div className='main-user-profile-header'>
-        <header className='profile-header'>
-          <Heading as='h2' size='sm'>Profile</Heading>
-          <Heading as='h1' size='md'>{user.first_name}</Heading>
-          <button onClick={logOut}>Logout</button>
-        </header>
-        
-        <div className='view-edit-container'>
-          <button onClick={() => setEditing(false)} className={!editing && 'highlighted'}>View</button>
-          <button onClick={() => setEditing(true)} className={editing && 'highlighted'}>Edit</button>
+      {user.id ?
+      <>
+        <div className='main-user-profile-header'>
+          <header className='profile-header'>
+            <Heading as='h2' size='sm'>Profile</Heading>
+            <Heading as='h1' size='md'>{user.first_name}</Heading>
+            <button onClick={logOut}>Logout</button>
+          </header>
+          
+          <div className='view-edit-container'>
+            <button onClick={() => setEditing(false)} className={!editing && 'highlighted'}>View</button>
+            <button onClick={() => setEditing(true)} className={editing && 'highlighted'}>Edit</button>
+          </div>
         </div>
-      </div>
 
-      {editing ?
-        <EditProfile user={user} updateUser={updateUser} logOutState={logOutState}/>
-        : 
-        <ViewProfile user={user}/>
-        }
+        {editing ?
+          <EditProfile user={user} updateUser={updateUser} logOutState={logOutState}/>
+          : 
+          <ViewProfile user={user}/>
+          }
+      </>
+      :
+      <Spinner />
+      }
+      
     </div>
   )
 }

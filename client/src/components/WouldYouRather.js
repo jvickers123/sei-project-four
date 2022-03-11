@@ -5,7 +5,7 @@ import axios from 'axios'
 import { getTokenFromLocal } from '../helpers/auth'
 
 // STYLING
-import { Heading, Box } from '@chakra-ui/react'
+import { Heading, Box, Spinner } from '@chakra-ui/react'
 
 const WouldYouRather = () => {
   // STATE
@@ -100,25 +100,29 @@ const WouldYouRather = () => {
   return (
     <div className='wyr-main'>
       <Heading as='h1' size='lg'>Would You Rather</Heading>
+      {question ?
+        <div className='question-answer-container'>
+        {answeredAllQuestions ? 
+            <p>you have answered all the questions</p>
+            :
+            !!question &&
+              <>
+                <Box className='question-container' margin={5} borderRadius={7} paddingTop={10} paddingBottom={10} paddingLeft={5} paddingRight={5}>
+                  <p className='faint'>Would you rather</p>
+                  <h3>{question.text}</h3>
+                </Box>
+  
+  
+                <button className='pink' id={question.answers[0].id} onClick={chooseAnswer}>{question.answers[0].text}</button>
+                <button className='pink' id={question.answers[1].id} onClick={chooseAnswer}>{question.answers[1].text}</button>
+                <button id={question.id} className='skip-btn' onClick={skipQuestion}>Skip</button>
+              </>}
+        
+        </div>
+        :
+        <Spinner />
+      }
       
-      <div className='question-answer-container'>
-      {answeredAllQuestions ? 
-          <p>you have answered all the questions</p>
-          :
-          !!question &&
-            <>
-              <Box className='question-container' margin={5} borderRadius={7} paddingTop={10} paddingBottom={10} paddingLeft={5} paddingRight={5}>
-                <p className='faint'>Would you rather</p>
-                <h3>{question.text}</h3>
-              </Box>
-
-
-              <button className='pink' id={question.answers[0].id} onClick={chooseAnswer}>{question.answers[0].text}</button>
-              <button className='pink' id={question.answers[1].id} onClick={chooseAnswer}>{question.answers[1].text}</button>
-              <button id={question.id} className='skip-btn' onClick={skipQuestion}>Skip</button>
-            </>}
-      
-      </div>
         
     </div>
     
