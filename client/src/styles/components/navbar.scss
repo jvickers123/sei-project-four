@@ -13,8 +13,26 @@
   }
 }
 
+.navbar-brand {
+  display: none;
+  color: $white;
+  font-family: 'Source Serif Pro', serif;
+  font-weight: 900;
+}
+
 @media screen and (min-width: 600px){
   .navbar-container{
     top: 0px;
+    display: flex;
+    justify-content: space-between;
+    .nav-icon-container{
+      width: 300px;
+      margin-right: 10%;
+    }
+    .navbar-brand {
+      display: inline;
+      margin-left: 10%;
+
+    }
   }
 }

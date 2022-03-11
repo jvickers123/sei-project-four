@@ -21,8 +21,9 @@ const SiteNavbar = ({ isLoggedIn }) => {
     <>
       {isLoggedIn &&
         <div className='navbar-container'>
-          <HStack justifyContent='space-around' margin>
-          <p><FaFeather /></p>
+          <h3 className='navbar-brand'>Birds of a Feather</h3>
+          <HStack className='nav-icon-container' justifyContent='space-around' margin>
+            <p><FaFeather /></p>
           
             <>
               <Link to='/find' onClick={() => setClicked('find')} className={clicked === 'find' ? 'highlight' : ''}><FaBinoculars /></Link>
