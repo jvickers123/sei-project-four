@@ -75,8 +75,11 @@ const EditProfile = ({ user, updateUser, logOutState }) => {
     updateUser()
   } 
 
+  
+
   return (
     <div className='edit-profile-flex-container'>
+
       <Box marginTop={55}  padding={3} width='100%' id='edit-profile-pic-container'>
         <p className='faint'>My Profile Pic</p>
         <Box display='flex'>

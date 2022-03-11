@@ -6,6 +6,7 @@ import { useToast } from '@chakra-ui/react'
 // subcomponents
 import ImageUploadField from '../../subComponents/ImageUploadField'
 import { getTokenFromLocal } from '../../../helpers/auth'
+import SeedImages from '../../subComponents/SeedImages'
 
 const Pictures = ({ nextForm, logInState }) => {
 
@@ -70,8 +71,18 @@ const Pictures = ({ nextForm, logInState }) => {
     navigate('/profile')
   }
 
+  // SEED RANDOM PHOTOS FOR USER
+  const uploadSeeds = (photosArray) => {
+    console.log('happening', photosArray)
+    setUserImages({
+      profile_pic: photosArray[0],
+      pictures: photosArray.slice(1)
+    })
+  }
+
   return (
     <>
+      <SeedImages uploadSeeds={uploadSeeds}/>
       <form>
         <label className='location-label'>Pick your photos</label>
       </form>
@@ -85,11 +96,11 @@ const Pictures = ({ nextForm, logInState }) => {
 
       <p className='faint'>My Photos</p>
       <div className='upload-images-container-register'>
-        <ImageUploadField name='pic2' handleImageUrl={handleImageUrl} url={pictures.pic2}/>
-        <ImageUploadField name='pic3' handleImageUrl={handleImageUrl} url={pictures.pic3}/>
-        <ImageUploadField name='pic4' handleImageUrl={handleImageUrl} url={pictures.pic4}/>
-        <ImageUploadField name='pic5' handleImageUrl={handleImageUrl} url={pictures.pic5}/>
-        <ImageUploadField name='pic6' handleImageUrl={handleImageUrl} url={pictures.pic6}/>
+        <ImageUploadField name='pic2' handleImageUrl={handleImageUrl} url={userImages.pictures[0]}/>
+        <ImageUploadField name='pic3' handleImageUrl={handleImageUrl} url={userImages.pictures[1]}/>
+        <ImageUploadField name='pic4' handleImageUrl={handleImageUrl} url={userImages.pictures[2]}/>
+        <ImageUploadField name='pic5' handleImageUrl={handleImageUrl} url={userImages.pictures[3]}/>
+        <ImageUploadField name='pic6' handleImageUrl={handleImageUrl} url={userImages.pictures[4]}/>
       </div>
 
       <button className='pink' onClick={handleCreateAccount }>Create account</button>
