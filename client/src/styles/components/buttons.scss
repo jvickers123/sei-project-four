@@ -56,6 +56,7 @@
 
 .current-location-btn {
   transform: translateY(-60px);
+  margin: 0 auto;
   z-index: 1;
   background-color: $white;
   font-weight: 500;
@@ -87,8 +88,5 @@
   }
   .likebtns-container {
     max-width: 700px;
-  }
-  .delete-profile-btn {
-    margin-left: 40px;
   }
 }

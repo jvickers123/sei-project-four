@@ -2,6 +2,7 @@
   height: 400px;
   width: 300px;
   @extend %box-shadow;
+  margin: 0 auto;
 }
 
 .search-options-container {
@@ -15,7 +16,13 @@
   @extend %box-shadow;
   .search-options {
     border-top: 1px solid $light-grey;
+    padding: 3px;
   }
+}
+
+.edit-options {
+  transform: translateY(-20px);
+  width: 90%;
 }
 
 .location-text {

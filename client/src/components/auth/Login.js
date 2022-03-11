@@ -3,9 +3,6 @@ import axios from 'axios'
 import { useToast } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 
-// STYLING
-import { Heading } from '@chakra-ui/react'
-
 const Login = ({ logInState }) => {
 
   const navigate = useNavigate()
@@ -59,6 +56,7 @@ const Login = ({ logInState }) => {
         <label htmlFor='password'>Enter your password</label>
         <input type='password' name='password' value={loginInfo.password} onChange={handleChange} />
         <input className='pink' type='submit' value='Sign in' />
+        <button onClick={() => navigate(-1)}>Go back</button>
       </form>
     </div>
   )

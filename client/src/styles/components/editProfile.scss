@@ -2,6 +2,9 @@
   color: lighten($txt-color, 50%);
 }
 
+.edit-profile-flex-container {
+  @include flex-center(column);
+}
 .edit-photos-container {
   margin-top: -30px;
   button {
@@ -37,7 +40,7 @@
         height: 360px;
       }
       button {
-        transform: translate(320px, 25px);
+        transform: translate(340px, 25px);
       }
     }
   }

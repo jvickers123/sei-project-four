@@ -33,7 +33,7 @@ button {
 }
 
 @media screen and (min-width: 600px){
-  .main {
+  .main:not(#home-background) {
     padding: 0 50px;
     display: flex;
     flex-direction: row;

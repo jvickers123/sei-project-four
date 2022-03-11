@@ -127,7 +127,7 @@ const Location = ({ nextForm, parent, closeComponent }) => {
         <input type='search' name='location' placeholder='enter your neighborhood' value={searchValue} onChange={handleChange}/>
       </form>
 
-      <div className='search-options-container'>
+      <div className={parent === 'register' ? 'search-options-container' : 'search-options-container edit-options'}>
         {!!searchOptions.length && 
           searchOptions.map(result => (
             <div  key={result.id} className='search-options'>

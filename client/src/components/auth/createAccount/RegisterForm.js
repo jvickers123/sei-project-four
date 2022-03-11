@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 import { useToast } from '@chakra-ui/react'
-
-// HELPERS
-// import { seedRandomProfileIds } from '../../../helpers/seedRandomProfileIds'
 
 const RegisterForm = ({ nextForm }) => {
 
+  const navigate = useNavigate()
   const toast = useToast()
 
   // STATE
@@ -88,6 +87,7 @@ const RegisterForm = ({ nextForm }) => {
         <input type='password' name='password_confirmation' value={formData.password_confirmation} onChange={handleChange} />
         {!!formErrors.password_confirmation && <p>{formErrors.password_confirmation}</p>}
         <input type='submit' className='pink' value='Next' />
+        <button onClick={() => navigate(-1)}>Go back</button>
       </form>
     </>
   )
