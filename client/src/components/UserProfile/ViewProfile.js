@@ -28,7 +28,29 @@ const ViewProfile = ({ user }) => {
   const [altAnsText2, setAltAnsText2] = useState('')
   const [altAnsText3, setAltAnsText3] = useState('')
 
-  
+  const [randomAnswers, setRandomAnswers] = useState([])
+
+  useEffect(() => {
+    if(!user.answers.length) return
+
+    const answersArray = []
+    
+    const getRandomAnswer = () => {
+    const randomAnswer = answersArray.push(user.answers[Math.floor(Math.random() * user.answers.length)])
+    if (answersArray.includes(randomAnswer)) {
+      getRandomAnswer()
+    } else {
+      if (typeof randomAnswer === 'number') return
+      answersArray.push(randomAnswer)
+    }
+  }
+
+  for (let i = 0; i < 3; i++) {
+    getRandomAnswer()
+  }
+  setRandomAnswers(answersArray)
+  }, [user])
+
   // GET FIRST USER ANSWER
   useEffect(() => {
     if (!user.first_name) return
