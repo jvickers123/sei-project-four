@@ -111,7 +111,7 @@
     "model": "answers.answer",
     "pk": 13,
     "fields": {
-      "text": "be with someon who is a great cook",
+      "text": "be with someone who is a great cook",
       "question": 7,
       "owner": 1
     }
