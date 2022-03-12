@@ -7,4 +7,4 @@ class PopulatedUserSerializer(UserSerializer):
     likes_recieved = UserSerializer(many=True)
     matches = UserSerializer(many=True)
     questions_owned = PopulatedQuestionSerializer(many=True)
-    # answers = AnswerSerializer(many=True)
+    answers = AnswerSerializer(many=True)

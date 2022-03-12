@@ -22,7 +22,9 @@ const WouldYouRather = () => {
       try {
         const { data } = await axios.get('/api/auth/profile', { headers: {Authorization: `Bearer ${token}` }})
         setUser(data)
-        setUserAnswered(data.answers)
+        const answeredIds = data.answers.map(answer => answer.id)
+        console.log(data)
+        setUserAnswered(answeredIds)
       } catch (error) {
         console.log(error)
       }
