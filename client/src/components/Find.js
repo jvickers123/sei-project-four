@@ -74,7 +74,7 @@ const Find = () => {
         </>
         :
         <>
-          <OthersProfile profileId={profileId}/>
+          <OthersProfile profileId={profileId} currentUser={currentUser}/>
           <LikeProfile currentUser={currentUser} profileId={profileId} addToAlreadyViewed={addToAlreadyViewed}/>
         </>
       }

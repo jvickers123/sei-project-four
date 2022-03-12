@@ -2,9 +2,6 @@ import axios from 'axios'
 import React, {useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
 
-// HELPERS
-import { getTokenFromLocal } from '../../helpers/auth'
-
 // STYLING
 import { Heading, Image, Box, HStack, Spinner } from '@chakra-ui/react'
 
@@ -12,25 +9,23 @@ import { Heading, Image, Box, HStack, Spinner } from '@chakra-ui/react'
 import { AiOutlineHome } from "react-icons/ai"
 import { BiCake } from "react-icons/bi"
 
-const OthersProfile = ({ profileId }) => {
+const OthersProfile = ({ profileId, currentUser }) => {
   const navigate = useNavigate()
   
   // STATE
   const [featuredProfile, setFeaturedProfile] = useState({})
-  const [user, setUser] = useState({})
-  const [matchingAnswers, setMatchingAnswers] = useState([])
-  const [matchRating, setMatchRating] = useState(null)
 
-  const [randomMatchingAns, setRandomMatchingAns] = useState(null)
-  const [matchAnsText, setMatchAnsText] = useState('')
-  const [altMatchAns, setAltMatchAns] = useState(null)
-  const [altMatchAnsText, setAltMatchAnsText] = useState('') 
+  const [matchingAnswers, setMatchingAnswers] = useState([])
+  const [alternateAnswerText, setAlternateAnswerText] = useState('')
+  const [randomMatchingAns, setRandomMatchingAns] = useState({})
   const [getAnotherMatch, setGetAnotherMatch] = useState(0)
 
   const [disagreeAnswers, setDisagreeAnsewrs] = useState([])
-  const [disagreeAnswerText1, setDisaagreeAnswerText1] = useState('')
-  const [disagreeAnswerText2, setDisaagreeAnswerText2] = useState('')
+  const [randomDisagreeAns, setRandomDisagreeAns] = useState({})
   const [getAnotherDisagreement, setGetAnotherDisagreement] = useState(0)
+
+  const [matchRating, setMatchRating] = useState(null)
+
 
   // GET FEATURED PROFILE
   useEffect(() => {
@@ -46,22 +41,52 @@ const OthersProfile = ({ profileId }) => {
     getProfile()
   }, [profileId])
 
-  // GET CURRENT USER AND MATCHING ANSWERS
+
+  // GET MATCHING ANSWERS
   useEffect(() => {
-    if (!featuredProfile.id) return
-    const getUser = async () => {
-      const token = getTokenFromLocal()
-      try {
-        const { data } = await axios.get('/api/auth/profile', { headers: {Authorization: `Bearer ${token}` }})
-        setUser(data)
-        const matchingAns = data.answers.filter(ans => featuredProfile.answers.includes(ans))
-        setMatchingAnswers(matchingAns)
-      } catch (error) {
-        console.log(error.response.data.detail)
-      }
-    }
-    getUser()
+    if(!featuredProfile.id) return
+    if(!featuredProfile.answers.length) return
+    if(!currentUser.answers.length) return
+    const featuredProfileAnsIds = featuredProfile.answers.map(ans => ans.id)
+    const matchingAns = currentUser.answers.filter(answer => featuredProfileAnsIds.includes(answer.id))
+    setMatchingAnswers(matchingAns)
   }, [featuredProfile])
+
+  // GET RANDOM MATCHING ANSWER
+  useEffect(() => {
+    if (!matchingAnswers.length) return
+    setRandomMatchingAns(matchingAnswers[Math.floor(Math.random() * matchingAnswers.length)])
+  }, [matchingAnswers, getAnotherMatch])
+
+  // GET ALTERNATE ANSWERS TEXT
+  useEffect(() => {
+    if (!randomMatchingAns.id) return
+    const alternateAnswer = randomMatchingAns.question.answers.filter(answer => answer.id !== randomMatchingAns.id)
+    setAlternateAnswerText(alternateAnswer[0].text)
+  }, [randomMatchingAns])
+
+  // GET DISAGREEMENTS
+  useEffect(() => {
+    if(!featuredProfile.id) return
+    if(!featuredProfile.answers.length) return
+    if(!currentUser.answers.length) return
+    
+    //GET ARRAY OF FEATURED PROFILE [ANSWER.ID, QUESTION.ID] 
+    const featuredProfileQAndAIds = featuredProfile.answers.map(ans => [ans.id, ans.question.id])
+
+    // RETURN ANSWERS WHERE THE ANSWER.ID DOESN'T MATCH BUT THE QUESTION.ID DOES
+    const disagreeAns = currentUser.answers.filter(answer => featuredProfileQAndAIds.some(featuredProfileQandA => (
+      (featuredProfileQandA[0] !== answer.id) && (featuredProfileQandA[1] === answer.question.id)
+    )))
+    setDisagreeAnsewrs(disagreeAns)
+
+  }, [featuredProfile, currentUser])
+
+  // GET RANDOM DISAGREE ANSWER
+  useEffect(() => {
+    if (!disagreeAnswers.length) return
+    setRandomDisagreeAns(disagreeAnswers[Math.floor(Math.random() * disagreeAnswers.length)])
+  }, [disagreeAnswers, getAnotherDisagreement])
 
   // GET MATCH RATING
   useEffect(() => {
@@ -70,91 +95,6 @@ const OthersProfile = ({ profileId }) => {
     setMatchRating(parseInt((matchingAnswers.length / (disagreeAnswers.length + matchingAnswers.length)) * 100))
   }, [disagreeAnswers])
 
-  // GET RANDOM MATCHING ANSWER
-  useEffect(() => {
-    if(!matchingAnswers.length) return
-    setRandomMatchingAns(matchingAnswers[Math.floor(Math.random() * matchingAnswers.length)])
-  }, [matchingAnswers, getAnotherMatch])
-
-  // GET SHARED ANSWER TEXT
-  useEffect(() => {
-    if (!matchingAnswers.length) return
-    const getText = async () => {
-      try {
-        const { data } = await axios.get(`/api/answers/${randomMatchingAns}`)
-        setMatchAnsText(data.text)
-      } catch (error) {
-        console.log(error.response.data.detail)
-      }
-    }
-    getText()
-  }, [randomMatchingAns])
-
-  // GET ALTERNATIVE ANSWER
-  useEffect(() => {
-    if(!randomMatchingAns) return
-    if (randomMatchingAns % 2 === 0) setAltMatchAns(randomMatchingAns - 1)
-    if (randomMatchingAns % 2 === 1) setAltMatchAns(randomMatchingAns + 1)
-  }, [randomMatchingAns])
-
-
-   // GET ALTERNATIVE ANSWER TEXT
-  useEffect(() => {
-    if(!altMatchAns) return
-    const getAnswer = async () => {
-      try {
-        const { data } = await axios.get(`/api/answers/${altMatchAns}`)
-        setAltMatchAnsText(data.text)
-      } catch (error) {
-        console.log(error.response.data.detail)
-      }
-    }
-    getAnswer()
-  }, [altMatchAns])
-
-  // GET DISAGREED ANSWERS
-  useEffect(() => {
-    if (!matchingAnswers.length) return
-
-    const userAnswers = user.answers.filter(answer => !matchingAnswers.includes(answer))
-    const featuredProfileAnswers = featuredProfile.answers.filter(answer => !matchingAnswers.includes(answer))
-
-    const sameQuestion = []
-    userAnswers.forEach(answer => {
-      for (let i = 0; i < featuredProfileAnswers.length; i++) {
-        if (Math.ceil(featuredProfileAnswers[i] / 2) === Math.ceil(answer / 2)){
-          sameQuestion.push([answer, featuredProfileAnswers[i]])
-        }}
-      })
-
-    setDisagreeAnsewrs(sameQuestion)
-    }, [matchingAnswers])
-
-  // GET RANDOM ANSWER TEXT
-  useEffect(() => {
-    if (!disagreeAnswers.length) return
-    const randomIndex = Math.floor(Math.random() * disagreeAnswers.length)
-    const getAnswer1 = async () => {
-      try {
-        const { data } = await axios.get(`/api/answers/${disagreeAnswers[randomIndex][0]}`)
-        setDisaagreeAnswerText1(data.text)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    const getAnswer2 = async () => {
-      try {
-        const { data } = await axios.get(`/api/answers/${disagreeAnswers[randomIndex][1]}`)
-        setDisaagreeAnswerText2(data.text)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    getAnswer1()
-    getAnswer2()
-  }, [disagreeAnswers, getAnotherDisagreement])
-
-  
   return (
     <>
       {featuredProfile.id ?
@@ -213,10 +153,10 @@ const OthersProfile = ({ profileId }) => {
         <Box className='text-container' margin={5} borderRadius={7} paddingTop={10} paddingBottom={10} paddingLeft={5} paddingRight={5}>
           {featuredProfile.answers.length ?
           <>
-            {matchAnsText ?
+            {randomMatchingAns.id ?
               <>
                 <p>You'd both rather </p>
-                <h3>{matchAnsText} than {altMatchAnsText}</h3>
+                <h3>{randomMatchingAns.text} than {alternateAnswerText}</h3>
                 <button className='pink' onClick={() => setGetAnotherMatch(getAnotherMatch + 1)}>Get another Match</button>
               </> 
               : 
@@ -237,10 +177,10 @@ const OthersProfile = ({ profileId }) => {
         <Box className='text-container' margin={5} borderRadius={7} paddingTop={10} paddingBottom={10} paddingLeft={5} paddingRight={5}>
           {featuredProfile.answers.length ?
           <>
-            {disagreeAnswerText1 ? 
+            {randomDisagreeAns.id? 
               <>
                 <p>You disagree on whether you'd rather </p>
-                <h3>{disagreeAnswerText1} or {disagreeAnswerText2}</h3>
+                <h3>{randomDisagreeAns.question.answers[0].text} or {randomDisagreeAns.question.answers[1].text}</h3>
                 <button className='pink' onClick={() => setGetAnotherDisagreement(getAnotherDisagreement + 1)}>Get another Disagreement</button>
               </>
               :
@@ -265,7 +205,7 @@ const OthersProfile = ({ profileId }) => {
       </>
         :
         <Spinner />}
-    </>
+    </> 
   )
 }
 
