@@ -65,7 +65,7 @@ const Matches = () => {
             <MessageProfile currentUser={user} profileId={featuredProfileId} refreshMatches={refreshMatches}/>
             :
             <>
-              <OthersProfile profileId={featuredProfileId} />
+              <OthersProfile profileId={featuredProfileId} currentUser={user}/>
               <RejectMatch />
             </>
             }

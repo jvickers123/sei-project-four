@@ -52,7 +52,7 @@ const Likes = () => {
         {featuredProfileId ?
           <>
             <button className='all-btn' onClick={goBack}>All</button>
-            <OthersProfile profileId={featuredProfileId} />
+            <OthersProfile profileId={featuredProfileId} currentUser={user}/>
             <MatchProfile currentUser={user} profileId={featuredProfileId} refreshLikes={refreshLikes}/>
           </>
           :
