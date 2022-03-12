@@ -23,7 +23,7 @@
 
 
 .likebtns-container {
-  position: sticky;
+  position: fixed;
   bottom: 10%;
   display: flex;
   justify-content: space-between;
@@ -46,12 +46,10 @@
 }
 
 .all-btn {
-  position: sticky;
+  position: fixed;
   top: 16px;
-  align-self: flex-start;
-  margin-left: 15px;
-  margin-top: -35px;
-  z-index: 2;
+  left: 5%;
+  z-index: 1;
 }
 
 .current-location-btn {
@@ -89,7 +87,8 @@
 
 @media screen and (min-width: 600px) {
   .all-btn {
-    top: 62px;
+    top: 50px;
+    left: 10%;
   }
   .likebtns-container {
     max-width: 700px;

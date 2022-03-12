@@ -107,7 +107,7 @@ const OthersProfile = ({ profileId, currentUser }) => {
         
         <div className='image-container'>
           {featuredProfile.profile_pic ?
-            <Image src={featuredProfile.profile_pic} alt={featuredProfile.first_name} objectFit='cover' marginTop={55} borderRadius={7} boxSize='360px'/>
+            <Image id='profile-pic' src={featuredProfile.profile_pic} alt={featuredProfile.first_name} objectFit='cover' marginTop={55} borderRadius={7} boxSize='360px'/>
             :
             <p>No profile image for them yet</p>
           }

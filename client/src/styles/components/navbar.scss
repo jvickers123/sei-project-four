@@ -1,8 +1,9 @@
 .navbar-container {
-  position: sticky;
-  top: 94.6vh;
+  position: fixed;
+  bottom: 0px;
   background: $txt-color;
   padding: 15px 0;
+  width: 100%;
   path {
     color: lighten($txt-color, 50%);
   }
@@ -22,6 +23,7 @@
 
 @media screen and (min-width: 600px){
   .navbar-container{
+    bottom: unset;
     top: 0px;
     display: flex;
     justify-content: space-between;
@@ -32,7 +34,6 @@
     .navbar-brand {
       display: inline;
       margin-left: 10%;
-
     }
   }
 }

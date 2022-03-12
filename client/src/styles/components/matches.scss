@@ -19,7 +19,7 @@
 
 .match-user-profile-header {
   position: fixed;
-  top: 0vh;
+  top: 0px;
   background-color: $white;
   border-bottom: 1px solid $light-grey;
   @extend %box-shadow;
@@ -34,5 +34,11 @@
         color: $dark-pink;
         text-decoration: underline;
     }
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .match-user-profile-header {
+    top: 34px;
   }
 }
