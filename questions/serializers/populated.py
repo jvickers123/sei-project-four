@@ -1,5 +1,7 @@
 from .common import QuestionSerializer
-from answers.serializers.common import AnswerSerializer
+from answers.serializers.common import AuxiliaryAnswerSerializer
+
+
 
 class PopulatedQuestionSerializer(QuestionSerializer):
-    answers = AnswerSerializer(many=True)
+    answers = AuxiliaryAnswerSerializer(many=True)
