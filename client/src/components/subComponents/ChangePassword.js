@@ -39,7 +39,6 @@ const ChangePassword = () => {
 
   const handleChange = (e) => {
     const newObj = { ...formData, [e.target.name]: e.target.value}
-    console.log(newObj)
     setFormData(newObj)
     setFormErrors({ ...formErrors, [e.target.name]: '' })
   }

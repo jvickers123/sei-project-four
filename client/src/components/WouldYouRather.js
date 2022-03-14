@@ -23,7 +23,6 @@ const WouldYouRather = () => {
         const { data } = await axios.get('/api/auth/profile', { headers: {Authorization: `Bearer ${token}` }})
         setUser(data)
         const answeredIds = data.answers.map(answer => answer.id)
-        console.log(data)
         setUserAnswered(answeredIds)
       } catch (error) {
         console.log(error)
@@ -50,11 +49,9 @@ const WouldYouRather = () => {
         const randomQuestionId = async () => {
           const randomId = Math.ceil(Math.random() * numOfQusetions)
           if (userAnswered.some(answerId => Math.ceil(answerId / 2) === randomId) || skippedQuestions.includes(randomId)) {
-            console.log('do it again', randomId)
             randomQuestionId()
           } else {
             try {
-              console.log(randomId)
               const { data: singleQdata } = await axios.get(`/api/questions/${randomId}`)
               setQuestion(singleQdata)
             } catch (error) {

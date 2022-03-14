@@ -24,7 +24,6 @@ const Likes = () => {
       const token = getTokenFromLocal()
       try {
         const { data } = await axios.get('/api/auth/profile/', { headers: {Authorization: `Bearer ${token}` }})
-        console.log(data)
         setUser(data)
         setLikesRecieved(data.likes_recieved)
       } catch (error) {

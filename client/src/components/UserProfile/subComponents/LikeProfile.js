@@ -8,15 +8,11 @@ const LikeProfile = ({ currentUser, profileId, addToAlreadyViewed }) => {
 
   const likeProfile = async () => {
     const likesAlreadySent = [...currentUser.likes_sent]
-    console.log(likesAlreadySent)
     const likesSent = likesAlreadySent.map(profile => profile.id)
-    console.log('just IDs',likesSent)
     likesSent.push(profileId)
-    console.log(likesSent)
     const token = getTokenFromLocal()
     try {
       const { data } = await axios.put('/api/auth/profile/', { likes_sent: likesSent }, { headers: {Authorization: `Bearer ${token}` }} )
-      console.log(data)
       addToAlreadyViewed(profileId)
     } catch (error) {
       console.log(error.response.data.detail)

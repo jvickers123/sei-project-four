@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 // STYLING
@@ -8,8 +8,6 @@ import { HStack,} from '@chakra-ui/react'
 import { FaFeather, FaUser, FaRegHeart, FaQuestion, FaBinoculars } from "react-icons/fa";
 import { BiMessage } from 'react-icons/bi';
 
-// SUB COMPONENTS
-// import { userAuth } from '../helpers/auth'
 
 const SiteNavbar = ({ isLoggedIn }) => {
 
