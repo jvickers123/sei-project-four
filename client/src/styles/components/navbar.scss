@@ -7,9 +7,15 @@
   path {
     color: lighten($txt-color, 50%);
   }
+  svg {
+    color: lighten($txt-color, 50%);
+  }
   .highlight {
     path {
-      color: lighten($txt-color, 90%)
+      color: lighten($txt-color, 90%);
+    }
+    svg {
+      color: lighten($txt-color, 90%);
     }
   }
 }
