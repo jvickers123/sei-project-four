@@ -3,10 +3,10 @@ import axios from 'axios'
 
 // SUBCOMPONENTS
 import { getTokenFromLocal } from '../helpers/auth'
-import MatchesTiles from './UserProfile/subComponents/MatchesTiles'
-import OthersProfile from './UserProfile/OthersProfile'
-import RejectMatch from './UserProfile/subComponents/RejectMatch'
-import MessageProfile from './UserProfile/subComponents/MessageProfile'
+import MatchesTiles from './lowerCase/subComponents/MatchesTiles'
+import OthersProfile from './lowerCase/OthersProfile'
+import RejectMatch from './lowerCase/subComponents/RejectMatch'
+import MessageProfile from './lowerCase/subComponents/MessageProfile'
 
 // STYLING
 import { Heading } from '@chakra-ui/react'

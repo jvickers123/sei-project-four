@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 
 // SUB COMPONENTS
-import OthersProfile from './UserProfile/OthersProfile'
-import LikeProfile from './UserProfile/subComponents/LikeProfile'
+import OthersProfile from './lowerCase/OthersProfile'
+import LikeProfile from './lowerCase/subComponents/LikeProfile'
 import { getTokenFromLocal } from '../helpers/auth'
 
 const Find = () => {
