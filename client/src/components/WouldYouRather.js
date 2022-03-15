@@ -20,7 +20,7 @@ const WouldYouRather = () => {
     const getUser = async () => {
       const token = getTokenFromLocal()
       try {
-        const { data } = await axios.get('/api/auth/profile', { headers: {Authorization: `Bearer ${token}` }})
+        const { data } = await axios.get('/api/auth/profile/', { headers: {Authorization: `Bearer ${token}` }})
         setUser(data)
         const answeredIds = data.answers.map(answer => answer.id)
         setUserAnswered(answeredIds)
@@ -36,7 +36,7 @@ const WouldYouRather = () => {
     if(!user) return
     const getQuestsionId = async () => {
       try {
-        const {data: allQuestionsData} = await axios.get('/api/questions')
+        const {data: allQuestionsData} = await axios.get('/api/questions/')
         const numOfQusetions = allQuestionsData.length
 
         // CHECK IF USER ANSWERED ALL QUESTIONS
@@ -52,7 +52,7 @@ const WouldYouRather = () => {
             randomQuestionId()
           } else {
             try {
-              const { data: singleQdata } = await axios.get(`/api/questions/${randomId}`)
+              const { data: singleQdata } = await axios.get(`/api/questions/${randomId}/`)
               setQuestion(singleQdata)
             } catch (error) {
               console.log(error)

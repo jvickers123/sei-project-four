@@ -19,7 +19,7 @@ const Find = () => {
   useEffect(() => {
     const getUsersId = async () => {
       try {
-        const { data } = await axios.get('/api/auth/profiles')
+        const { data } = await axios.get('/api/auth/profiles/')
         const userIds = data.map(user => user.id)
         setAllUserIds(userIds)
       } catch (error) {

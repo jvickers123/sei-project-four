@@ -26,7 +26,7 @@ const UserProfile = ({ logOutState }) => {
     const getUser = async () => {
       const token = getTokenFromLocal()
       try {
-        const { data } = await axios.get('/api/auth/profile', { headers: {Authorization: `Bearer ${token}` }})
+        const { data } = await axios.get('/api/auth/profile/', { headers: {Authorization: `Bearer ${token}` }})
         setUser(data)
       } catch (error) {
         console.log(error.response.data.detail)
