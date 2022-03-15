@@ -4,11 +4,11 @@
   background: $txt-color;
   padding: 15px 0;
   width: 100%;
-  path, svg {
+  path {
     color: lighten($txt-color, 50%);
   }
   .highlight {
-    path, svg{
+    path {
       color: lighten($txt-color, 90%)
     }
   }
