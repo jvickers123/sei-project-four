@@ -11,7 +11,7 @@ import Find from './components/Find'
 import WouldYouRather from './components/WouldYouRather'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
-import UserProfile from './components/UserProfile/UserProfile'
+import UserProfile from './components/userprofile/UserProfile'
 
 // HELPER
 import { userAuth } from './helpers/auth'
