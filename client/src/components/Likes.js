@@ -3,9 +3,9 @@ import axios from 'axios'
 
 // SUBCOMPONENTS
 import { getTokenFromLocal } from '../helpers/auth'
-import LikesYouTiles from './userProfile/subComponents/LikesYouTiles'
-import OthersProfile from './userProfile/OthersProfile'
-import MatchProfile from './userProfile/subComponents/MatchProfile'
+import LikesYouTiles from './lowercase-userProfile/subComponents/LikesYouTiles'
+import OthersProfile from './lowercase-userProfile/OthersProfile'
+import MatchProfile from './lowercase-userProfile/subComponents/MatchProfile'
 
 // STYLING
 import { Heading } from '@chakra-ui/react'

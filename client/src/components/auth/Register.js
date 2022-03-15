@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 
 // components
-import RegisterForm from './createAccount/RegisterForm'
-import Name from './createAccount/Name'
-import Age from './createAccount/Age'
-import Pictures from './createAccount/Pictures'
-import Location from './createAccount/Location'
+import RegisterForm from './lowercase-createAccount/RegisterForm'
+import Name from './lowercase-createAccount/Name'
+import Age from './lowercase-createAccount/Age'
+import Pictures from './lowercase-createAccount/Pictures'
+import Location from './lowercase-createAccount/Location'
 
 const Register = ({ logInState }) => {
 

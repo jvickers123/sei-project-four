@@ -8,12 +8,12 @@ import { Image, Box } from '@chakra-ui/react'
 // subcomponents
 import ImageUploadField from '../subComponents/ImageUploadField'
 import { getTokenFromLocal } from '../../helpers/auth'
-import Name from '../auth/createAccount/Name'
-import Location from '../auth/createAccount/Location'
-import Age from '../auth/createAccount/Age'
+import Name from '../auth/lower-casecreateAccount/Name'
+import Location from '../auth/lower-casecreateAccount/Location'
+import Age from '../auth/lower-casecreateAccount/Age'
 import ChangePassword from '../subComponents/ChangePassword'
-import DeleteProfile from './subComponents/DeleteProfile'
-import EditingProfileModal from './subComponents/EditingModal'
+import DeleteProfile from './lowercase-subComponents/DeleteProfile'
+import EditingProfileModal from './lowercase-subComponents/EditingModal'
 
 const EditProfile = ({ user, updateUser, logOutState }) => {
 
