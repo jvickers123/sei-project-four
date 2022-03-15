@@ -4,9 +4,9 @@ import axios from 'axios'
 import { useToast } from '@chakra-ui/react'
 
 // subcomponents
-import ImageUploadField from '../../lowercase-subComponents/ImageUploadField'
+import ImageUploadField from '../../subcomponents/ImageUploadField'
 import { getTokenFromLocal } from '../../../helpers/auth'
-import SeedImages from '../../lowercase-subComponents/SeedImages'
+import SeedImages from '../../subcomponents/SeedImages'
 
 const Pictures = ({ nextForm, logInState }) => {
 

@@ -6,14 +6,14 @@ import { useToast } from '@chakra-ui/react'
 import { Image, Box } from '@chakra-ui/react'
 
 // subcomponents
-import ImageUploadField from '../subComponents/ImageUploadField'
+import ImageUploadField from '../subcomponents/ImageUploadField'
 import { getTokenFromLocal } from '../../helpers/auth'
-import Name from '../auth/lower-casecreateAccount/Name'
-import Location from '../auth/lower-casecreateAccount/Location'
-import Age from '../auth/lower-casecreateAccount/Age'
-import ChangePassword from '../subComponents/ChangePassword'
-import DeleteProfile from './lowercase-subComponents/DeleteProfile'
-import EditingProfileModal from './lowercase-subComponents/EditingModal'
+import Name from '../auth/createaccount/Name'
+import Location from '../auth/createaccount/Location'
+import Age from '../auth/createaccount/Age'
+import ChangePassword from '../subcomponents/ChangePassword'
+import DeleteProfile from './subcomponents/DeleteProfile'
+import EditingProfileModal from './subcomponents/EditingModal'
 
 const EditProfile = ({ user, updateUser, logOutState }) => {
 
