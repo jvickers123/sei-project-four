@@ -18,10 +18,12 @@ const DeleteProfile = ({ logOutState }) => {
   const deleteProfile = async () => {
     const token = getTokenFromLocal()
     navigate('/')
+
     try {
       await axios.delete('/api/auth/profile/', { headers: {Authorization: `Bearer ${token}` }})
       logOutState()
       window.localStorage.removeItem('token-birds-of-a-feather')
+      
     } catch (error) {
       console.log(error.response.data.detail)
     }

@@ -1,13 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 // HELPERS
-import { getTokenFromLocal } from '../helpers/auth'
+import { getTokenFromLocal, userAuth } from '../helpers/auth'
 
 // STYLING
 import { Heading, Box, Spinner } from '@chakra-ui/react'
 
 const WouldYouRather = () => {
+
+  const navigate = useNavigate()
+
+  // CHECK IF USER IS LOGGED IN
+  useEffect(() => {
+    !userAuth() && navigate('/')
+  }, [])
+
   // STATE
   const [question, setQuestion] = useState(null)
   const [user, setUser] = useState(null)

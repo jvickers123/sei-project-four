@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 
-// components
+
+
+// COMPONENTS
 import RegisterForm from './createaccount/RegisterForm'
 import Name from './createaccount/Name'
 import Age from './createaccount/Age'
@@ -8,7 +10,7 @@ import Pictures from './createaccount/Pictures'
 import Location from './createaccount/Location'
 
 const Register = ({ logInState }) => {
-
+  
   // STATE
   const [formShowing, setFormShowing] = useState({ form: 0 })
 

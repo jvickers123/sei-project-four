@@ -1,5 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+
+// HELPERS
+import { userAuth } from '../helpers/auth'
 
 // STYLING
 import { Heading, Image } from '@chakra-ui/react'
@@ -10,6 +13,11 @@ import { Heading, Image } from '@chakra-ui/react'
 const Home = () => {
 
   const navigate = useNavigate()
+
+  // CHECK IF USER IS LOGGED IN
+  useEffect(() => {
+    userAuth() && navigate('/profile')
+  }, [])
 
   return (
     <div className='main-home-container'>

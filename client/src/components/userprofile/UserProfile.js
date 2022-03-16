@@ -6,7 +6,7 @@ import axios from 'axios'
 import { Heading, Spinner } from '@chakra-ui/react'
 
 // HELPERS
-import { getTokenFromLocal } from '../../helpers/auth'
+import { getTokenFromLocal, userAuth } from '../../helpers/auth'
 
 // components
 import EditProfile from './EditProfile'
@@ -15,6 +15,11 @@ import ViewProfile from './ViewProfile'
 const UserProfile = ({ logOutState }) => {
 
   const navigate = useNavigate()
+
+  // CHECK IF USER IS LOGGED IN
+  useEffect(() => {
+    !userAuth() && navigate('/')
+  }, [])
 
   // STATE
   const [user, setUser] = useState({})

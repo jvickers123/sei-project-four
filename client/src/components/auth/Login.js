@@ -1,12 +1,20 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useToast } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
+
+// HELPERS
+import { userAuth } from '../../helpers/auth'
 
 const Login = ({ logInState }) => {
 
   const navigate = useNavigate()
   const toast = useToast()
+
+      // CHECK IF USER IS LOGGED IN
+      useEffect(() => {
+        userAuth() && navigate('/profile')
+      }, [])
 
   //SET TOKEN TO LOCAL STORAGE
   const setTokenFromLocal = (token) => {

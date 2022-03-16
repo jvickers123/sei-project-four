@@ -1,12 +1,20 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 // SUB COMPONENTS
 import OthersProfile from './userprofile/OthersProfile'
 import LikeProfile from './userprofile/subcomponents/LikeProfile'
-import { getTokenFromLocal } from '../helpers/auth'
+import { getTokenFromLocal, userAuth } from '../helpers/auth'
 
 const Find = () => {
+  
+  const navigate = useNavigate()
+
+  // CHECK IF USER IS LOGGED IN
+  useEffect(() => {
+    !userAuth() && navigate('/')
+  }, [])
 
   // STATE
   const [alluserIds, setAllUserIds] = useState([])

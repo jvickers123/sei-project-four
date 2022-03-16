@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 // SUBCOMPONENTS
-import { getTokenFromLocal } from '../helpers/auth'
+import { getTokenFromLocal, userAuth } from '../helpers/auth'
 import MatchesTiles from './userprofile/subcomponents/MatchesTiles'
 import OthersProfile from './userprofile/OthersProfile'
 import RejectMatch from './userprofile/subcomponents/RejectMatch'
@@ -12,6 +13,13 @@ import MessageProfile from './userprofile/subcomponents/MessageProfile'
 import { Heading } from '@chakra-ui/react'
 
 const Matches = () => {
+
+  const navigate = useNavigate()
+
+  // CHECK IF USER IS LOGGED IN
+  useEffect(() => {
+    !userAuth() && navigate('/')
+  }, [])
 
   // STATE
   const [user, setUser] = useState({})
