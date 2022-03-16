@@ -14,8 +14,9 @@ import Age from '../auth/createaccount/Age'
 import ChangePassword from '../subcomponents/ChangePassword'
 import DeleteProfile from './subcomponents/DeleteProfile'
 import EditingProfileModal from './subcomponents/EditingModal'
+import SeedImages from '../subcomponents/SeedImages'
 
-const EditProfile = ({ user, updateUser, logOutState }) => {
+const EditProfile = ({ user, updateUser, logOutState, logOut }) => {
 
   const toast = useToast()
 
@@ -75,11 +76,20 @@ const EditProfile = ({ user, updateUser, logOutState }) => {
     updateUser()
   } 
 
+  // SEED RANDOM PHOTOS FOR USER
+  const uploadSeeds = (photosArray) => {
+    console.log('happening', photosArray)
+    setUserPictures({
+      profile_pic: photosArray[0],
+      pictures: photosArray.slice(1)
+    })
+  }
+
   
 
   return (
     <div className='edit-profile-flex-container'>
-
+      <SeedImages uploadSeeds={uploadSeeds} parent='edit'/>
       <Box marginTop={55}  padding={3} width='100%' id='edit-profile-pic-container'>
         <p className='faint'>My Profile Pic</p>
         <Box display='flex'>
@@ -132,7 +142,7 @@ const EditProfile = ({ user, updateUser, logOutState }) => {
         
       <ChangePassword />
         
-      <DeleteProfile logOutState={logOutState}/>
+      <DeleteProfile logOutState={logOutState} logOut={logOut}/>
 
 
     </div>

@@ -109,7 +109,7 @@ const OthersProfile = ({ profileId, currentUser }) => {
           {featuredProfile.profile_pic ?
             <Image id='profile-pic' src={featuredProfile.profile_pic} alt={featuredProfile.first_name} objectFit='cover' marginTop={55} borderRadius={7} boxSize='360px'/>
             :
-            <p>No profile image for them yet</p>
+            <div className='empty-photo-container'><p className='faint'>No profile image for them yet</p></div>
           }
 
         </div>
@@ -140,15 +140,14 @@ const OthersProfile = ({ profileId, currentUser }) => {
           </HStack>
         </Box>
 
-        {featuredProfile.pictures.length ?
+        {!!featuredProfile.pictures.length &&
           <Image src={featuredProfile.pictures[0]} alt={featuredProfile.first_name} objectFit='cover' marginTop={5} borderRadius={7} boxSize='360px'/>
-          :
-          <p>Looks like they need some more photos</p>}
+          }
 
         {featuredProfile.pictures.length >= 2 ?
         <Image src={featuredProfile.pictures[1]} alt={featuredProfile.first_name} objectFit='cover' marginTop={5} borderRadius={7} boxSize='360px'/>
           :
-          <p>Looks like they need some more photos</p>}
+          <div className='empty-photo-container'><p className='faint'>Looks like they need some more photos</p></div>}
         
         <Box className='text-container' margin={5} borderRadius={7} paddingTop={10} paddingBottom={10} paddingLeft={5} paddingRight={5}>
           {featuredProfile.answers.length ?
@@ -171,8 +170,10 @@ const OthersProfile = ({ profileId, currentUser }) => {
             <p>Lookes like they need to answer some questions</p>}
         </Box>
 
-        {featuredProfile.pictures.length >= 3 &&
-          <Image src={featuredProfile.pictures[2]} alt={featuredProfile.first_name} objectFit='cover' marginTop={5} borderRadius={7} boxSize='360px'/>}
+        {featuredProfile.pictures.length >= 3 ?
+          <Image src={featuredProfile.pictures[2]} alt={featuredProfile.first_name} objectFit='cover' marginTop={5} borderRadius={7} boxSize='360px'/>
+          :
+          <div className='empty-photo-container'><p className='faint'>Looks like they need some more photos</p></div>}
         
         <Box className='text-container' margin={5} borderRadius={7} paddingTop={10} paddingBottom={10} paddingLeft={5} paddingRight={5}>
           {featuredProfile.answers.length ?

@@ -1,6 +1,5 @@
 import React from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
 
 // HELPERS
 import { getTokenFromLocal } from '../../../helpers/auth'
@@ -9,21 +8,17 @@ import { getTokenFromLocal } from '../../../helpers/auth'
 import {Modal, useDisclosure, ModalContent, ModalBody, ModalCloseButton } from '@chakra-ui/react'
 
 
-const DeleteProfile = ({ logOutState }) => {
+const DeleteProfile = ({ logOutState, logOut }) => {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const navigate = useNavigate()
-
   const deleteProfile = async () => {
     const token = getTokenFromLocal()
-    navigate('/')
+    window.localStorage.removeItem('token-birds-of-a-feather')
 
     try {
       await axios.delete('/api/auth/profile/', { headers: {Authorization: `Bearer ${token}` }})
-      logOutState()
-      window.localStorage.removeItem('token-birds-of-a-feather')
-      
+      logOutState()      
     } catch (error) {
       console.log(error.response.data.detail)
     }

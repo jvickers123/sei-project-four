@@ -3,7 +3,7 @@ import React from 'react'
 import {Modal, ModalHeader, useDisclosure, ModalContent, ModalBody, ModalCloseButton, Avatar } from '@chakra-ui/react'
 
 
-const SeedImages = ({ uploadSeeds }) => {
+const SeedImages = ({ uploadSeeds, parent }) => {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -21,7 +21,7 @@ const SeedImages = ({ uploadSeeds }) => {
   }
   return (
     <>
-      <button className='pink small-btn seed-btn' onClick={onOpen}>Get random photos</button>
+      <button className={parent === 'edit' ? 'pink small-btn lwr-seed-btn' : 'pink small-btn seed-btn'} onClick={onOpen}>Get random photos</button>
 
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalContent width='95%' borderRadius={15} >

@@ -4,6 +4,7 @@
   background-color: $white;
   width: 100%;
   border-bottom: 1px solid $light-grey;
+  z-index: 2;
   .profile-header {
     display: flex;
     justify-content: space-around;
@@ -39,6 +40,14 @@
   color: $dark-pink;
 }
 
+.empty-photo-container {
+  background-color: darken($light-grey, 5%);
+  border-radius: 15px;
+  width: 300px;
+  height: 300px;
+  @include flex-center(column);
+  text-align: center;
+}
 
 
 

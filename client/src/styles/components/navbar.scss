@@ -4,6 +4,7 @@
   background: $txt-color;
   padding: 15px 0;
   width: 100%;
+  z-index: 2;
   path, svg {
     color: lighten($txt-color, 50%);
   }

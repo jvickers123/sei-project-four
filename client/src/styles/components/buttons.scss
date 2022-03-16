@@ -83,7 +83,13 @@
 .seed-btn {
   position: absolute;
   top: 20px;
-  right: 5px;
+  right: 10px;
+}
+
+.lwr-seed-btn {
+  position: absolute;
+  top: 100px;
+  right: 10px;
 }
 
 @media screen and (min-width: 600px) {
@@ -96,6 +102,10 @@
   }
   .seed-btn {
     top: 10%;
+    right: 10%;
+  }
+  .lwr-seed-btn {
+    top: 7%;
     right: 10%;
   }
 }

@@ -54,7 +54,7 @@ const ViewProfile = ({ user }) => {
             {user.profile_pic ?
               <Image id='profile-pic' src={user.profile_pic} alt={user.first_name} objectFit='cover' marginTop={55} borderRadius={7} boxSize='360px'/>
               :
-              <p>Spice up your profile with a profile pic</p>
+              <div className='empty-photo-container'><p className='faint'>Spice up your profile with a profile pic</p></div>
             }
           </div>
           
@@ -82,15 +82,14 @@ const ViewProfile = ({ user }) => {
           </Box>
 
 
-          {user.pictures.length ?
+          {!!user.pictures.length &&
             <Image src={user.pictures[0]} alt={user.first_name} objectFit='cover' marginTop={5} borderRadius={7} boxSize='360px'/>
-            :
-            <p>Spice up your profile with some extra photos</p>}
+          }
 
           {user.pictures.length >= 2 ?
           <Image src={user.pictures[1]} alt={user.first_name} objectFit='cover' marginTop={5} borderRadius={7} boxSize='360px'/>
             :
-            <p>Spice up your profile with some extra photos</p>}
+            <div className='empty-photo-container'><p className='faint'>Spice up your profile with some extra photos</p></div>}
           
           <Box className='text-container' margin={5} borderRadius={7} paddingTop={10} paddingBottom={10} paddingLeft={5} paddingRight={5}>
             {user.answers.length > 1 ?
@@ -101,12 +100,13 @@ const ViewProfile = ({ user }) => {
             </>
               :
               <p>Lookes like you need to answer some questions</p>}
+          
           </Box>
           
           {user.pictures.length >= 3 ?
             <Image src={user.pictures[2]} alt={user.first_name} objectFit='cover' marginTop={5} borderRadius={7} boxSize='360px'/>
             : 
-            <p>Spice up your profile with some extra photos</p>
+            <div className='empty-photo-container'><p className='faint'>Spice up your profile with some extra photos</p></div>
           }
           
           <Box className='text-container' margin={5} borderRadius={7} paddingTop={10} paddingBottom={10} paddingLeft={5} paddingRight={5}>
