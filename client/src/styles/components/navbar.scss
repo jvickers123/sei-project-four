@@ -8,7 +8,7 @@
     color: lighten($txt-color, 50%);
   }
   .highlight {
-    path, svg{
+    path, svg{ //adding unnesessary comment
       color: lighten($txt-color, 90%);
     }
   }
