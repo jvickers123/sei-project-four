@@ -2,10 +2,9 @@ import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import ReactMapGl, { Popup } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
+import mapboxgl from 'mapbox-gl'
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import mapboxgl from '!mapbox-gl'
-// // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-// import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
+import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
 
 import { useToast } from '@chakra-ui/react'
 import { getTokenFromLocal } from '../../../helpers/auth'
@@ -13,7 +12,7 @@ import { getTokenFromLocal } from '../../../helpers/auth'
 // STYLING
 import { MdMyLocation } from 'react-icons/md'
 
-// mapboxgl.workerClass = MapboxWorker; 
+mapboxgl.workerClass = MapboxWorker; 
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 // mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
