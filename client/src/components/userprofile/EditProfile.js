@@ -89,7 +89,7 @@ const EditProfile = ({ user, updateUser, logOutState, logOut }) => {
 
   return (
     <div className='edit-profile-flex-container'>
-      <SeedImages uploadSeeds={uploadSeeds} parent='edit'/>
+      {!user.pictures.length && <SeedImages uploadSeeds={uploadSeeds} parent='edit'/>}
       <Box marginTop={55}  padding={3} width='100%' id='edit-profile-pic-container'>
         <p className='faint'>My Profile Pic</p>
         <Box display='flex'>
