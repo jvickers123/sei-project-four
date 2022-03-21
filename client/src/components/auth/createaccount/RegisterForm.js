@@ -45,8 +45,6 @@ const RegisterForm = ({ nextForm }) => {
         isClosable: true,
       })
 
-      
-
       // LOG USER IN
       const { data: loginData } = await axios.post('/api/auth/login/',{ email: formData.email, password: formData.password })
       console.log(loginData)

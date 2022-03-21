@@ -13,9 +13,7 @@ import { getTokenFromLocal } from '../../../helpers/auth'
 import { MdMyLocation } from 'react-icons/md'
 
 mapboxgl.workerClass = MapboxWorker; 
-// @ts-ignore
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-// mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
+
 
 const Location = ({ nextForm, parent, closeComponent }) => {
   const toast = useToast()
@@ -79,7 +77,7 @@ const Location = ({ nextForm, parent, closeComponent }) => {
       console.log(data)
 
       toast({
-        title: 'Added name.',
+        title: 'Added location.',
         description: `Added ${userLocation.location} to profile.`,
         status: 'success',
         duration: 9000,

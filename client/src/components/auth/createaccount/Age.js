@@ -50,7 +50,6 @@ const Age = ({ nextForm, parent, closeComponent }) => {
     try {
       const { data } = await axios.put('/api/auth/profile/',{ age: userAge }, { headers: {Authorization: `Bearer ${token}` }})
       console.log(data)
-
       toast({
         title: 'Age added.',
         description: `Added age ${userAge} to profile.`,
@@ -71,10 +70,6 @@ const Age = ({ nextForm, parent, closeComponent }) => {
       // setFormError(error.response.data.detail)
     }
   }
-
-
-  
-
   
   return (
     <>
